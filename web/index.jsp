@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-8 text-center">
                     <h2>iBuilder</h2>
-                    <p>Ваш надёжный помощник в управлении строительством</p>
+                    <p>Ваш надёжный помощник в управлении строительством!</p>
                 </div>
                 <div class="col-md-4 text-center">
                     <h3>Регистрация</h3>
