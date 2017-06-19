@@ -18,29 +18,40 @@
     <body class="page">
         <div class="container">            
             <div class="row">
-                <div class="col-md-8 text-center">
+                <div class="col-md-9 text-center">
                     <div class="logo">
                         <h2>iBuilder</h2>
                         <p>Ваш надёжный помощник в управлении строительством</p><br>
                     </div>
                 </div>
-                <div class="col-md-4 text-center">
+                <div class="col-md-3 text-center">
                     <div class="registration">
-                        <h3>Регистрация</h3>
-                        <p>Логин</p>
-                        <p>Пароль</p>
+                        <form>
+                            <div class="form-group">
+                                <label for="login">Логин:</label>
+                                <input type="text" class="form-control" id="login" placeholder="Введите логин:">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Пароль:</label>
+                                <input type="password" class="form-control" id="pwd" placeholder="Введите пароль:">
+                            </div>
+                            <div class="checkbox">
+                                <label><input type="checkbox"> Запомнить меня</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Вход</button>
+                        </form> 
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-7 text-center">
+                <div class="col-md-8 text-center">
                     <div class="about">
-                        
+
                     </div>
                 </div>
                 <div class="col-md-4 text-center">
                     <div class="news">
-                        
+
                     </div>
                 </div>
             </div>

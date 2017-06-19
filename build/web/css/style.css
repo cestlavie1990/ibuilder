@@ -4,9 +4,19 @@
 */
 
 .page {
-    background-color: #EDEEF0;
+    background-color: #507299;
 }
 
 .logo, .registration {
-    background-color: #FFFFFF;
+    background-color: #EDEEF0;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.registration {
+    padding: 15px 25px 15px 25px;
+}
+
+.btn:hover {
+    background-color: #507299;
 }
