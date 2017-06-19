@@ -7,16 +7,21 @@
     background-color: #507299;
 }
 
-.logo, .registration {
+.logo, .registration, .about {
     background-color: #EDEEF0;
     margin-top: 20px;
     border-radius: 5px;
+}
+
+.logo {
+    padding: 64px 0px 64px 0px;
 }
 
 .registration {
     padding: 15px 25px 15px 25px;
 }
 
-.btn:hover {
-    background-color: #507299;
+.about {    
+    padding: 160px 0px 160px 0px;
+    margin-bottom: 20px;
 }
