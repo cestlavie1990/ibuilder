@@ -13,7 +13,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ibulider - Ваш строительный менеджер</title>
+        <title>IBulider - Ваш строительный менеджер</title>
     </head>
     <body class="page">
         <div class="container">            
@@ -21,7 +21,7 @@
                 <div class="col-md-9 text-center">
                     <div class="logo">
                         <h2>iBuilder</h2>
-                        <p>Ваш надёжный помощник в управлении строительством</p><br>
+                        <p>Ваш надёжный помощник в управлении строительством</p><br><br>
                     </div>
                 </div>
                 <div class="col-md-3 text-center">
@@ -39,6 +39,8 @@
                                 <label><input type="checkbox"> Запомнить меня</label>
                             </div>
                             <button type="submit" class="btn btn-primary">Вход</button>
+                            <button type="submit" class="btn btn-primary">Регистрация</button>
+                            <a href="#">Забыли пароль?</a>
                         </form> 
                     </div>
                 </div>
