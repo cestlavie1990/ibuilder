@@ -21,7 +21,7 @@
                 <div class="col-md-9 text-center">
                     <div class="logo">
                         <h2>iBuilder</h2>
-                        <p>Ваш надёжный помощник в управлении строительством</p><br><br>
+                        <p>Ваш надёжный помощник в управлении строительством</p>
                     </div>
                 </div>
                 <div class="col-md-3 text-center">
