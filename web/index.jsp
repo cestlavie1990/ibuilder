@@ -19,21 +19,29 @@
         <div class="container">            
             <div class="row">
                 <div class="col-md-8 text-center">
-                    <h2>iBuilder</h2>
-                    <p>Ваш надёжный помощник в управлении строительством!</p>
+                    <div class="logo">
+                        <h2>iBuilder</h2>
+                        <p>Ваш надёжный помощник в управлении строительством</p><br>
+                    </div>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h3>Регистрация</h3>
-                    <p>Логин</p>
-                    <p>Пароль</p>
+                    <div class="registration">
+                        <h3>Регистрация</h3>
+                        <p>Логин</p>
+                        <p>Пароль</p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 text-center">
-
+                <div class="col-md-7 text-center">
+                    <div class="about">
+                        
+                    </div>
                 </div>
                 <div class="col-md-4 text-center">
-
+                    <div class="news">
+                        
+                    </div>
                 </div>
             </div>
         </div>
