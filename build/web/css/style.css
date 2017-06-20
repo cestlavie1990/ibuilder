@@ -49,5 +49,8 @@
 .obj-main {
     background-color: #EDEEF0;
     border-radius: 5px;
-    margin-top: 15px;
+}
+
+.profile {
+    border-right: 5px #507299 solid;
 }

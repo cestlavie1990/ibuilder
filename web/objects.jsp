@@ -15,26 +15,31 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body class="page">
-            <div class="obj-main" style="padding: 0px 30px 0px 30px">
-                
-                <div class="objects text-center">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h1>Some text</h1>
-                        </div>
-                        <div class="col-md-8">
-                            <h1>Some text</h1>
+        <div class="obj-main" style="margin: 15px 30px 0px 30px">                
+            <div class="objects text-center">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="profile" style="background-color: white">
+                            <h4>Иван Петров</h4>
+                            <img class="avatar" src="avatars/004-agreement.png" width="128px" height="128px">
+                            <h5>ООО "Лев"</h5>
+                            <h5>производитель работ</h5>
+                            <p>активных объектов: 6</p>                            
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h1>Some text</h1>
-                        </div>
-                        <div class="col-md-8">
-                            <h1>Some text</h1>
-                        </div>
+                    <div class="col-md-9">
+                        <h1>Some text</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <h1>Some text</h1>
+                    </div>
+                    <div class="col-md-9">
+                        <h1>Some text</h1>
                     </div>
                 </div>
             </div>
+        </div>
     </body>
 </html>
