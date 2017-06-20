@@ -15,8 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body class="page">
-        <div class="row">
-            <div class="col-md-12" style="padding: 0px 50px 0px 50px">
+            <div class="obj-main" style="padding: 0px 30px 0px 30px">
                 <div class="objects text-center">
                     <div class="row">
                         <div class="col-md-4">
@@ -36,6 +35,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>
