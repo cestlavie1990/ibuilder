@@ -25,6 +25,7 @@
                     </div>
                 </div>
                 <div class="col-md-3 text-center">
+                    
                     <div class="registration">
                         <form>
                             <div class="form-group">
