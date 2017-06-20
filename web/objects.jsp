@@ -17,12 +17,12 @@
     <body class="page">
         <div class="row">
             <div class="col-md-12" style="padding: 0px 50px 0px 50px">
-                <div class="objects text-center">                    
+                <div class="objects text-center">
                     <div class="row">
-                        <div class="col-md-4" style="border: 1px black solid">
+                        <div class="col-md-4">
                             <h1>Some text</h1>
                         </div>
-                        <div class="col-md-8" style="border: 1px black solid">
+                        <div class="col-md-8">
                             <h1>Some text</h1>
                         </div>
                     </div>
@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <h1>Some text</h1>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
