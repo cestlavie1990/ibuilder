@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <form class="reg-attr text-center" style="padding-bottom: 20px">
-                            <button type="button" class="btn btn-primary">Зарегистрироваться</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href = 'index.jsp'">Зарегистрироваться</button>
                         </form>                         
                     </div>
                 </div>

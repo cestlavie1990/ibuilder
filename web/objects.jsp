@@ -8,10 +8,34 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
     </head>
-    <body>
-        <h1>Hello World!</h1>
+    <body class="page">
+        <div class="row">
+            <div class="col-md-12" style="padding: 0px 50px 0px 50px">
+                <div class="objects text-center">                    
+                    <div class="row">
+                        <div class="col-md-4" style="border: 1px black solid">
+                            <h1>Some text</h1>
+                        </div>
+                        <div class="col-md-8" style="border: 1px black solid">
+                            <h1>Some text</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h1>Some text</h1>
+                        </div>
+                        <div class="col-md-8">
+                            <h1>Some text</h1>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
     </body>
 </html>

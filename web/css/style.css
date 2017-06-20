@@ -2,13 +2,14 @@
     Created on : Jun 19, 2017, 2:28:35 PM
     Author     : Mr.Minakov
 */
-/*
-=====================index=====================
-*/
+
 .page {
     background-color: #507299;
 }
 
+/*
+=====================index=====================
+*/
 .logo, .registration, .about {
     background-color: #EDEEF0;
     margin-top: 20px;
@@ -40,4 +41,13 @@
 .reg-text {
     padding-top: 20px;
     margin: 0px 50px 0px 50px;
+}
+
+/*
+=====================objects=====================
+*/
+.objects {
+    background-color: #EDEEF0;
+    border-radius: 5px;
+    margin-top: 15px;
 }
