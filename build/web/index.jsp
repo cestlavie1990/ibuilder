@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label for="login">Логин:</label>
                                 <input type="text" class="form-control" id="login" placeholder="Введите логин:">
-                            </div>
+                            </div>                        
                             <div class="form-group">
                                 <label for="pwd">Пароль:</label>
                                 <input type="password" class="form-control" id="pwd" placeholder="Введите пароль:">
@@ -38,10 +38,10 @@
                             <div class="checkbox">
                                 <label><input type="checkbox"> Запомнить меня</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Вход</button>
-                            <button type="submit" class="btn btn-primary">Регистрация</button>
-                            <a href="#">Забыли пароль?</a>
                         </form> 
+                        <button type="submit" class="btn btn-primary" onclick="location.href = 'objects.jsp'">Вход</button>
+                        <button type="submit" class="btn btn-primary" onclick="location.href = 'registration.jsp'">Регистрация</button>
+                        <a href="#">Забыли пароль?</a>
                     </div>
                 </div>
             </div>
