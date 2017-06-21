@@ -46,11 +46,22 @@
 /*
 =====================objects=====================
 */
-.obj-main {
-    background-color: #EDEEF0;
+.obj-page {
+    background-color: white;
     border-radius: 5px;
 }
 
 .profile {
-    border-right: 5px black solid;
+    border-right: 5px #507299 solid;
+    border-bottom: 5px #507299 solid;
+}
+
+.active-obj, .finished-obj {
+    background-color: #EDEEF0;
+    margin-top: 5px;
+    padding: 10px 0px 10px 0px;
+}
+
+.objects {
+    border-right: 5px #507299 solid;    
 }
