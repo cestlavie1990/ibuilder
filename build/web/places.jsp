@@ -28,10 +28,10 @@
                         <button type="button" class="btn btn-primary btn-xs">Настройки</button>
                         <button type="button" class="btn btn-primary btn-xs">Добавить пользователя</button>
                     </div>
-                    <div class="places-info text-center">                        
+                    <div class="info text-center">                        
                         <h4>Участки строительства</h4>
-                        <button type="button" class="btn btn-primary btn-xs">Добавить участок</button>
-                        <button type="button" class="btn btn-primary btn-xs">Удалить участки</button>
+                        <button type="button" class="btn btn-primary btn-xs">Добавить</button>
+                        <button type="button" class="btn btn-primary btn-xs">Удалить</button>
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active"><a data-toggle="pill" href="#place-content">Корпус №8</a></li>
                             <li><a data-toggle="pill" href="#">Корпус №1</a></li>

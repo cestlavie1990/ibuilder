@@ -28,10 +28,10 @@
                         <button type="button" class="btn btn-primary btn-xs">Настройки</button>
                         <button type="button" class="btn btn-primary btn-xs">Добавить пользователя</button>
                     </div>
-                    <div class="objects-info text-center">                        
+                    <div class="info text-center">                        
                         <h4>Объекты строительства</h4>
-                        <button type="button" class="btn btn-primary btn-xs">Добавить объект</button>
-                        <button type="button" class="btn btn-primary btn-xs">Удалить объекты</button>
+                        <button type="button" class="btn btn-primary btn-xs">Добавить</button>
+                        <button type="button" class="btn btn-primary btn-xs">Удалить</button>
                         <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
                             <strong><p>Активные объекты</p></strong>
                         </a>
