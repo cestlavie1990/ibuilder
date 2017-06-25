@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body class="page">
-        <div class="places-page">
+        <div class="cont-page">
             <div class="row">
                 <div class="col-md-3">
                     <div class="profile text-center">
@@ -34,13 +34,13 @@
                         <button type="button" class="btn btn-primary btn-xs">Удалить участки</button>
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active"><a data-toggle="pill" href="#place-content">Корпус №8</a></li>
-                            <li><a data-toggle="pill" href="#place-content">Корпус №1</a></li>
-                            <li><a data-toggle="pill" href="#place-content">Арестантская башня</a></li>
+                            <li><a data-toggle="pill" href="#">Корпус №1</a></li>
+                            <li><a data-toggle="pill" href="#">Арестантская башня</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="tab-content text-center" id="tab-places-content">
+                    <div class="tab-content text-center" id="tab-cont">
                         <div id="place-content" class="tab-pane fade in active">
                             <div class="objects-about">
                                 <h4>объект: о. Новая Голландия</h4>
@@ -53,6 +53,7 @@
                                 <h5>Текущие работы:</h5>
                                 <button type="button" class="btn btn-primary btn-lg">Добавить</button>
                                 <button type="button" class="btn btn-primary btn-lg">Удалить</button>
+                                <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'objects.jsp'">Назад</button>
                                 <ul class="nav nav-pills nav-stacked" id="works">
                                     <li><a href="works.jsp"><p>Усиление фундамента БИС</p></a></li>
                                     <li><a href="works.jsp"><p>Кирпичная кладка стен</p></a></li>

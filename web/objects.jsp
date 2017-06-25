@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body class="page">
-        <div class="obj-page">
+        <div class="cont-page">
             <div class="row">
                 <div class="col-md-3">
                     <div class="profile text-center">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="tab-content text-center" id="tab-obj-content">
+                    <div class="tab-content text-center" id="tab-cont">
                         <div id="obj-content" class="tab-pane fade">
                             <div class="objects-about">
                                 <h4>объект: о. Новая Голландия</h4>
@@ -60,12 +60,12 @@
                             </div>
                             <div class="objects-places">
                                 <h4>Участки строительства</h4>
-                                <button type="button" class="btn btn-primary btn-lg">Добавить участок</button>
-                                <button type="button" class="btn btn-primary btn-lg">Удалить участки</button>
+                                <button type="button" class="btn btn-primary btn-lg">Добавить</button>
+                                <button type="button" class="btn btn-primary btn-lg">Удалить</button>
                                 <ul class="nav nav-pills nav-stacked" id="places">
                                     <li><a href="places.jsp"><p>Корпус №8</p></a></li>
-                                    <li><a href="places.jsp"><p>Корпус №1</p></a></li>
-                                    <li><a href="places.jsp"><p>Арестантская башня</p></a></li>
+                                    <li><a href="#"><p>Корпус №1</p></a></li>
+                                    <li><a href="#"><p>Арестантская башня</p></a></li>
                                 </ul>                        
                             </div>
                         </div>
