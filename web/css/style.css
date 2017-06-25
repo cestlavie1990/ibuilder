@@ -30,6 +30,16 @@
     padding-bottom: 5px;    
 }
 
+#btn-collapse p {
+    background-color: #337AB7;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    margin-top: 5px;
+}
+
+#btn-collapse p:hover, #btn-collapse p:hover {
+    background-color: #286090;
+}
 /*
 =====================index=====================
 */
@@ -76,14 +86,14 @@
     padding: 10px 0px 10px 0px;
 }
 
-#active-obj-btn p, #finished-obj-btn p, #places a {
+#places a {
     background-color: #337AB7;
     color: white;
     padding: 10px 0px 10px 0px;
     margin-top: 5px;
 }
 
-#places a:hover, #active-obj-btn p:hover, #finished-obj-btn p:hover {
+#places a:hover {
     background-color: #286090;
 }
 
@@ -130,3 +140,6 @@
     margin-top: 10px;
 }
 
+/*
+=====================types=====================
+*/

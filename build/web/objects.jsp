@@ -32,7 +32,7 @@
                         <h4>Объекты строительства</h4>
                         <button type="button" class="btn btn-primary btn-xs">Добавить</button>
                         <button type="button" class="btn btn-primary btn-xs">Удалить</button>
-                        <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
+                        <a href="#active-obj" data-toggle="collapse" id="btn-collapse">
                             <strong><p>Активные объекты</p></strong>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
@@ -40,7 +40,7 @@
                             <li><a data-toggle="pill" href="#">Заозёрная ул.</a></li>
                             <li><a data-toggle="pill" href="#">Кременчугская ул.</a></li>
                         </ul>
-                        <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
+                        <a href="#finished-obj" data-toggle="collapse" id="btn-collapse">
                             <strong><p>Завершённые объекты</p></strong>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
@@ -60,8 +60,8 @@
                             </div>
                             <div class="objects-places">
                                 <h4>Участки строительства</h4>
-                                <button type="button" class="btn btn-primary btn-lg">Добавить</button>
-                                <button type="button" class="btn btn-primary btn-lg">Удалить</button>
+                                <button type="button" class="btn btn-primary btn-md">Добавить</button>
+                                <button type="button" class="btn btn-primary btn-md">Удалить</button>
                                 <ul class="nav nav-pills nav-stacked" id="places">
                                     <li><a href="places.jsp"><p>Корпус №8</p></a></li>
                                     <li><a href="#"><p>Корпус №1</p></a></li>

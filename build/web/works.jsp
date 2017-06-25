@@ -51,7 +51,8 @@
                             <div class="work-process">
                                 <h4>Усиление фундамента БИС</h4>
                                 <button type="button" class="btn btn-primary btn-md">Добавить тип</button>
-                                <button type="button" class="btn btn-primary btn-md">Созданные типы</button>
+                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'types.jsp'">Созданные типы</button>
+                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'places.jsp'">Вернуться назад</button>
                                 <table class="table table-striped table-bordered table-hover table-condensed">
                                     <thead>
                                         <tr>

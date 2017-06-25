@@ -51,9 +51,9 @@
                             <div class="place-works">
                                 <h4>Участок строительства: Корпус №8</h4>
                                 <h5>Текущие работы:</h5>
-                                <button type="button" class="btn btn-primary btn-lg">Добавить</button>
-                                <button type="button" class="btn btn-primary btn-lg">Удалить</button>
-                                <button type="button" class="btn btn-primary btn-lg" onclick="location.href = 'objects.jsp'">Назад</button>
+                                <button type="button" class="btn btn-primary btn-md">Добавить</button>
+                                <button type="button" class="btn btn-primary btn-md">Удалить</button>
+                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'objects.jsp'">Вернуться назад</button>
                                 <ul class="nav nav-pills nav-stacked" id="works">
                                     <li><a href="works.jsp"><p>Усиление фундамента БИС</p></a></li>
                                     <li><a href="works.jsp"><p>Кирпичная кладка стен</p></a></li>

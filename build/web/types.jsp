@@ -1,6 +1,6 @@
 <%-- 
-    Document   : works
-    Created on : Jun 19, 2017, 2:25:59 PM
+    Document   : workprocess
+    Created on : Jun 19, 2017, 2:26:14 PM
     Author     : Mr.Minakov
 --%>
 
@@ -41,53 +41,54 @@
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content text-center" id="tab-cont">
-                        <div id="work-content" class="tab-pane fade in active">
+                        <div id="type-content" class="tab-pane fade in active">
                             <div class="objects-about">
                                 <h4>объект: о. Новая Голландия</h4>
                                 <h5>адрес: наб. Адмиралтейского канала д. 2</h5>
                                 <h5>заказчик: ООО "Новая Голландия Девелопмент"</h5>
                                 <h5>генеральный подрядчик: ООО "Арсенал-Строй"</h5>
                             </div>
-                            <div class="work-process">
+                            <div class="created-types">
                                 <h4>Усиление фундамента БИС</h4>
                                 <button type="button" class="btn btn-primary btn-md">Добавить тип</button>
-                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'types.jsp'">Созданные типы</button>
-                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'places.jsp'">Вернуться назад</button>
-                                <table class="table table-striped table-bordered table-hover table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>№ п/п</th>
-                                            <th>Дата</th>
-                                            <th>Тип</th>
-                                            <th>Объём, п.м.</th>
-                                            <th>Примечания</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>10.06.2017</td>
-                                            <td>БИС-20</td>
-                                            <td>30</td>
-                                            <td>6 шт.</td>
-                                        </tr>
-                                        <tr>                                            
-                                            <td>2</td>
-                                            <td>11.06.2017</td>
-                                            <td>БИС-20</td>
-                                            <td>45</td>
-                                            <td>8 шт.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>12.06.2017</td>
-                                            <td>БИС-20</td>
-                                            <td>60</td>
-                                            <td>10 шт.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary btn-md">Добавить запись</button>
+                                <button type="button" class="btn btn-primary btn-md">Удалить</button>
+                                <button type="button" class="btn btn-primary btn-md" onclick="location.href = 'works.jsp'">Вернуться назад</button>
+                                <a href="#type_1" data-toggle="collapse" id="btn-collapse">
+                                    <p>БИС-20, измеряется в п.м.</p>
+                                </a>
+                                <div class="table-type collapse" id="type_1">
+                                    <table class="table table-striped table-bordered table-hover table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>№ п/п</th>
+                                                <th>Материал</th>
+                                                <th>Единица измерения</th>
+                                                <th>Нормативный расход</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Бетон В25</td>
+                                                <td>куб.м</td>
+                                                <td>0,1</td>
+                                            </tr>
+                                            <tr>                                            
+                                                <td>2</td>
+                                                <td>труба d=210</td>
+                                                <td>п.м.</td>
+                                                <td>1,0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Присадка морозостойкая</td>
+                                                <td>л.</td>
+                                                <td>2,5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>                                
+                                <button type="button" class="btn btn-primary btn-md">Добавить материал</button>
                                 <button type="button" class="btn btn-primary btn-md">Стереть</button>
                             </div>
                         </div>
