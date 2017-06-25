@@ -44,19 +44,29 @@
                             <strong><p>Завершённые объекты</p></strong>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
-                            <li><a href="#"><p>Московское шоссе</p></a></li>
-                            <li><a href="#"><p>Кушелевская дор.</p></a></li>
+                            <li><a data-toggle="pill" href="#"><p>Московское шоссе</p></a></li>
+                            <li><a data-toggle="pill" href="#"><p>Кушелевская дор.</p></a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-md-9">
-                    <div class="objects-about">
-                        <div class="tab-content text-center">
-                            <div id="obj-content" class="tab-pane fade">
+                    <div class="tab-content text-center" id="tab-obj-content">
+                        <div id="obj-content" class="tab-pane fade">
+                            <div class="objects-about">
                                 <h4>объект: о. Новая Голландия</h4>
                                 <h5>адрес: наб. Адмиралтейского канала д. 2</h5>
                                 <h5>заказчик: ООО "Новая Голландия Девелопмент"</h5>
                                 <h5>генеральный подрядчик: ООО "Арсенал-Строй"</h5>
+                            </div>
+                            <div class="objects-places">
+                                <h4>Участки строительства</h4>
+                                <button type="button" class="btn btn-primary btn-lg">Добавить участок</button>
+                                <button type="button" class="btn btn-primary btn-lg">Удалить участки</button>
+                                <ul class="nav nav-pills nav-stacked" id="places">
+                                    <li><a href="places.jsp"><p>Корпус №8</p></a></li>
+                                    <li><a href="places.jsp"><p>Корпус №1</p></a></li>
+                                    <li><a href="places.jsp"><p>Арестантская башня</p></a></li>
+                                </ul>                        
                             </div>
                         </div>
                     </div>

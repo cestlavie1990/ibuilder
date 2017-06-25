@@ -52,6 +52,10 @@
     margin: 15px 30px 15px 30px;
 }
 
+#tab-obj-content {
+    margin-right: 30px;
+}
+
 .profile {
     border-right: 5px #507299 solid;
     border-bottom: 5px #507299 solid;
@@ -71,11 +75,15 @@
     padding-bottom: 5px;    
 }
 
-#active-obj-btn p, #finished-obj-btn p {
+#active-obj-btn p, #finished-obj-btn p, #places a {
     background-color: #337AB7;
     color: white;
     padding: 10px 0px 10px 0px;
     margin-top: 5px;
+}
+
+#places a:hover {
+    background-color: #286090;
 }
 
 .objects-info a:hover {
@@ -86,6 +94,10 @@
     text-decoration: none;
 }
 
-.profile .btn-primary {
+.profile .btn-primary, .objects-info .btn-primary {
     margin-top: 3px;
+}
+
+.objects-about {    
+    border-bottom: 5px #507299 solid;
 }
