@@ -31,29 +31,21 @@
                     <div class="objects-info text-center">                        
                         <h4>Объекты строительства</h4>
                         <button type="button" class="btn btn-primary btn-xs">Добавить объект</button>
-                        <button type="button" class="btn btn-primary btn-xs">Удалить объекты</button><div class="active-obj">
-                            <a href="#active-obj" data-toggle="collapse">
-                                <strong>Активные объекты</strong>
-                            </a>
-                            <div id="active-obj" class="collapse" style="background-color: #EDEEF0">
-                                <p>о. Новая Голландия</p>
-                                <p>Кушелевская дорога</p>
-                                <p>Заозёрная ул.</p>
-                            </div>
-                        </div>
-                        <div class="finished-obj">
-                            <a href="#finished-obj" data-toggle="collapse">
-                                <strong>Завершённые объекты</strong>
-                            </a>
-                            <div id="finished-obj" class="collapse" style="background-color: #EDEEF0">
-                                <p>Московское шоссе</p>
-                                <p>Кременчугская ул.</p>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-primary btn-xs">Удалить объекты</button>
+                        <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
+                            <strong><p>Активные объекты</p></strong>
+                        </a>
+                        <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
+                            <li><a href="#">о. Новая Голландия</a></li>
+                            <li><a href="#">Заозёрная ул.</a></li>
+                            <li><a href="#">Кременчугская ул.</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-9">
+                    <div class="objects-about">
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,6 +53,28 @@
 </html>
 
 
+
+<!--
+<div class="active-obj">
+                            <a href="#active-obj" data-toggle="collapse">
+                                <strong>Активные объекты</strong>
+                            </a>
+                            <div id="active-obj" class="collapse" style="background-color: #EDEEF0">
+                                <a href="#"><p>о. Новая Голландия</p></a>
+                                <a href="#"><p>Кушелевская дорога</p></a>
+                                <a href="#"><p>Заозёрная ул.</p></a>
+                            </div>
+                        </div>
+                        <div class="finished-obj">
+                            <a href="#finished-obj" data-toggle="collapse">
+                                <strong>Завершённые объекты</strong>
+                            </a>
+                            <div id="finished-obj" class="collapse" style="background-color: #EDEEF0">
+                                <a href="#"><p>Московское шоссе</p></a>
+                                <a href="#"><p>Кременчугская ул.</p></a>
+                            </div>
+                        </div>
+-->
 
 <!--
 <div class="obj-page" style="margin: 15px 30px 0px 30px">                

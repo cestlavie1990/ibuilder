@@ -70,3 +70,18 @@
     margin-bottom: 10px;
     padding-bottom: 5px;    
 }
+
+#active-obj-btn p {
+    background-color: #337AB7;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    margin-top: 5px;
+}
+
+.objects-info a:hover {
+    text-decoration: none;
+}
+
+.objects-info a:focus {
+    text-decoration: none;
+}
