@@ -48,7 +48,6 @@
 */
 .obj-page {
     background-color: white;
-    border-radius: 5px;
     margin: 15px 30px 15px 30px;
 }
 
@@ -100,4 +99,38 @@
 
 .objects-about {    
     border-bottom: 5px #507299 solid;
+}
+
+/*
+=====================places=====================
+*/
+
+.places-page {
+    background-color: white;
+    margin: 15px 30px 15px 30px;
+}
+
+#tab-places-content {
+    margin-right: 30px;
+}
+
+.places-info {
+    border-right: 5px #507299 solid;
+    margin-bottom: 10px;
+    padding-bottom: 5px;    
+}
+
+.places-info li {
+    margin-top: 5px;
+}
+
+#works a {
+    background-color: #337AB7;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    margin-top: 5px;
+}
+
+#works a:hover {
+    background-color: #286090;
 }
