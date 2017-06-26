@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" 
-         xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>RegistrationServlet</servlet-name>
         <servlet-class>controller.RegistrationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ObjectsServlet</servlet-name>
+        <servlet-class>controller.ObjectsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PlacesServlet</servlet-name>
+        <servlet-class>controller.PlacesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WorksServlet</servlet-name>
+        <servlet-class>controller.WorksServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TypesServlet</servlet-name>
+        <servlet-class>controller.TypesServlet</servlet-class>
     </servlet>
     
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
-    
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-    <jsp-config>
-    </jsp-config>
+    <servlet-mapping>
+        <servlet-name>ObjectsServlet</servlet-name>
+        <url-pattern>/objects</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlacesServlet</servlet-name>
+        <url-pattern>/places</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WorksServlet</servlet-name>
+        <url-pattern>/works</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TypesServlet</servlet-name>
+        <url-pattern>/types</url-pattern>
+    </servlet-mapping>
 </web-app>
