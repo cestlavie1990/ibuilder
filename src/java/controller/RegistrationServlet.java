@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mr.Minakov
  */
-@WebServlet(name = "RegistrationServlet", urlPatterns = {"/registration"})
+//@WebServlet(name = "RegistrationServlet", urlPatterns = {"/registration"})
 public class RegistrationServlet extends HttpServlet {
 
     /**
@@ -25,12 +25,8 @@ public class RegistrationServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String userPath=request.getServletPath();
-        if ("/registration".equals(userPath)) {
-            
-        }
-        request.getRequestDispatcher("/WEB-INF/views"+userPath+".jsp").forward(request, response);
+
+        request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
