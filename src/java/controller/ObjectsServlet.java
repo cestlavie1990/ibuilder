@@ -1,16 +1,28 @@
 package controller;
 
 import java.io.IOException;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.ObjectsFacade;
 
 /**
  *
  * @author Mr.Minakov
  */
 public class ObjectsServlet extends HttpServlet {
+    
+    @EJB
+    ObjectsFacade objectsFacade;
+
+    @Override
+    public void init() throws ServletException {
+        getServletContext().setAttribute("objects", objectsFacade.findAll());
+    }
+    
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

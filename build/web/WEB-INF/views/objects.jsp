@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,6 +38,14 @@
                             <strong><p>Активные объекты</p></strong>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
+                            <section>
+                                <c:forEach var="object" items="${objects}">
+                                    <li><a data-toggle="pill" href="#" id="objectName">${object.name}</a></li>     
+                                    </c:forEach>                           
+                            </section>
+                        </ul>
+                        <!--
+                        <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                             <li><a data-toggle="pill" href="#obj-content">о. Новая Голландия</a></li>
                             <li><a data-toggle="pill" href="#">Заозёрная ул.</a></li>
                             <li><a data-toggle="pill" href="#">Кременчугская ул.</a></li>
@@ -47,6 +57,7 @@
                             <li><a data-toggle="pill" href="#"><p>Московское шоссе</p></a></li>
                             <li><a data-toggle="pill" href="#"><p>Кушелевская дор.</p></a></li>
                         </ul>
+                        -->
                     </div>
                 </div>
                 <div class="col-md-9">

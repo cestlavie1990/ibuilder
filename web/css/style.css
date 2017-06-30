@@ -97,11 +97,11 @@
     background-color: #286090;
 }
 
-.info a:hover {
+#objectName:hover {
     text-decoration: none;
 }
 
-.info a:focus {
+#objectName:focus {
     text-decoration: none;
 }
 

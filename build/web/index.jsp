@@ -39,8 +39,8 @@
                                 <label><input type="checkbox"> Запомнить меня</label>
                             </div>
                         </form> 
-                        <button type="submit" class="btn btn-primary" onclick="location.href = 'objects.jsp'">Вход</button>
-                        <button type="submit" class="btn btn-primary" onclick="location.href = 'registration.jsp'">Регистрация</button>
+                        <button type="submit" class="btn btn-primary" onclick="location.href = '/ibuilder/objects'">Вход</button>
+                        <button type="submit" class="btn btn-primary" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
                         <a href="#">Забыли пароль?</a>
                     </div>
                 </div>
