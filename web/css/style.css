@@ -26,7 +26,7 @@
 
 .info {
     border-right: 5px #507299 solid;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     padding-bottom: 5px;    
 }
 
@@ -80,10 +80,18 @@
 =====================objects=====================
 */
 
-.active-obj, .finished-obj {
+#objectName li {
     background-color: #EDEEF0;
     margin-top: 5px;
     padding: 10px 0px 10px 0px;
+}
+
+#objectName:hover {
+    text-decoration: none;
+}
+
+#objectName:focus {
+    text-decoration: none;
 }
 
 #places a {
@@ -95,14 +103,6 @@
 
 #places a:hover {
     background-color: #286090;
-}
-
-#objectName:hover {
-    text-decoration: none;
-}
-
-#objectName:focus {
-    text-decoration: none;
 }
 
 .profile .btn-primary, .info .btn-primary {

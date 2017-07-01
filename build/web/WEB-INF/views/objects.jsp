@@ -40,8 +40,8 @@
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                             <section>
                                 <c:forEach var="object" items="${objects}">
-                                    <li><a data-toggle="pill" href="#" id="objectName">${object.name}</a></li>     
-                                    </c:forEach>                           
+                                    <a data-toggle="pill" href="#" id="objectName"><li>${object.name}</li></a>     
+                                        </c:forEach>                           
                             </section>
                         </ul>
                         <!--
