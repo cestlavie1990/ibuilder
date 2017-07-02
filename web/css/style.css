@@ -143,3 +143,21 @@
 /*
 =====================types=====================
 */
+
+
+
+
+.notif{
+    width: 94%;
+    margin-left: 2%;
+    border: 1px solid #660000;
+    background: #ff9999;
+    border-radius: 5px;
+}
+.notif span{
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 5px;
+    color: #660033;
+}
