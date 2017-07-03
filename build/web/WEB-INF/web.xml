@@ -20,7 +20,10 @@
         <servlet-name>TypesServlet</servlet-name>
         <servlet-class>controller.TypesServlet</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>RegistrationFinishedServlet</servlet-name>
+        <servlet-class>controller.RegistrationFinishedServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/registration</url-pattern>
@@ -40,5 +43,9 @@
     <servlet-mapping>
         <servlet-name>TypesServlet</servlet-name>
         <url-pattern>/types</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistrationFinishedServlet</servlet-name>
+        <url-pattern>/registration_finished</url-pattern>
     </servlet-mapping>
 </web-app>

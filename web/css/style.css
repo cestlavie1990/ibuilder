@@ -69,6 +69,7 @@
     background-color: #EDEEF0;
     border-radius: 5px;
     margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .reg-text {
@@ -78,6 +79,18 @@
 
 .reg-attr {
     margin: 0px 50px 25px 50px;
+}
+
+.notif{
+    width: 94%;
+    margin-left: 2%;
+}
+.notif span{
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 5px;
+    color: #660033;
 }
 
 /*
@@ -148,20 +161,14 @@
 =====================types=====================
 */
 
+/*
+=====================registration_finished=====================
+*/
 
-
-
-.notif{
-    width: 94%;
-    margin-left: 2%;
-    border: 1px solid #660000;
-    background: #ff9999;
+.reg-finished {
+    background-color: #EDEEF0;
     border-radius: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
-.notif span{
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin: 5px;
-    color: #660033;
-}
+
