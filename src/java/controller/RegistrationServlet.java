@@ -20,9 +20,6 @@ public class RegistrationServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -37,7 +34,9 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
     }
 
     /**
@@ -78,7 +77,8 @@ public class RegistrationServlet extends HttpServlet {
         if (codeOperation != 0) {
             request.setAttribute("notif", "Код завершения операции: " + codeOperation);
         } else {
-            request.getRequestDispatcher("/WEB-INF/views/registration_finished.jsp").forward(request, response);
+            request.setAttribute("notif", "Пользователь: " + username + " успешно создан!");
+            response.sendRedirect("registration_finished");
         }
 
         processRequest(request, response);

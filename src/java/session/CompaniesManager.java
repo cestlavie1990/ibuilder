@@ -12,6 +12,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -59,7 +60,7 @@ public class CompaniesManager {
         Users user = new Users();
         user.setLogin(login);
         user.setName(username);
-        user.setPassword(password);
+        user.setPassword(DigestUtils.md5Hex(password));
         user.setRecordIdCompany(company);
         user.setRole("ADMINISTRATOR");
         user.setDateRegistration(new Date());

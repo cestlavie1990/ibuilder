@@ -20,20 +20,7 @@
     <body class="page">        
         <div class="cont-page reg-finished text-center">
             <h3>Регистрация успешно завершена!</h3>
-            <p>Воспользуйтесь формами ниже, чтобы войти в аккаунт</p>
-            <form method="POST" class="reg-attr" style="margin: 0px 300px 0px 300px">
-                <p>
-                    <label for="login">Логин:</label>
-                    <input type="text" name="login" class="form-control" id="login" placeholder="Введите логин:">                                    
-                </p>
-                <p>
-                    <label for="password">Пароль:</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль">
-                </p>
-                <p>
-                    <button type="submit" class="btn btn-primary">Войти</button>                                    
-                </p>
-            </form>
+            <a href="/ibuilder/">К странице авторизации</a>
         </div>
     </body>
 </html>
