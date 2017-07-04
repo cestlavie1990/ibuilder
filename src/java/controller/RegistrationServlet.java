@@ -20,6 +20,7 @@ public class RegistrationServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,14 +75,20 @@ public class RegistrationServlet extends HttpServlet {
             }
         }
         Integer codeOperation = companiesManager.addCompanyAndUser(email, companyName, password, passwordConfirm, login, username, position);
-        if (codeOperation != 0) {
-            request.setAttribute("notif", "Код завершения операции: " + codeOperation);
-        } else {
-            request.setAttribute("notif", "Пользователь: " + username + " успешно создан!");
+        if (codeOperation == 0) {
             response.sendRedirect("registration_finished");
+        } else if (codeOperation == 2) {
+            request.setAttribute("notif", "Такой email уже существует");
+        } else if (codeOperation == 3) {
+            request.setAttribute("notif", "Такой логин уже существует");
+        } else if (codeOperation == 4) {
+            request.setAttribute("notif", "Введённые пароли не совпадают");
+        } else if (codeOperation == 5) {
+            request.setAttribute("notif", "Введены не все данные");
+        } else {
+            request.setAttribute("notif", "Произошла неизвестная ошибка при регистрации. Пожалуйста, попробуйте позже");
         }
-
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

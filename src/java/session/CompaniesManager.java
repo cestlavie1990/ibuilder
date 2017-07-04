@@ -3,6 +3,7 @@ package session;
 import entity.Companies;
 import entity.Users;
 import java.util.Date;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -32,13 +33,18 @@ public class CompaniesManager {
     public Integer addCompanyAndUser(final String email, final String companyName, final String password,
             final String passwordConfirm, final String login, final String username, final String position) {
         try {
-            if (!hasNullParameter(email, companyName, password, passwordConfirm, login, username)
-                    && password.equals(passwordConfirm)) {
+            if (isEmailUsed(email)) {
+                return 2;
+            } else if (isLoginUsed(login)) {
+                return 3;
+            } else if (!password.equals(passwordConfirm)) {
+                return 4;
+            } else if (hasEmptyParameter(email, companyName, password, passwordConfirm, login, username)) {
+                return 5;
+            } else {
                 Companies company = addCompany(email, companyName);
                 addUser(company, password, login, username, position);
                 return 0;
-            } else {
-                return 2;
             }
         } catch (Exception e) {
             context.setRollbackOnly();
@@ -68,9 +74,19 @@ public class CompaniesManager {
         em.persist(user);
     }
 
-    private Boolean hasNullParameter(final String email, final String companyName, final String password,
+    private Boolean hasEmptyParameter(final String email, final String companyName, final String password,
             final String passwordConfirm, final String login, final String username) {
-        return (email == null || companyName == null || password == null
-                || passwordConfirm == null || login == null || username == null);
+        return (email.isEmpty() || companyName.isEmpty() || password.isEmpty()
+                || passwordConfirm.isEmpty() || login.isEmpty() || username.isEmpty());
+    }
+
+    private Boolean isEmailUsed(final String email) {
+        List resultList = em.createNamedQuery("Companies.findByEmail").setParameter("email", email).getResultList();
+        return resultList.size() > 0;
+    }
+
+    private Boolean isLoginUsed(final String login) {
+        List resultList = em.createNamedQuery("Users.findByLogin").setParameter("login", login).getResultList();
+        return resultList.size() > 0;
     }
 }
