@@ -79,13 +79,13 @@ public class RegistrationServlet extends HttpServlet {
             response.sendRedirect("registration_finished");
         } else {
             if (codeOperation == 2) {
-                request.setAttribute("notif", "Такой email уже существует");
-            } else if (codeOperation == 3) {
-                request.setAttribute("notif", "Такой логин уже существует");
-            } else if (codeOperation == 4) {
-                request.setAttribute("notif", "Введённые пароли не совпадают");
-            } else if (codeOperation == 5) {
                 request.setAttribute("notif", "Введены не все данные");
+            } else if (codeOperation == 3) {
+                request.setAttribute("notif", "Введённые пароли не совпадают");
+            } else if (codeOperation == 4) {
+                request.setAttribute("notif", "Такой email уже существует");
+            } else if (codeOperation == 5) {
+                request.setAttribute("notif", "Такой логин уже существует");
             } else {
                 request.setAttribute("notif", "Произошла неизвестная ошибка при регистрации. Пожалуйста, попробуйте позже");
             }

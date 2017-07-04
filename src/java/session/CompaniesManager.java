@@ -33,13 +33,13 @@ public class CompaniesManager {
     public Integer addCompanyAndUser(final String email, final String companyName, final String password,
             final String passwordConfirm, final String login, final String username, final String position) {
         try {
-            if (isEmailUsed(email)) {
+            if (hasEmptyParameter(email, companyName, password, passwordConfirm, login, username)) {
                 return 2;
-            } else if (isLoginUsed(login)) {
-                return 3;
             } else if (!password.equals(passwordConfirm)) {
+                return 3;
+            } else if (isEmailUsed(email)) {
                 return 4;
-            } else if (hasEmptyParameter(email, companyName, password, passwordConfirm, login, username)) {
+            } else if (isLoginUsed(login)) {
                 return 5;
             } else {
                 Companies company = addCompany(email, companyName);
