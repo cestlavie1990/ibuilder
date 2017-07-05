@@ -26,21 +26,21 @@
                 </div>
                 <div class="col-md-3 text-center">                    
                     <div class="registration">
-                        <form>
-                            <div class="form-group">
+                        <form action="j_security_check" method="POST">
+                            <p>
                                 <label for="login">Логин:</label>
-                                <input type="text" class="form-control" id="login" placeholder="Введите логин:">
-                            </div>                        
-                            <div class="form-group">
+                                <input type="text" name="j_username" class="form-control" placeholder="Введите логин:">
+                            </p>                        
+                            <p>
                                 <label for="pwd">Пароль:</label>
-                                <input type="password" class="form-control" id="pwd" placeholder="Введите пароль:">
-                            </div>
-                            <div class="checkbox">
+                                <input type="password" name="j_password" class="form-control" placeholder="Введите пароль:">
+                            </p>
+                            <p>
                                 <label><input type="checkbox"> Запомнить меня</label>
-                            </div>
-                        </form> 
-                        <button type="submit" class="btn btn-primary" onclick="location.href = '/ibuilder/objects'">Вход</button>
-                        <button type="submit" class="btn btn-primary" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
+                            </p> 
+                            <button type="submit" class="btn btn-primary">Вход</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
+                        </form>
                         <a href="#">Забыли пароль?</a>
                     </div>
                 </div>
