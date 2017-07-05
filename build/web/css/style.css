@@ -172,3 +172,13 @@
     padding-bottom: 25px;
 }
 
+/*
+=====================error=====================
+*/
+
+.auth-error {
+    background-color: #EDEEF0;
+    border-radius: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
