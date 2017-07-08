@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +43,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByDateRegistration", query = "SELECT u FROM Users u WHERE u.dateRegistration = :dateRegistration")
     , @NamedQuery(name = "Users.findByPosition", query = "SELECT u FROM Users u WHERE u.position = :position")})
 public class Users implements Serializable {
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+    private GroupUsers groupUsers;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -211,6 +216,14 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "entity.Users[ recordId=" + recordId + " ]";
+    }
+
+    public GroupUsers getGroupUsers() {
+        return groupUsers;
+    }
+
+    public void setGroupUsers(GroupUsers groupUsers) {
+        this.groupUsers = groupUsers;
     }
     
 }
