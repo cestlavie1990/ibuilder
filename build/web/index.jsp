@@ -26,22 +26,20 @@
                 </div>
                 <div class="col-md-3 text-center">                    
                     <div class="registration">
-                        <form action="j_security_check" method="POST">
-                            <p>
-                                <label for="login">Логин:</label>
-                                <input type="text" name="j_username" class="form-control" placeholder="Введите логин:">
-                            </p>                        
-                            <p>
-                                <label for="pwd">Пароль:</label>
-                                <input type="password" name="j_password" class="form-control" placeholder="Введите пароль:">
-                            </p>
-                            <p>
-                                <label><input type="checkbox"> Запомнить меня</label>
-                            </p> 
-                            <button type="submit" class="btn btn-primary">Вход</button>
-                            <button type="button" class="btn btn-primary" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
-                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <a href="/ibuilder/objects">Войти</a>
+                        <br>
+                        <a href="/ibuilder/registration">Зарегистрироваться</a>
+                        <br>
                         <a href="#">Забыли пароль?</a>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
                     </div>
                 </div>
             </div>
