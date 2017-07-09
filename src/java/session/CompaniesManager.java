@@ -66,7 +66,7 @@ public class CompaniesManager {
         Users user = new Users();
         user.setLogin(login);
         user.setName(username);
-        user.setPassword(DigestUtils.md5Hex(password));
+        user.setPassword(password);
         user.setRecordIdCompany(company);
         user.setRole("ADMINISTRATOR");
         user.setDateRegistration(new Date());

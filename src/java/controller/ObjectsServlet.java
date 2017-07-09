@@ -13,7 +13,7 @@ import session.ObjectsFacade;
  * @author Mr.Minakov
  */
 public class ObjectsServlet extends HttpServlet {
-    
+
     @EJB
     ObjectsFacade objectsFacade;
 
@@ -21,12 +21,12 @@ public class ObjectsServlet extends HttpServlet {
     public void init() throws ServletException {
         getServletContext().setAttribute("objects", objectsFacade.findAll());
     }
-    
-    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        request.setAttribute("name", request.getUserPrincipal().getName());
         request.getRequestDispatcher("/WEB-INF/views/objects.jsp").forward(request, response);
     }
 
