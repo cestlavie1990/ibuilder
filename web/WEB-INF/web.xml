@@ -48,24 +48,29 @@
         <servlet-name>RegistrationFinishedServlet</servlet-name>
         <url-pattern>/registration_finished</url-pattern>
     </servlet-mapping>
-    
+
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>JDBCRealmIbuilder</realm-name>
         <form-login-config>
-            <form-login-page>/WEB-INF/views/login.jsp</form-login-page>
-            <form-error-page>/WEB-INF/views/error.jsp</form-error-page>
+            <form-login-page>/WEB-INF/views/private/login.jsp</form-login-page>
+            <form-error-page>/WEB-INF/views/private/error.jsp</form-error-page>
         </form-login-config>
     </login-config>
-    
+    <security-role>
+        <description/>
+        <role-name>admin</role-name>
+    </security-role>
     <security-constraint>
+        <display-name>private_zone</display-name>
         <web-resource-collection>
-            <web-resource-name>Web-Content</web-resource-name>
-            <url-pattern>/objects</url-pattern>
+            <web-resource-name>private pages</web-resource-name>
+            <description/>
+            <url-pattern>/private/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>role_admin</role-name>
+            <description/>
+            <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
 </web-app>

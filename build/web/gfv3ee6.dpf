@@ -9,7 +9,7 @@
     </property>
   </jsp-config>
   <security-role-mapping>
-    <role-name>role_admin</role-name>
+    <role-name>admin</role-name>
     <group-name>admin</group-name>
   </security-role-mapping>
 </glassfish-web-app>
