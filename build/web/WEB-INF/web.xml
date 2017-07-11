@@ -48,29 +48,30 @@
         <servlet-name>RegistrationFinishedServlet</servlet-name>
         <url-pattern>/registration_finished</url-pattern>
     </servlet-mapping>
-
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>JDBCRealmIbuilder</realm-name>
-        <form-login-config>
-            <form-login-page>/WEB-INF/views/private/login.jsp</form-login-page>
-            <form-error-page>/WEB-INF/views/private/error.jsp</form-error-page>
-        </form-login-config>
-    </login-config>
-    <security-role>
-        <description/>
-        <role-name>admin</role-name>
-    </security-role>
     <security-constraint>
         <display-name>private_zone</display-name>
         <web-resource-collection>
             <web-resource-name>private pages</web-resource-name>
             <description/>
             <url-pattern>/private/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
         </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>JDBCRealmIbuilder</realm-name>
+        <form-login-config>
+            <form-login-page>/WEB-INF/private/login.jsp</form-login-page>
+            <form-error-page>/WEB-INF/private/error.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>admin</role-name>
+    </security-role>
 </web-app>

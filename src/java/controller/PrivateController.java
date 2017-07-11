@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Mr.Minakov
  */
-@WebServlet(name = "PrivateController", urlPatterns = {"/private"})
+@WebServlet(name = "PrivateController", urlPatterns = {"/private", "/logout"})
+@ServletSecurity( @HttpConstraint(rolesAllowed = {"admin"}) )
 public class PrivateController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -22,7 +23,7 @@ public class PrivateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         if ("/private".equals(request.getServletPath())) {
             request.setAttribute("name", request.getUserPrincipal().getName());
-            request.getRequestDispatcher("WEB-INF/views/private/private_page.jsp").
+            request.getRequestDispatcher("WEB-INF/private/private_page.jsp").
                     forward(request, response);
         } else if ("/logout".equals(request.getServletPath())) {
             HttpSession session = request.getSession(false);

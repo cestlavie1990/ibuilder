@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,9 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * 
+ *
  * @author Mr.Minakov
- * 
+ *
  */
 @Entity
 @Table(name = "users")
@@ -43,9 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByDateRegistration", query = "SELECT u FROM Users u WHERE u.dateRegistration = :dateRegistration")
     , @NamedQuery(name = "Users.findByPosition", query = "SELECT u FROM Users u WHERE u.position = :position")})
 public class Users implements Serializable {
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
-    private GroupUsers groupUsers;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -94,6 +91,8 @@ public class Users implements Serializable {
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userLogin")
+    private Collection<GroupUsers> groupUsersCollection;
 
     public Users() {
     }
@@ -218,12 +217,13 @@ public class Users implements Serializable {
         return "entity.Users[ recordId=" + recordId + " ]";
     }
 
-    public GroupUsers getGroupUsers() {
-        return groupUsers;
+    @XmlTransient
+    public Collection<GroupUsers> getGroupUsersCollection() {
+        return groupUsersCollection;
     }
 
-    public void setGroupUsers(GroupUsers groupUsers) {
-        this.groupUsers = groupUsers;
+    public void setGroupUsersCollection(Collection<GroupUsers> groupUsersCollection) {
+        this.groupUsersCollection = groupUsersCollection;
     }
-    
+
 }

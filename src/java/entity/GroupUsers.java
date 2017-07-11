@@ -4,11 +4,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,65 +25,57 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "GroupUsers.findAll", query = "SELECT g FROM GroupUsers g")
-    , @NamedQuery(name = "GroupUsers.findByRecordIdUser", query = "SELECT g FROM GroupUsers g WHERE g.recordIdUser = :recordIdUser")
-    , @NamedQuery(name = "GroupUsers.findByName", query = "SELECT g FROM GroupUsers g WHERE g.name = :name")})
+    , @NamedQuery(name = "GroupUsers.findByGroupName", query = "SELECT g FROM GroupUsers g WHERE g.groupName = :groupName")
+    , @NamedQuery(name = "GroupUsers.findByUserLogin", query = "SELECT g FROM GroupUsers g WHERE g.userLogin = :userLogin")})
 public class GroupUsers implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "record_id_user")
-    private Integer recordIdUser;
+    @Column(name = "record_id")
+    private Integer recordId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "name")
-    private String name;
-    @JoinColumn(name = "record_id_user", referencedColumnName = "record_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Users users;
+    @Column(name = "group_name")
+    private String groupName;
+    @JoinColumn(name = "user_login", referencedColumnName = "login")
+    @ManyToOne(optional = false)
+    private Users userLogin;
+
+
 
     public GroupUsers() {
     }
 
-    public GroupUsers(Integer recordIdUser) {
-        this.recordIdUser = recordIdUser;
+    public Integer getRecordId() {
+        return recordId;
     }
 
-    public GroupUsers(Integer recordIdUser, String name) {
-        this.recordIdUser = recordIdUser;
-        this.name = name;
+    public void setRecordId(Integer recordId) {
+        this.recordId = recordId;
     }
 
-    public Integer getRecordIdUser() {
-        return recordIdUser;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setRecordIdUser(Integer recordIdUser) {
-        this.recordIdUser = recordIdUser;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
-    public String getName() {
-        return name;
+    public Users getUserLogin() {
+        return userLogin;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Users getUsers() {
-        return users;
-    }
-
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setUserLogin(Users userLogin) {
+        this.userLogin = userLogin;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (recordIdUser != null ? recordIdUser.hashCode() : 0);
+        hash += (recordId != null ? recordId.hashCode() : 0);
         return hash;
     }
 
@@ -92,7 +86,7 @@ public class GroupUsers implements Serializable {
             return false;
         }
         GroupUsers other = (GroupUsers) object;
-        if ((this.recordIdUser == null && other.recordIdUser != null) || (this.recordIdUser != null && !this.recordIdUser.equals(other.recordIdUser))) {
+        if ((this.recordId == null && other.recordId != null) || (this.recordId != null && !this.recordId.equals(other.recordId))) {
             return false;
         }
         return true;
@@ -100,7 +94,7 @@ public class GroupUsers implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.GroupUsers[ recordIdUser=" + recordIdUser + " ]";
+        return "entity.GroupUsers[ recordId=" + recordId + " ]";
     }
     
 }

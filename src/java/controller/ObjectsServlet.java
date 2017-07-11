@@ -26,7 +26,6 @@ public class ObjectsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        request.setAttribute("name", request.getUserPrincipal().getName());
         request.getRequestDispatcher("/WEB-INF/views/objects.jsp").forward(request, response);
     }
 
