@@ -48,7 +48,7 @@
         <servlet-name>RegistrationFinishedServlet</servlet-name>
         <url-pattern>/registration_finished</url-pattern>
     </servlet-mapping>
-    <security-constraint>
+    <!--<security-constraint>
         <display-name>private_zone</display-name>
         <web-resource-collection>
             <web-resource-name>private pages</web-resource-name>
@@ -61,7 +61,7 @@
             <description/>
             <role-name>admin</role-name>
         </auth-constraint>
-    </security-constraint>
+    </security-constraint>-->
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>JDBCRealmIbuilder</realm-name>
