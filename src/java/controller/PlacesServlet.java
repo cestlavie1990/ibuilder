@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.HttpConstraint;
+import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +12,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Mr.Minakov
  */
+@ServletSecurity(
+        @HttpConstraint(rolesAllowed = {"admin"}))
 public class PlacesServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("WEB-INF/views/places.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/private/places.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
