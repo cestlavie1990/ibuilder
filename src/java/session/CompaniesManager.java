@@ -1,6 +1,7 @@
 package session;
 
 import entity.Companies;
+import entity.GroupUsers;
 import entity.Users;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,8 @@ public class CompaniesManager {
                 return 5;
             } else {
                 Companies company = addCompany(email, companyName);
-                addUser(company, password, login, username, position);
+                Users user = addUser(company, password, login, username, position);
+                addGroupForUser(user);
                 return 0;
             }
         } catch (Exception e) {
@@ -62,16 +64,24 @@ public class CompaniesManager {
         return company;
     }
 
-    private void addUser(final Companies company, final String password, final String login, final String username, final String position) {
+    private Users addUser(final Companies company, final String password, final String login, final String username, final String position) {
         Users user = new Users();
         user.setLogin(login);
         user.setName(username);
-        user.setPassword(password);
+        user.setPassword(DigestUtils.md5Hex(password));
         user.setRecordIdCompany(company);
         user.setRole("ADMINISTRATOR");
         user.setDateRegistration(new Date());
         user.setPosition(position);
         em.persist(user);
+        return user;
+    }
+    
+    private void addGroupForUser(final Users user) {
+        GroupUsers groupUsers = new GroupUsers();
+        groupUsers.setUserLogin(user);
+        groupUsers.setGroupName("admin");
+        em.persist(groupUsers);
     }
 
     private Boolean hasEmptyParameter(final String email, final String companyName, final String password,
