@@ -5,7 +5,9 @@
  */
 package session;
 
+import entity.Companies;
 import entity.Objects;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,11 @@ public class ObjectsFacade extends AbstractFacade<Objects> {
 
     public ObjectsFacade() {
         super(Objects.class);
+    }
+    
+    public List findObjectsListByCompany(final Companies company) {
+        List resultList = em.createNamedQuery("Objects.findByCompany").setParameter("recordIdCompany", company).getResultList();
+        return resultList;
     }
     
 }

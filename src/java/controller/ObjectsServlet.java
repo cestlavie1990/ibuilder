@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Users;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.ObjectsFacade;
+import session.UsersFacade;
 
 /**
  *
@@ -21,10 +23,12 @@ public class ObjectsServlet extends HttpServlet {
 
     @EJB
     ObjectsFacade objectsFacade;
+    
+    @EJB
+    UsersFacade usersFacade;
 
     @Override
     public void init() throws ServletException {
-        getServletContext().setAttribute("objects", objectsFacade.findAll());
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -36,8 +40,12 @@ public class ObjectsServlet extends HttpServlet {
             if (session != null) {
                 session.invalidate();
             }
-            response.sendRedirect("private");
+            response.sendRedirect("registration");
         }
+        request.setAttribute("login", request.getUserPrincipal().getName());
+        String login = request.getAttribute("login").toString();
+        Users users = usersFacade.findByLogin(login);
+        getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(users.getRecordIdCompany()));
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
 

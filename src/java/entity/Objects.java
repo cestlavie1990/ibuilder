@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Objects.findByAddress", query = "SELECT o FROM Objects o WHERE o.address = :address")
     , @NamedQuery(name = "Objects.findByCustomer", query = "SELECT o FROM Objects o WHERE o.customer = :customer")
     , @NamedQuery(name = "Objects.findByGeneralBuilder", query = "SELECT o FROM Objects o WHERE o.generalBuilder = :generalBuilder")
-    , @NamedQuery(name = "Objects.findByDateCreated", query = "SELECT o FROM Objects o WHERE o.dateCreated = :dateCreated")})
+    , @NamedQuery(name = "Objects.findByDateCreated", query = "SELECT o FROM Objects o WHERE o.dateCreated = :dateCreated")
+    , @NamedQuery(name = "Objects.findByCompany", query = "SELECT o FROM Objects o WHERE o.recordIdCompany = :recordIdCompany")})
 public class Objects implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -185,5 +186,5 @@ public class Objects implements Serializable {
     public String toString() {
         return "entity.Objects[ recordId=" + recordId + " ]";
     }
-    
+
 }
