@@ -46,9 +46,11 @@ public class ObjectsServlet extends HttpServlet {
         
         String login = request.getAttribute("login").toString();
         
-        Users users = usersFacade.findByLogin(login);
+        Users user = usersFacade.findByLogin(login);
         
-        getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(users.getRecordIdCompany()));
+        getServletContext().setAttribute("user", user);
+        
+        getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()));
         
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }

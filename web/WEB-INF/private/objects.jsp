@@ -21,11 +21,13 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="profile text-center">
-                        <h4>Иван Петров</h4>
+                        <h4>${user.name}</h4>
                         <img class="avatar" src="avatars/004-agreement.png" width="128px" height="128px">
-                        <h5>ООО "Лев"</h5>
-                        <h5>генеральный директор</h5>
-                        <p>активных объектов: 6</p>
+                        <h5>${user.getRecordIdCompany().name}</h5>
+                        <c:if test="${user.position ne null}">
+                            <h5>${user.position}</h5>
+                        </c:if>                        
+                        <p>активных объектов: <strong>${objects.size()}</strong></p>
                         <button type="button" class="btn btn-primary btn-xs">Профиль</button>
                         <button type="button" class="btn btn-primary btn-xs">Настройки</button>
                         <button type="button" class="btn btn-primary btn-xs">Добавить пользователя</button>
@@ -40,26 +42,17 @@
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                             <section>
                                 <c:forEach var="object" items="${objects}">
-                                    <a data-toggle="pill" href="#" id="objectName"><li>${object.name}</li></a>     
+                                    <a data-toggle="pill" href="#obj-content" id="objectName"><li>${object.name}</li></a>     
                                         </c:forEach>                           
                             </section>
                         </ul>
-                        <!--
-                        <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
-                            <li><a data-toggle="pill" href="#obj-content">о. Новая Голландия</a></li>
-                            <li><a data-toggle="pill" href="#">Заозёрная ул.</a></li>
-                            <li><a data-toggle="pill" href="#">Кременчугская ул.</a></li>
-                        </ul>
-                        <a href="#finished-obj" data-toggle="collapse" id="btn-collapse">
-                            <strong><p>Завершённые объекты</p></strong>
-                        </a>
-                        <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
-                            <li><a data-toggle="pill" href="#"><p>Московское шоссе</p></a></li>
-                            <li><a data-toggle="pill" href="#"><p>Кушелевская дор.</p></a></li>
-                        </ul>
-                        -->
                     </div>
                 </div>
+                <script>
+                    objectName.onclick = function (element) {
+                       var idObject = element.target.id;
+                    };
+                </script>
                 <div class="col-md-9">
                     <div class="tab-content text-center" id="tab-cont">
                         <div id="obj-content" class="tab-pane fade">
@@ -74,7 +67,7 @@
                                 <button type="button" class="btn btn-primary btn-md">Добавить</button>
                                 <button type="button" class="btn btn-primary btn-md">Удалить</button>
                                 <ul class="nav nav-pills nav-stacked" id="places">
-                                    <li><a href="places.jsp"><p>Корпус №8</p></a></li>
+                                    <li><a href="#"><p>Корпус №8</p></a></li>
                                     <li><a href="#"><p>Корпус №1</p></a></li>
                                     <li><a href="#"><p>Арестантская башня</p></a></li>
                                 </ul>                        
