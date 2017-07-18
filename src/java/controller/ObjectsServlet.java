@@ -22,10 +22,10 @@ import session.UsersFacade;
 public class ObjectsServlet extends HttpServlet {
 
     @EJB
-    ObjectsFacade objectsFacade;
+    private ObjectsFacade objectsFacade;
     
     @EJB
-    UsersFacade usersFacade;
+    private UsersFacade usersFacade;
 
     @Override
     public void init() throws ServletException {
@@ -43,9 +43,13 @@ public class ObjectsServlet extends HttpServlet {
             response.sendRedirect("registration");
         }
         request.setAttribute("login", request.getUserPrincipal().getName());
+        
         String login = request.getAttribute("login").toString();
+        
         Users users = usersFacade.findByLogin(login);
+        
         getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(users.getRecordIdCompany()));
+        
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
 
