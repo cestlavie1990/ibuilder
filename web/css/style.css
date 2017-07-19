@@ -97,17 +97,16 @@
 =====================objects=====================
 */
 
-#objectName li {
+.objectName li {
     background-color: #EDEEF0;
-    margin-top: 5px;
     padding: 10px 0px 10px 0px;
 }
 
-#objectName:hover {
+.objectName:hover {
     text-decoration: none;
 }
 
-#objectName:focus {
+.objectName:focus {
     text-decoration: none;
 }
 

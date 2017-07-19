@@ -40,39 +40,40 @@
                             <strong><p>Активные объекты</p></strong>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
-                            <section>
-                                <c:forEach var="object" items="${objects}">
-                                    <a data-toggle="pill" href="#obj-content" id="objectName"><li>${object.name}</li></a>     
-                                        </c:forEach>                           
-                            </section>
+                            <c:forEach var="object" items="${objects}">
+                                <a data-toggle="pill" href="#obj-content${object.recordId}" class="objectName"><li>${object.name}</li></a>     
+                                    </c:forEach>
                         </ul>
                     </div>
                 </div>
-                <script>
-                    objectName.onclick = function (element) {
-                       var idObject = element.target.id;
-                    };
-                </script>
                 <div class="col-md-9">
                     <div class="tab-content text-center" id="tab-cont">
-                        <div id="obj-content" class="tab-pane fade">
-                            <div class="objects-about">
-                                <h4>объект: о. Новая Голландия</h4>
-                                <h5>адрес: наб. Адмиралтейского канала д. 2</h5>
-                                <h5>заказчик: ООО "Новая Голландия Девелопмент"</h5>
-                                <h5>генеральный подрядчик: ООО "Арсенал-Строй"</h5>
+                        <c:forEach var="object" items="${objects}">
+                            <div id="obj-content${object.recordId}" class="tab-pane fade">
+                                <div class="objects-about">
+                                    <h4><strong>объект: ${object.name}</strong></h4>
+                                    <h5>адрес: <strong>${object.address}</strong></h5>
+                                    <h5>заказчик: <strong>${object.customer}</strong></h5>
+                                    <h5>генеральный подрядчик: <strong>${object.generalBuilder}</strong></h5>
+                                </div>
+                                <div class="objects-places">
+                                    <h4>Участки строительства</h4>
+                                    <button type="button" class="btn btn-primary btn-md">Добавить</button>
+                                    <button type="button" class="btn btn-primary btn-md">Удалить</button>
+                                    <ul class="nav nav-pills nav-stacked" id="places">
+                                        <c:if test="${object.getPlacesCollection().size() eq 0}">
+                                            <h3>Объект не имеет участков строительства</h3>
+                                            <h4>Чтобы добавить участок нажмите на соответствующую кнопку сверху</h4>
+                                        </c:if>                                            
+                                        <c:if test="${object.getPlacesCollection().size() gt 0}">
+                                            <c:forEach var="place" items="${object.getPlacesCollection()}">
+                                                <li><a href="#"><p>${place.name}</p></a></li>
+                                                        </c:forEach>
+                                        </c:if>
+                                    </ul>                        
+                                </div>
                             </div>
-                            <div class="objects-places">
-                                <h4>Участки строительства</h4>
-                                <button type="button" class="btn btn-primary btn-md">Добавить</button>
-                                <button type="button" class="btn btn-primary btn-md">Удалить</button>
-                                <ul class="nav nav-pills nav-stacked" id="places">
-                                    <li><a href="#"><p>Корпус №8</p></a></li>
-                                    <li><a href="#"><p>Корпус №1</p></a></li>
-                                    <li><a href="#"><p>Арестантская башня</p></a></li>
-                                </ul>                        
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
