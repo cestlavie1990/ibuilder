@@ -51,31 +51,32 @@
                                         <button type="button" class="close" data-dismiss="modal">×</button>
                                         <h4>Добавление объекта строительства</h4>
                                     </div>
-                                    <div class="modal-body" style="color: #2D2D30">
-                                        <p>
-                                            <label for="nameObj">Название объекта строительства</label>
-                                            <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:">                                    
-                                        </p>
-                                        <p>
-                                            <label for="addressObj">Адрес объекта строительства</label>
-                                            <input type="text" name="addressObj" class="form-control" id="addressObj" placeholder="Введите адрес объекта:">                                    
-                                        </p>
-                                        <p>
-                                            <label for="nameCustomerObj">Название компании заказчика</label>
-                                            <input type="text" name="nameCustomerObj" class="form-control" id="nameCustomerObj" placeholder="Заказчик:">                                    
-                                        </p>
-                                        <p>
-                                            <label for="nameGenBuilderObj">Название компании генподрядчика</label>
-                                            <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
-                                        </p>
-                                        <p>
-                                            <label for="dateStartObj">Дата начала работ</label>
-                                            <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Введите дату в формате 'ДД:ММ:ГГГГ':">                                    
-                                        </p>                            
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary" data-dismiss="modal">Добавить</button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Отменить</button>
+                                    <div class="modal-body" style="color: #2D2D30">                                        
+                                        <form method="POST" action="objects" class="reg-attr">
+                                            <p>
+                                                <label for="nameObj">Название объекта строительства</label>
+                                                <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:">                                    
+                                            </p>
+                                            <p>
+                                                <label for="addressObj">Адрес объекта строительства</label>
+                                                <input type="text" name="addressObj" class="form-control" id="addressObj" placeholder="Введите адрес объекта:">                                    
+                                            </p>
+                                            <p>
+                                                <label for="nameCustomerObj">Название компании заказчика</label>
+                                                <input type="text" name="nameCustomerObj" class="form-control" id="nameCustomerObj" placeholder="Заказчик:">                                    
+                                            </p>
+                                            <p>
+                                                <label for="nameGenBuilderObj">Название компании генподрядчика</label>
+                                                <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
+                                            </p>
+                                            <p>
+                                                <label for="dateStartObj">Дата начала работ</label>
+                                                <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Введите дату в формате 'ДД:ММ:ГГГГ':">                                    
+                                            </p>
+                                            <p>
+                                                <button type="submit" class="btn btn-primary">Добавить</button>                                    
+                                            </p>                                            
+                                        </form>
                                     </div>
                                 </div>
                             </div>
