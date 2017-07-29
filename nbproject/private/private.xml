@@ -4,9 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/controller/ObjectsServlet.java</file>
-            <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/controller/AddObjectServlet.java</file>
+            <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/controller/RegistrationServlet.java</file>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/web/WEB-INF/views/registration.jsp</file>
-            <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/web/WEB-INF/private/add_object.jsp</file>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/web/WEB-INF/private/objects.jsp</file>
         </group>
     </open-files>
