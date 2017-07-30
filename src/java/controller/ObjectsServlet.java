@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import session.ObjectsFacade;
+import session.ObjectsManager;
 import session.UsersFacade;
 
 /**
@@ -21,12 +22,17 @@ import session.UsersFacade;
 @ServletSecurity(
         @HttpConstraint(rolesAllowed = {"admin"}))
 public class ObjectsServlet extends HttpServlet {
+    
+    @EJB
+    private ObjectsManager objectsManager;
 
     @EJB
     private ObjectsFacade objectsFacade;
 
     @EJB
     private UsersFacade usersFacade;
+    
+    private Users user;
 
     @Override
     public void init() throws ServletException {
@@ -53,7 +59,7 @@ public class ObjectsServlet extends HttpServlet {
 
         String login = request.getAttribute("login").toString();
 
-        Users user = usersFacade.findByLogin(login);
+        user = usersFacade.findByLogin(login);
 
         getServletContext().setAttribute("user", user);
 
@@ -67,7 +73,23 @@ public class ObjectsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        Enumeration<String> parameters = request.getParameterNames();
+        Enumeration<String> parameters = request.getParameterNames();        
+        String name = null, address = null, customer = null, generalBuilder = null;
+        
+        while (parameters.hasMoreElements()) {
+            String parameter = parameters.nextElement();
+            if (parameter.equals("nameObj")) {
+                name = request.getParameter(parameter);
+            } else if (parameter.equals("addressObj")) {
+                address = request.getParameter(parameter);
+            } else if (parameter.equals("nameCustomerObj")) {
+                customer = request.getParameter(parameter);
+            } else if (parameter.equals("nameGenBuilderObj")) {
+                generalBuilder = request.getParameter(parameter);
+            }
+        }
+        
+        objectsManager.createObjects(user, name, address, customer, generalBuilder);
         
         doGet(request, response);
     }
