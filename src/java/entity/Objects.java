@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Objects.findByCustomer", query = "SELECT o FROM Objects o WHERE o.customer = :customer")
     , @NamedQuery(name = "Objects.findByGeneralBuilder", query = "SELECT o FROM Objects o WHERE o.generalBuilder = :generalBuilder")
     , @NamedQuery(name = "Objects.findByDateCreated", query = "SELECT o FROM Objects o WHERE o.dateCreated = :dateCreated")
-    , @NamedQuery(name = "Objects.findByCompany", query = "SELECT o FROM Objects o WHERE o.recordIdCompany = :recordIdCompany")})
+    , @NamedQuery(name = "Objects.findByCompany", query = "SELECT o FROM Objects o WHERE o.recordIdCompany = :recordIdCompany")
+    , @NamedQuery(name = "Objects.findByUqIndex", query = "SELECT o FROM Objects o WHERE o.uqIndex = :uqIndex")})
 public class Objects implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,6 +80,11 @@ public class Objects implements Serializable {
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "uq_index")
+    private String uqIndex;
 
     public Objects() {
     }
@@ -166,7 +172,7 @@ public class Objects implements Serializable {
     public void setRecordIdCompany(Companies recordIdCompany) {
         this.recordIdCompany = recordIdCompany;
     }
-    
+
     public void addUserToCollection(Users user) {
         this.usersCollection.add(user);
     }
@@ -194,6 +200,14 @@ public class Objects implements Serializable {
     @Override
     public String toString() {
         return "entity.Objects[ recordId=" + recordId + " ]";
+    }
+
+    public String getUqIndex() {
+        return uqIndex;
+    }
+
+    public void setUqIndex(String uqIndex) {
+        this.uqIndex = uqIndex;
     }
 
 }

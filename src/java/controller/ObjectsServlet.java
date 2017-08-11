@@ -23,7 +23,7 @@ import session.UsersFacade;
 @ServletSecurity(
         @HttpConstraint(rolesAllowed = {"admin"}))
 public class ObjectsServlet extends HttpServlet {
-    
+
     @EJB
     private ObjectsManager objectsManager;
 
@@ -32,7 +32,7 @@ public class ObjectsServlet extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
-    
+
     private Users user;
 
     @Override
@@ -64,8 +64,10 @@ public class ObjectsServlet extends HttpServlet {
 
         getServletContext().setAttribute("user", user);
 
-        getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()));
+        //getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()));
 
+        getServletContext().setAttribute("objects", user.getObjectsCollection());
+        
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
 
@@ -74,9 +76,9 @@ public class ObjectsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        Enumeration<String> parameters = request.getParameterNames();        
+        Enumeration<String> parameters = request.getParameterNames();
         String name = null, address = null, customer = null, generalBuilder = null;
-        
+
         while (parameters.hasMoreElements()) {
             String parameter = parameters.nextElement();
             if (parameter.equals("nameObj")) {
@@ -89,9 +91,9 @@ public class ObjectsServlet extends HttpServlet {
                 generalBuilder = request.getParameter(parameter);
             }
         }
-        
+
         objectsManager.createObjects(user, name, address, customer, generalBuilder);
-        
+
         doGet(request, response);
     }
 
