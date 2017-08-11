@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Objects;
 import entity.Users;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -89,7 +90,9 @@ public class ObjectsServlet extends HttpServlet {
             }
         }
         
-        objectsManager.createObjects(user, name, address, customer, generalBuilder);
+        Objects obj = objectsManager.createObjects(user, name, address, customer, generalBuilder);
+        
+        objectsManager.addConnection(user, obj);
         
         doGet(request, response);
     }

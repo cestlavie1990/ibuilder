@@ -14,6 +14,7 @@ import entity.Users;
 import entity.Objects;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 
 /**
  *
@@ -53,7 +54,7 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createObjects(final Users user, final String name, final String address,
+    public Objects createObjects(final Users user, final String name, final String address,
             final String customer, final String generalBuilder) {
         try {
             List<Users> usersCollection = new ArrayList<>();
@@ -66,9 +67,41 @@ public class ObjectsManager {
             object.setGeneralBuilder(generalBuilder);
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(new Date());
+
+            return em.merge(object);
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void addConnection(Users user, Objects object) {
+        try {
+            List<Objects> objectsCollection;
+            List<Users> usersCollection;
+
+            if (user.getObjectsCollection().size() == 0) {
+                objectsCollection = new ArrayList<>();
+            } else {
+                objectsCollection = (ArrayList<Objects>) user.getObjectsCollection();
+            }
+
+            if (object.getUsersCollection().size() == 0) {
+                usersCollection = new ArrayList<>();
+            } else {
+                usersCollection = (ArrayList<Users>) object.getUsersCollection();
+            }
+
+            objectsCollection.add(object);
+            usersCollection.add(user);
+
+            user.setObjectsCollection(objectsCollection);
             object.setUsersCollection(usersCollection);
-            
-            em.persist(object);
+
+            em.refresh(user);
+            em.refresh(object);
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
