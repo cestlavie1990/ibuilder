@@ -90,9 +90,7 @@ public class ObjectsServlet extends HttpServlet {
             }
         }
         
-        Objects obj = objectsManager.createObjects(user, name, address, customer, generalBuilder);
-        
-        objectsManager.addConnection(user, obj);
+        objectsManager.createObjects(user, name, address, customer, generalBuilder);
         
         doGet(request, response);
     }

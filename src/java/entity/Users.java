@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -87,7 +88,7 @@ public class Users implements Serializable {
         @JoinColumn(name = "record_id_user", referencedColumnName = "record_id")}, inverseJoinColumns = {
         @JoinColumn(name = "record_id_object", referencedColumnName = "record_id")})
     @ManyToMany
-    private Collection<Objects> objectsCollection;
+    private Collection<Objects> objectsCollection = new ArrayList<>();
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
@@ -190,6 +191,10 @@ public class Users implements Serializable {
 
     public void setRecordIdCompany(Companies recordIdCompany) {
         this.recordIdCompany = recordIdCompany;
+    }
+    
+    public void addObjectToCollection(Objects object) {
+        this.objectsCollection.add(object);
     }
 
     @Override

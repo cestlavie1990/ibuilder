@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -67,8 +69,11 @@ public class Objects implements Serializable {
     @Column(name = "date_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
-    @ManyToMany(mappedBy = "objectsCollection")
-    private Collection<Users> usersCollection;
+    @JoinTable(name = "users_and_objects", joinColumns = {
+        @JoinColumn(name = "record_id_object", referencedColumnName = "record_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "record_id_user", referencedColumnName = "record_id")})
+    @ManyToMany//(mappedBy = "objectsCollection")
+    private Collection<Users> usersCollection = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recordIdObject")
     private Collection<Places> placesCollection;
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
@@ -160,6 +165,10 @@ public class Objects implements Serializable {
 
     public void setRecordIdCompany(Companies recordIdCompany) {
         this.recordIdCompany = recordIdCompany;
+    }
+    
+    public void addUserToCollection(Users user) {
+        this.usersCollection.add(user);
     }
 
     @Override
