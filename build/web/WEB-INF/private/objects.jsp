@@ -75,10 +75,6 @@
                                                 <label for="nameGenBuilderObj">Название компании генподрядчика</label>
                                                 <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
                                             </p>
-                                            <!--<p>
-                                                <label for="dateStartObj">Дата начала работ</label>
-                                                <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Введите дату в формате 'ДД:ММ:ГГГГ':">                                    
-                                            </p>-->
                                             <p>
                                                 <label for="dateStartObj">Дата начала работ</label>
                                                 <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">

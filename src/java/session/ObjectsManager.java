@@ -12,8 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -33,9 +31,6 @@ public class ObjectsManager {
     public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder, final Date dateStart) {
         try {
-            List<Users> usersCollection = new ArrayList<>();
-            usersCollection.add(user);
-            
             String uqIndex = "" + Math.random() + name;
 
             Objects object = new Objects();
@@ -59,9 +54,6 @@ public class ObjectsManager {
     public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder) {
         try {
-            List<Users> usersCollection = new ArrayList<>();
-            usersCollection.add(user);
-
             String uqIndex = "" + Math.random() + name;
 
             Objects object = new Objects();
