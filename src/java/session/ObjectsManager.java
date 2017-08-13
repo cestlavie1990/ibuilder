@@ -30,7 +30,7 @@ public class ObjectsManager {
     private SessionContext context;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createObjects(final Users user, final String name, final String address,
+    public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder, final Date dateStart) {
         try {
             List<Users> usersCollection = new ArrayList<>();
@@ -53,7 +53,7 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createObjects(final Users user, final String name, final String address,
+    public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder) {
         try {
             List<Users> usersCollection = new ArrayList<>();

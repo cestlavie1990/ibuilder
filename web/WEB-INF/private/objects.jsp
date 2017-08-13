@@ -11,9 +11,15 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body class="page">
@@ -69,9 +75,18 @@
                                                 <label for="nameGenBuilderObj">Название компании генподрядчика</label>
                                                 <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
                                             </p>
-                                            <p>
+                                            <!--<p>
                                                 <label for="dateStartObj">Дата начала работ</label>
                                                 <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Введите дату в формате 'ДД:ММ:ГГГГ':">                                    
+                                            </p>-->
+                                            <p>
+                                                <label for="dateStartObj">Дата начала работ</label>
+                                                <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">
+                                                <script type="text/javascript">
+                                                    $(function () {
+                                                        $('#dateStartObj').datetimepicker({language: 'ru'});
+                                                    });
+                                                </script>
                                             </p>
                                             <p>
                                                 <button type="submit" class="btn btn-primary">Добавить</button>                                    
@@ -81,7 +96,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-md-9">
