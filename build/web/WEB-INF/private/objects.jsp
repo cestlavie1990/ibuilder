@@ -84,7 +84,7 @@
                                                 <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">
                                                 <script type="text/javascript">
                                                     $(function () {
-                                                        $('#dateStartObj').datetimepicker({language: 'ru'});
+                                                        $('#dateStartObj').datetimepicker({language: 'ru', pickTime: false});
                                                     });
                                                 </script>
                                             </p>

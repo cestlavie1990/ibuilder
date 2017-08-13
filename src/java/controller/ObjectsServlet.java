@@ -3,7 +3,13 @@ package controller;
 import entity.Objects;
 import entity.Users;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
@@ -28,12 +34,9 @@ public class ObjectsServlet extends HttpServlet {
     private ObjectsManager objectsManager;
 
     @EJB
-    private ObjectsFacade objectsFacade;
-
-    @EJB
     private UsersFacade usersFacade;
 
-    private Users user;
+    private String login;
 
     @Override
     public void init() throws ServletException {
@@ -58,16 +61,14 @@ public class ObjectsServlet extends HttpServlet {
         }
         request.setAttribute("login", request.getUserPrincipal().getName());
 
-        String login = request.getAttribute("login").toString();
+        login = request.getAttribute("login").toString();
 
-        user = usersFacade.findByLogin(login);
+        Users user = usersFacade.findByLogin(login);
 
         getServletContext().setAttribute("user", user);
 
-        //getServletContext().setAttribute("objects", objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()));
+        getServletContext().setAttribute("objects", usersFacade.getObjects(user.getRecordId()));
 
-        getServletContext().setAttribute("objects", user.getObjectsCollection());
-        
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
 
@@ -77,7 +78,7 @@ public class ObjectsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         Enumeration<String> parameters = request.getParameterNames();
-        String name = null, address = null, customer = null, generalBuilder = null;
+        String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
 
         while (parameters.hasMoreElements()) {
             String parameter = parameters.nextElement();
@@ -89,10 +90,25 @@ public class ObjectsServlet extends HttpServlet {
                 customer = request.getParameter(parameter);
             } else if (parameter.equals("nameGenBuilderObj")) {
                 generalBuilder = request.getParameter(parameter);
+            } else if (parameter.equals("dateStartObj")) {
+                dateStart = request.getParameter(parameter);
             }
         }
 
-        objectsManager.createObject(user, name, address, customer, generalBuilder);
+        Users user = usersFacade.findByLogin(login);
+
+        if (!dateStart.isEmpty()) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                Date date;
+                date = dateFormat.parse(dateStart);
+                objectsManager.createObject(user, name, address, customer, generalBuilder, date);
+            } catch (ParseException ex) {
+                throw new IllegalArgumentException();
+            }
+        } else {
+            objectsManager.createObject(user, name, address, customer, generalBuilder);
+        }
 
         doGet(request, response);
     }

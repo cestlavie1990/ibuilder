@@ -35,6 +35,8 @@ public class ObjectsManager {
         try {
             List<Users> usersCollection = new ArrayList<>();
             usersCollection.add(user);
+            
+            String uqIndex = "" + Math.random() + name;
 
             Objects object = new Objects();
             object.setName(name);
@@ -43,7 +45,8 @@ public class ObjectsManager {
             object.setGeneralBuilder(generalBuilder);
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(dateStart);
-            object.setUsersCollection(usersCollection);
+            object.setUqIndex(uqIndex);
+            object.addUserToCollection(user);
 
             em.persist(object);
         } catch (Exception e) {
@@ -58,7 +61,7 @@ public class ObjectsManager {
         try {
             List<Users> usersCollection = new ArrayList<>();
             usersCollection.add(user);
-            
+
             String uqIndex = "" + Math.random() + name;
 
             Objects object = new Objects();

@@ -38,11 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
     , @NamedQuery(name = "Users.findByRecordId", query = "SELECT u FROM Users u WHERE u.recordId = :recordId")
     , @NamedQuery(name = "Users.findByLogin", query = "SELECT u FROM Users u WHERE u.login = :login")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-    , @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")
-    , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
-    , @NamedQuery(name = "Users.findByDateRegistration", query = "SELECT u FROM Users u WHERE u.dateRegistration = :dateRegistration")
-    , @NamedQuery(name = "Users.findByPosition", query = "SELECT u FROM Users u WHERE u.position = :position")})
+    , @NamedQuery(name = "Users.getObjects", query = "SELECT o FROM Objects o "
+            + "JOIN o.usersCollection u WHERE u.recordId = :recordId")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -192,7 +189,7 @@ public class Users implements Serializable {
     public void setRecordIdCompany(Companies recordIdCompany) {
         this.recordIdCompany = recordIdCompany;
     }
-    
+
     public void addObjectToCollection(Objects object) {
         this.objectsCollection.add(object);
     }
