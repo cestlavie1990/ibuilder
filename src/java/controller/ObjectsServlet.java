@@ -77,6 +77,7 @@ public class ObjectsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         Enumeration<String> parameters = request.getParameterNames();
         String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
 
@@ -96,21 +97,13 @@ public class ObjectsServlet extends HttpServlet {
         }
 
         Users user = usersFacade.findByLogin(login);
-
+        
         if (!dateStart.isEmpty()) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                Date date;
-                date = dateFormat.parse(dateStart);
-                objectsManager.createObject(user, name, address, customer, generalBuilder, date);
-            } catch (ParseException ex) {
-                throw new IllegalArgumentException();
-            }
+            objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
         } else {
             objectsManager.createObject(user, name, address, customer, generalBuilder);
         }
-
-        doGet(request, response);
+        response.sendRedirect("objects");
     }
 
     @Override

@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -29,21 +31,27 @@ public class ObjectsManager {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void createObject(final Users user, final String name, final String address,
-            final String customer, final String generalBuilder, final Date dateStart) {
+            final String customer, final String generalBuilder, final String dateStart) {
         try {
-            String uqIndex = "" + Math.random() + name;
+            if (name.isEmpty()) {
+            } else {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                Date date = dateFormat.parse(dateStart);
 
-            Objects object = new Objects();
-            object.setName(name);
-            object.setAddress(address);
-            object.setCustomer(customer);
-            object.setGeneralBuilder(generalBuilder);
-            object.setRecordIdCompany(user.getRecordIdCompany());
-            object.setDateCreated(dateStart);
-            object.setUqIndex(uqIndex);
-            object.addUserToCollection(user);
+                String uqIndex = "" + Math.random() + name;
 
-            em.persist(object);
+                Objects object = new Objects();
+                object.setName(name);
+                object.setAddress(address);
+                object.setCustomer(customer);
+                object.setGeneralBuilder(generalBuilder);
+                object.setRecordIdCompany(user.getRecordIdCompany());
+                object.setDateCreated(date);
+                object.setUqIndex(uqIndex);
+                object.addUserToCollection(user);
+
+                em.persist(object);
+            }
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();

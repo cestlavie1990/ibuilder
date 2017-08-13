@@ -77,7 +77,7 @@
                                             </p>
                                             <p>
                                                 <label for="dateStartObj">Дата начала работ</label>
-                                                <input type="date" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">
+                                                <input type="text" name="dateStartObj" class="form-control" id="dateStartObj" readonly="readonly" placeholder="Выберите дату:">
                                                 <script type="text/javascript">
                                                     $(function () {
                                                         $('#dateStartObj').datetimepicker({language: 'ru', pickTime: false});
