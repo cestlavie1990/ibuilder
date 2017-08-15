@@ -3,13 +3,8 @@ package controller;
 import entity.Objects;
 import entity.Users;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
@@ -17,8 +12,6 @@ import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import session.ObjectsFacade;
 import session.ObjectsManager;
 import session.UsersFacade;
 
@@ -36,8 +29,6 @@ public class ObjectsServlet extends HttpServlet {
     @EJB
     private UsersFacade usersFacade;
 
-    private String login;
-
     @Override
     public void init() throws ServletException {
     }
@@ -52,22 +43,12 @@ public class ObjectsServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        if ("/logout".equals(request.getServletPath())) {
-            HttpSession session = request.getSession(false);
-            if (session != null) {
-                session.invalidate();
-            }
-            response.sendRedirect("registration");
-        }
-        request.setAttribute("login", request.getUserPrincipal().getName());
 
-        login = request.getAttribute("login").toString();
-
-        Users user = usersFacade.findByLogin(login);
+        Users user = getUserPrincipal(request);
 
         getServletContext().setAttribute("user", user);
 
-        getServletContext().setAttribute("objects", usersFacade.getObjects(user.getRecordId()));
+        getServletContext().setAttribute("objects", getObjectsCollectionForUser(user));
 
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
@@ -78,6 +59,17 @@ public class ObjectsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        addObject(request);
+
+        response.sendRedirect("objects");
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private void addObject(HttpServletRequest request) {
         Enumeration<String> parameters = request.getParameterNames();
         String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
 
@@ -96,19 +88,27 @@ public class ObjectsServlet extends HttpServlet {
             }
         }
 
-        Users user = usersFacade.findByLogin(login);
-        
+        Users user = getUserPrincipal(request);
+
         if (!dateStart.isEmpty()) {
             objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
         } else {
             objectsManager.createObject(user, name, address, customer, generalBuilder);
         }
-        response.sendRedirect("objects");
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+    private Users getUserPrincipal(HttpServletRequest request) {
+        request.setAttribute("login", request.getUserPrincipal().getName());
+
+        String login = request.getAttribute("login").toString();
+
+        Users user = usersFacade.findByLogin(login);
+
+        return user;
+    }
+
+    private List<Objects> getObjectsCollectionForUser(final Users user) {
+        return usersFacade.getObjects(user.getRecordId());
+    }
 
 }

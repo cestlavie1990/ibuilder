@@ -86,7 +86,7 @@
                                             </p>
                                             <p>
                                                 <button type="submit" class="btn btn-primary">Добавить</button>                                    
-                                            </p>                                            
+                                            </p>                 
                                         </form>
                                     </div>
                                 </div>
