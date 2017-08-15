@@ -85,7 +85,7 @@
                                                 </script>
                                             </p>
                                             <p>
-                                                <button type="submit" class="btn btn-primary">Добавить</button>                                    
+                                                <button type="submit" class="btn btn-primary disabled" id="btnAddObj">Добавить</button>                                    
                                             </p>                 
                                         </form>
                                     </div>
@@ -126,5 +126,14 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).on('input', '#nameObj', function () {
+                if ($('#nameObj').val().trim().length !== 0) {
+                    $('#btnAddObj').removeClass('disabled');
+                } else {
+                    $('#btnAddObj').addClass('disabled');
+                }
+            });
+        </script>
     </body>
 </html>
