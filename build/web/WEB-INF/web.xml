@@ -24,6 +24,10 @@
         <servlet-name>RegistrationFinishedServlet</servlet-name>
         <servlet-class>controller.RegistrationFinishedServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>controller.LogoutServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/registration</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>RegistrationFinishedServlet</servlet-name>
         <url-pattern>/registration_finished</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <!--<security-constraint>
         <display-name>private_zone</display-name>

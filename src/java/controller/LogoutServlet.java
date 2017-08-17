@@ -7,6 +7,7 @@ import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -14,12 +15,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 @ServletSecurity(
         @HttpConstraint(rolesAllowed = {"admin"}))
-public class WorksServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.getRequestDispatcher("WEB-INF/private/works.jsp").forward(request, response);
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        response.sendRedirect("");
     }
 
     @Override

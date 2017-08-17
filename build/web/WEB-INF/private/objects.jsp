@@ -14,7 +14,8 @@
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>-->
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
@@ -28,6 +29,7 @@
                 <div class="col-md-3">
                     <div class="profile text-center">
                         <h4>${user.name}</h4>
+                        <p><button type="button" class="btn btn-primary btn-xs" onclick="location.href = 'logout'">Выйти из профиля</button></p>
                         <img class="avatar" src="avatars/004-agreement.png" width="128px" height="128px">
                         <h5>${user.getRecordIdCompany().name}</h5>
                         <c:if test="${user.position ne null}">
@@ -61,7 +63,7 @@
                                         <form method="POST" action="objects" class="reg-attr">
                                             <p>
                                                 <label for="nameObj">Название объекта строительства</label>
-                                                <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:">                                    
+                                                <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:">
                                             </p>
                                             <p>
                                                 <label for="addressObj">Адрес объекта строительства</label>
@@ -127,13 +129,17 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(document).on('input', '#nameObj', function () {
-                if ($('#nameObj').val().trim().length !== 0) {
-                    $('#btnAddObj').removeClass('disabled');
-                } else {
-                    $('#btnAddObj').addClass('disabled');
-                }
+            $(function () {
+                $(document).on('input', '#nameObj', function () {
+                    if ($('#nameObj').val().trim().length !== 0) {
+                        $('#btnAddObj').removeClass('disabled');
+                    } else {
+                        $('#btnAddObj').addClass('disabled');
+                    }
+                });
             });
+
+
         </script>
     </body>
 </html>

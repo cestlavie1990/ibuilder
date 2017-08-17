@@ -20,6 +20,7 @@
                 <div class="col-md-3">
                     <div class="profile text-center">
                         <h4>Иван Петров</h4>
+                        <p><button type="button" class="btn btn-primary btn-xs" onclick="location.href = 'logout'">Выйти из профиля</button></p>
                         <img class="avatar" src="avatars/004-agreement.png" width="128px" height="128px">
                         <h5>ООО "Лев"</h5>
                         <h5>генеральный директор</h5>
