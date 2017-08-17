@@ -28,6 +28,7 @@ public class RegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         request.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(request, response);
     }
 
@@ -36,6 +37,16 @@ public class RegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+
+        createCompanyAndUser(request, response);
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private void createCompanyAndUser(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = null, companyName = null, password = null,
                 passwordConfirm = null, login = null, username = null, position = null;
         Enumeration<String> parameters = request.getParameterNames();
@@ -75,10 +86,5 @@ public class RegistrationServlet extends HttpServlet {
             doGet(request, response);
         }
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
