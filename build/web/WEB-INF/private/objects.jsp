@@ -14,8 +14,8 @@
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>-->
-        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
@@ -41,8 +41,9 @@
                         <button type="button" class="btn btn-primary btn-xs">Добавить пользователя</button>
                     </div>
                     <div class="info text-center">                        
-                        <h4>Объекты строительства</h4><button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addObjModal">Добавить</button>
-                        <button type="button" class="btn btn-primary btn-xs">Удалить</button>
+                        <h4>Объекты строительства</h4>
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addObjModal">Добавить</button>
+                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#deleteObjModal">Удалить</button>
                         <a href="#active-obj" data-toggle="collapse" id="btn-collapse">
                             <strong><p>Активные объекты</p></strong>
                         </a>
@@ -87,7 +88,26 @@
                                                 </script>
                                             </p>
                                             <p>
-                                                <button type="submit" class="btn btn-primary disabled" id="btnAddObj">Добавить</button>                                    
+                                                <button type="submit" class="btn btn-primary disabled" id="btnAddObj" name="btnAction" value="add">Добавить</button>                                    
+                                            </p>                 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="deleteObjModal" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                        <h4>Удаление объектов строительства</h4>
+                                    </div>
+                                    <div class="modal-body" style="color: #2D2D30">                                        
+                                        <form method="POST" action="objects" class="reg-attr">
+                                            <p>Удаление</p>
+                                            <p>
+                                                <button type="submit" class="btn btn-primary" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>                                    
                                             </p>                 
                                         </form>
                                     </div>
@@ -129,17 +149,13 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(function () {
-                $(document).on('input', '#nameObj', function () {
-                    if ($('#nameObj').val().trim().length !== 0) {
-                        $('#btnAddObj').removeClass('disabled');
-                    } else {
-                        $('#btnAddObj').addClass('disabled');
-                    }
-                });
+            $(document).on('input', '#nameObj', function () {
+                if ($('#nameObj').val().trim().length !== 0) {
+                    $('#btnAddObj').removeClass('disabled');
+                } else {
+                    $('#btnAddObj').addClass('disabled');
+                }
             });
-
-
         </script>
     </body>
 </html>

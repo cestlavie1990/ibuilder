@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
 import javax.servlet.annotation.ServletSecurity;
@@ -59,7 +60,13 @@ public class ObjectsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        addObject(request);
+        String action = request.getParameter("btnAction");
+
+        if (action.equals("add")) {
+            addObject(request);
+        } else if (action.equals("delete")) {
+            
+        }
 
         response.sendRedirect("objects");
     }
