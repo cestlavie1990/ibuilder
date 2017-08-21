@@ -11,10 +11,6 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-        <!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -43,7 +39,6 @@
                     <div class="info text-center">                        
                         <h4>Объекты строительства</h4>
                         <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#addObjModal">Добавить</button>
-                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#deleteObjModal">Удалить</button>
                         <a href="#active-obj" data-toggle="collapse" id="btn-collapse">
                             <strong><p>Активные объекты</p></strong>
                         </a>
@@ -95,25 +90,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modal fade" id="deleteObjModal" role="dialog">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">×</button>
-                                        <h4>Удаление объектов строительства</h4>
-                                    </div>
-                                    <div class="modal-body" style="color: #2D2D30">                                        
-                                        <form method="POST" action="objects" class="reg-attr">
-                                            <p>Удаление</p>
-                                            <p>
-                                                <button type="submit" class="btn btn-primary" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>                                    
-                                            </p>                 
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -125,6 +101,34 @@
                                     <h5>адрес: <strong>${object.address}</strong></h5>
                                     <h5>заказчик: <strong>${object.customer}</strong></h5>
                                     <h5>генеральный подрядчик: <strong>${object.generalBuilder}</strong></h5>
+                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#editObjModal">Изменить</button>
+                                    
+                                    <c:if test="${user.getRole() eq 'ADMINISTRATOR'}">
+                                        <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#deleteObjModal${object.recordId}">Удалить объект</button>
+
+                                        <div class="modal fade" id="deleteObjModal${object.recordId}" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                        <h4>Удаление объекта строительства</h4>
+                                                    </div>
+                                                    <div class="modal-body" style="color: #2D2D30">                                        
+                                                        <form method="POST" action="objects" class="reg-attr">
+                                                            <p>Вы уверены, что хотите удалить объект <strong>${object.name}</strong>?</p>
+                                                            <p>После удаления данные уже невозможно будет восстановить</p>
+                                                            <input type="hidden" name="objectId" value="${object.recordId}">
+                                                            <p>
+                                                                <button type="submit" class="btn btn-primary" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>
+                                                                <button type="reset" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+                                                            </p>                 
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+
                                 </div>
                                 <div class="objects-places">
                                     <h4>Участки строительства</h4>

@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session;
 
 import entity.Companies;
 import entity.Objects;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,6 +29,10 @@ public class ObjectsFacade extends AbstractFacade<Objects> {
     public List findObjectsListByCompany(final Companies company) {
         List resultList = em.createNamedQuery("Objects.findByCompany").setParameter("recordIdCompany", company).getResultList();
         return resultList;
+    }
+    
+        public Objects findObjectByRecordId(final Integer recordId) {
+        return (Objects) em.createNamedQuery("Objects.findByRecordId").setParameter("recordId", recordId).getSingleResult();
     }
     
 }

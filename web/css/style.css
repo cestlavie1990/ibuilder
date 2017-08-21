@@ -97,17 +97,29 @@
 =====================objects=====================
 */
 
-.objectName li {
+.objectName li, .objectNameDel li {
     background-color: #EDEEF0;
     padding: 10px 0px 10px 0px;
+    list-style-type: none;
 }
 
-.objectName:hover {
+.objectNameDelOn li {
+    color: white;
+    background-color: #507299;
+    list-style-type: none;
+}
+
+.objectName:hover, .objectNameDel:hover {
     text-decoration: none;
 }
 
-.objectName:focus {
+.objectName:focus, .objectNameDel:focus {
     text-decoration: none;
+}
+
+.objectNameDel:hover li, .objectName:hover li, .objectName:focus li {
+    color: white;
+    background-color: #507299;
 }
 
 #places a {

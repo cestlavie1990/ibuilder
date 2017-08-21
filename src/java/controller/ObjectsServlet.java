@@ -13,6 +13,7 @@ import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import session.ObjectsFacade;
 import session.ObjectsManager;
 import session.UsersFacade;
 
@@ -65,7 +66,7 @@ public class ObjectsServlet extends HttpServlet {
         if (action.equals("add")) {
             addObject(request);
         } else if (action.equals("delete")) {
-            
+            deleteObject(request);
         }
 
         response.sendRedirect("objects");
@@ -116,6 +117,17 @@ public class ObjectsServlet extends HttpServlet {
 
     private List<Objects> getObjectsCollectionForUser(final Users user) {
         return usersFacade.getObjects(user.getRecordId());
+    }
+
+    private void deleteObject(HttpServletRequest request) {
+        try {
+            String objectId = request.getParameter("objectId");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Users user = getUserPrincipal(request);
+            objectsManager.deleteObject(recordIdObject, user);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
 }

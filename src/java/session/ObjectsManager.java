@@ -13,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import javax.ejb.EJB;
 
 /**
  *
@@ -24,6 +26,9 @@ public class ObjectsManager {
 
     @PersistenceContext(unitName = "IBuilderPU")
     private EntityManager em;
+    
+    @EJB
+    private ObjectsFacade objectsFacade;
 
     @Resource
     private SessionContext context;
@@ -78,6 +83,29 @@ public class ObjectsManager {
             context.setRollbackOnly();
             e.printStackTrace();
         }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void deleteObject(final Integer recorIdObject, final Users user) {
+        try {
+            
+            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
+            Collection<Objects> objectsCollection = user.getObjectsCollection();
+            if (objectsCollection.contains(object) || isAdministrator(user)) {
+                em.remove(object);
+            } else {
+                throw new IllegalArgumentException();
+            }
+
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+        }
+
+    }
+    
+    private boolean isAdministrator(final Users user) {
+        return user.getRole().equals("ADMINISTRATOR");
     }
 
 }
