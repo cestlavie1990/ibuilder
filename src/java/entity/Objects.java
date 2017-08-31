@@ -47,40 +47,50 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Objects implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "record_id")
     private Integer recordId;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    
     @Size(max = 255)
     @Column(name = "address")
     private String address;
+    
     @Size(max = 255)
     @Column(name = "customer")
     private String customer;
+    
     @Size(max = 255)
     @Column(name = "general_builder")
     private String generalBuilder;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
+    
     @JoinTable(name = "users_and_objects", joinColumns = {
         @JoinColumn(name = "record_id_object", referencedColumnName = "record_id")}, inverseJoinColumns = {
         @JoinColumn(name = "record_id_user", referencedColumnName = "record_id")})
     @ManyToMany//(mappedBy = "objectsCollection")
     private Collection<Users> usersCollection = new ArrayList<>();
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recordIdObject")
     private Collection<Places> placesCollection;
+    
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
+    
     @Column(name = "is_active")
     private Boolean isActive;
 

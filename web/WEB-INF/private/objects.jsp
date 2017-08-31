@@ -13,12 +13,9 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
-        <!--<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css" />-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Объекты строительства</title>
@@ -61,15 +58,17 @@
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                         <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
-                        <li><a data-toggle="pill" href="#obj-content" class="objectName">о. Новая Голландия</a></li>
-                        <li><a data-toggle="pill" href="#obj-content" class="objectName">ул. Куйбышева</a></li>
+                            <c:forEach var="object" items="${activeObjects}">
+                            <li><a data-toggle="pill" href="#obj-content" class="objectName">${object.name}</a></li>
+                            </c:forEach>
                     </ul>
                     <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                         <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
-                        <li><a data-toggle="pill" href="#obj-content" class="objectName">Новая Славянка</a></li>
-                        <li><a data-toggle="pill" href="#obj-content" class="objectName">Парашютная ул.</a></li>
+                        <c:forEach var="object" items="${finishedObjects}">
+                            <li><a data-toggle="pill" href="#obj-content" class="objectName">${object.name}</a></li>
+                            </c:forEach>
                     </ul>
                 </div>
             </div>
