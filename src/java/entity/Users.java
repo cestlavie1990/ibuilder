@@ -39,56 +39,69 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByRecordId", query = "SELECT u FROM Users u WHERE u.recordId = :recordId")
     , @NamedQuery(name = "Users.findByLogin", query = "SELECT u FROM Users u WHERE u.login = :login")
     , @NamedQuery(name = "Users.getObjects", query = "SELECT o FROM Objects o "
-            + "JOIN o.usersCollection u WHERE u.recordId = :recordId")})
+            + "JOIN o.usersCollection u WHERE u.recordId = :recordId")
+    , @NamedQuery(name = "Users.getObjectsByStatus", query = "SELECT o FROM Objects o "
+            + "JOIN o.usersCollection u WHERE u.recordId = :recordId AND o.isActive = :status")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "record_id")
     private Integer recordId;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "login")
     private String login;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "role")
     private String role;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_registration")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateRegistration;
+
     @Size(max = 255)
     @Column(name = "position")
     private String position;
+
     @JoinTable(name = "users_and_places", joinColumns = {
         @JoinColumn(name = "record_id_user", referencedColumnName = "record_id")}, inverseJoinColumns = {
         @JoinColumn(name = "record_id_place", referencedColumnName = "record_id")})
     @ManyToMany
     private Collection<Places> placesCollection;
+
     @JoinTable(name = "users_and_objects", joinColumns = {
         @JoinColumn(name = "record_id_user", referencedColumnName = "record_id")}, inverseJoinColumns = {
         @JoinColumn(name = "record_id_object", referencedColumnName = "record_id")})
     @ManyToMany
     private Collection<Objects> objectsCollection = new ArrayList<>();
+
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userLogin")
     private Collection<GroupUsers> groupUsersCollection;
 

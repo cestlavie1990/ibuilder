@@ -41,8 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Objects.findByCustomer", query = "SELECT o FROM Objects o WHERE o.customer = :customer")
     , @NamedQuery(name = "Objects.findByGeneralBuilder", query = "SELECT o FROM Objects o WHERE o.generalBuilder = :generalBuilder")
     , @NamedQuery(name = "Objects.findByDateCreated", query = "SELECT o FROM Objects o WHERE o.dateCreated = :dateCreated")
-    , @NamedQuery(name = "Objects.findByCompany", query = "SELECT o FROM Objects o WHERE o.recordIdCompany = :recordIdCompany")
-    , @NamedQuery(name = "Objects.findByUqIndex", query = "SELECT o FROM Objects o WHERE o.uqIndex = :uqIndex")})
+    , @NamedQuery(name = "Objects.findByCompany", query = "SELECT o FROM Objects o WHERE o.recordIdCompany = :company")
+    , @NamedQuery(name = "Objects.findByCompanyAndStatus", query = "SELECT o FROM Objects o WHERE "
+            + "o.recordIdCompany = :company AND o.isActive = :status")})
 public class Objects implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -80,11 +81,8 @@ public class Objects implements Serializable {
     @JoinColumn(name = "record_id_company", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Companies recordIdCompany;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "uq_index")
-    private String uqIndex;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     public Objects() {
     }
@@ -173,6 +171,14 @@ public class Objects implements Serializable {
         this.recordIdCompany = recordIdCompany;
     }
 
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public void addUserToCollection(Users user) {
         this.usersCollection.add(user);
     }
@@ -201,13 +207,4 @@ public class Objects implements Serializable {
     public String toString() {
         return "entity.Objects[ recordId=" + recordId + " ]";
     }
-
-    public String getUqIndex() {
-        return uqIndex;
-    }
-
-    public void setUqIndex(String uqIndex) {
-        this.uqIndex = uqIndex;
-    }
-
 }

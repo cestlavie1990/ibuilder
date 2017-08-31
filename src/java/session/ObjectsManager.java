@@ -41,8 +41,6 @@ public class ObjectsManager {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             Date date = dateFormat.parse(dateStart);
 
-            String uqIndex = "" + Math.random() + name;
-
             Objects object = new Objects();
             object.setName(name);
             object.setAddress(address);
@@ -50,7 +48,6 @@ public class ObjectsManager {
             object.setGeneralBuilder(generalBuilder);
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(date);
-            object.setUqIndex(uqIndex);
             object.addUserToCollection(user);
 
             em.persist(object);
@@ -73,7 +70,6 @@ public class ObjectsManager {
             object.setGeneralBuilder(generalBuilder);
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(new Date());
-            object.setUqIndex(uqIndex);
             object.addUserToCollection(user);
 
             em.persist(object);

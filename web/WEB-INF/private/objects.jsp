@@ -51,8 +51,8 @@
             <div class="list-cell">
                 <div class="box1">
                     <h4>${user.getRecordIdCompany().name}</h4>
-                    <p>Всего активных объектов: <strong>${user.getObjectsCollection().size()}</strong></p>
-                    <p>На контроле: <strong>${countControlObjects}</strong></p>
+                    <p>Всего активных объектов: <strong>${countActiveObjects}</strong></p>
+                    <p>На контроле: <strong>${activeObjects.size()}</strong></p>
                 </div>
                 <div class="box2">
                     <h4>Объекты строительства</h4>

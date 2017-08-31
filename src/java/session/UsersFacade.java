@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package session;
 
 import entity.Objects;
@@ -38,6 +33,10 @@ public class UsersFacade extends AbstractFacade<Users> {
     
     public List<Objects> getObjects(final Integer recordId) {
         return em.createNamedQuery("Users.getObjects").setParameter("recordId", recordId).getResultList();
+    }
+    
+    public List<Objects> getObjectsByStatus(final Integer recordId, final boolean status) {
+        return em.createNamedQuery("Users.getObjectsByStatus").setParameter("recordId", recordId).setParameter("status", status).getResultList();
     }
 
 }

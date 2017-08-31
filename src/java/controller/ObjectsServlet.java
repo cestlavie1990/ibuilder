@@ -1,5 +1,6 @@
 package controller;
 
+import entity.Companies;
 import entity.Objects;
 import entity.Users;
 import java.io.IOException;
@@ -51,13 +52,13 @@ public class ObjectsServlet extends HttpServlet {
 
         Users user = getUserPrincipal(request);
         
-        Integer countControlObjects = objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()).size();
+        Integer countActiveObjects = getObjectsByCompanyAndStatus(user.getRecordIdCompany(), true).size();
 
         getServletContext().setAttribute("user", user);
-        
-        getServletContext().setAttribute("countControlObjects", countControlObjects);
-
+        getServletContext().setAttribute("countActiveObjects", countActiveObjects);
         getServletContext().setAttribute("objects", getObjectsCollectionForUser(user));
+        getServletContext().setAttribute("activeObjects", getObjectsByStatus(user, true));
+        getServletContext().setAttribute("finishedObjects", getObjectsByStatus(user, false));
 
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
@@ -168,6 +169,18 @@ public class ObjectsServlet extends HttpServlet {
         Users user = usersFacade.findByLogin(login);
 
         return user;
+    }
+    
+    private List<Objects> getObjectsCollectionForCompany(final Companies company) {
+        return objectsFacade.findObjectsListByCompany(company);
+    }
+    
+    private List<Objects> getObjectsByCompanyAndStatus(final Companies company, final boolean status) {
+        return objectsFacade.findObjectsByCompanyAndStatus(company, status);
+    }
+    
+    private List<Objects> getObjectsByStatus(final Users user, final boolean status) {
+        return usersFacade.getObjectsByStatus(user.getRecordId(), status);
     }
 
     private List<Objects> getObjectsCollectionForUser(final Users user) {

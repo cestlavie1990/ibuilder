@@ -27,8 +27,12 @@ public class ObjectsFacade extends AbstractFacade<Objects> {
     }
     
     public List findObjectsListByCompany(final Companies company) {
-        List resultList = em.createNamedQuery("Objects.findByCompany").setParameter("recordIdCompany", company).getResultList();
+        List resultList = em.createNamedQuery("Objects.findByCompany").setParameter("company", company).getResultList();
         return resultList;
+    }
+    
+    public List findObjectsByCompanyAndStatus(final Companies company, final boolean status) {
+        return em.createNamedQuery("Objects.findByCompanyAndStatus").setParameter("company", company).setParameter("status", status).getResultList();
     }
     
         public Objects findObjectByRecordId(final Integer recordId) {
