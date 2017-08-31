@@ -26,7 +26,7 @@ public class ObjectsManager {
 
     @PersistenceContext(unitName = "IBuilderPU")
     private EntityManager em;
-    
+
     @EJB
     private ObjectsFacade objectsFacade;
 
@@ -37,25 +37,23 @@ public class ObjectsManager {
     public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder, final String dateStart) {
         try {
-            if (name.isEmpty()) {
-            } else {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                Date date = dateFormat.parse(dateStart);
 
-                String uqIndex = "" + Math.random() + name;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = dateFormat.parse(dateStart);
 
-                Objects object = new Objects();
-                object.setName(name);
-                object.setAddress(address);
-                object.setCustomer(customer);
-                object.setGeneralBuilder(generalBuilder);
-                object.setRecordIdCompany(user.getRecordIdCompany());
-                object.setDateCreated(date);
-                object.setUqIndex(uqIndex);
-                object.addUserToCollection(user);
+            String uqIndex = "" + Math.random() + name;
 
-                em.persist(object);
-            }
+            Objects object = new Objects();
+            object.setName(name);
+            object.setAddress(address);
+            object.setCustomer(customer);
+            object.setGeneralBuilder(generalBuilder);
+            object.setRecordIdCompany(user.getRecordIdCompany());
+            object.setDateCreated(date);
+            object.setUqIndex(uqIndex);
+            object.addUserToCollection(user);
+
+            em.persist(object);
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
@@ -88,10 +86,8 @@ public class ObjectsManager {
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteObject(final Integer recorIdObject, final Users user) {
         try {
-            
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
-            Collection<Objects> objectsCollection = user.getObjectsCollection();
-            if (objectsCollection.contains(object) || isAdministrator(user)) {
+            if (isUserHasObject(object, user) && isAdministrator(user)) {
                 em.remove(object);
             } else {
                 throw new IllegalArgumentException();
@@ -103,9 +99,60 @@ public class ObjectsManager {
         }
 
     }
-    
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void editObject(final Integer recorIdObject, final Users user, final String name,
+            final String address, final String customer, final String generalBuilder, final String dateStart) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            Date date = dateFormat.parse(dateStart);
+
+            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
+
+            if (isUserHasObject(object, user)) {
+                object.setName(name);
+                object.setAddress(address);
+                object.setCustomer(customer);
+                object.setGeneralBuilder(generalBuilder);
+                object.setDateCreated(date);
+                em.refresh(object);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+        }
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void editObject(final Integer recorIdObject, final Users user, final String name,
+            final String address, final String customer, final String generalBuilder) {
+        try {
+            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
+
+            if (isUserHasObject(object, user)) {
+                object.setName(name);
+                object.setAddress(address);
+                object.setCustomer(customer);
+                object.setGeneralBuilder(generalBuilder);
+                em.refresh(object);
+            } else {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+        }
+    }
+
     private boolean isAdministrator(final Users user) {
         return user.getRole().equals("ADMINISTRATOR");
+    }
+
+    private boolean isUserHasObject(final Objects object, final Users user) {
+        Collection<Objects> objectsCollection = user.getObjectsCollection();
+        return objectsCollection.contains(object);
     }
 
 }

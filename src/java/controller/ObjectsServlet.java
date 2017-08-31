@@ -31,6 +31,9 @@ public class ObjectsServlet extends HttpServlet {
     @EJB
     private UsersFacade usersFacade;
 
+    @EJB
+    private ObjectsFacade objectsFacade;
+
     @Override
     public void init() throws ServletException {
     }
@@ -47,8 +50,12 @@ public class ObjectsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         Users user = getUserPrincipal(request);
+        
+        Integer countControlObjects = objectsFacade.findObjectsListByCompany(user.getRecordIdCompany()).size();
 
         getServletContext().setAttribute("user", user);
+        
+        getServletContext().setAttribute("countControlObjects", countControlObjects);
 
         getServletContext().setAttribute("objects", getObjectsCollectionForUser(user));
 
@@ -67,6 +74,8 @@ public class ObjectsServlet extends HttpServlet {
             addObject(request);
         } else if (action.equals("delete")) {
             deleteObject(request);
+        } else if (action.equals("edit")) {
+            editObject(request);
         }
 
         response.sendRedirect("objects");
@@ -105,6 +114,52 @@ public class ObjectsServlet extends HttpServlet {
         }
     }
 
+    private void deleteObject(HttpServletRequest request) {
+        try {
+            String objectId = request.getParameter("objectId");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Users user = getUserPrincipal(request);
+            objectsManager.deleteObject(recordIdObject, user);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void editObject(HttpServletRequest request) {
+        try {
+            String objectId = request.getParameter("objectId");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Users user = getUserPrincipal(request);
+
+            Enumeration<String> parameters = request.getParameterNames();
+            String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
+
+            while (parameters.hasMoreElements()) {
+                String parameter = parameters.nextElement();
+                if (parameter.equals("editNameObj")) {
+                    name = request.getParameter(parameter);
+                } else if (parameter.equals("editAddressObj")) {
+                    address = request.getParameter(parameter);
+                } else if (parameter.equals("editNameCustomerObj")) {
+                    customer = request.getParameter(parameter);
+                } else if (parameter.equals("editNameGenBuilderObj")) {
+                    generalBuilder = request.getParameter(parameter);
+                } else if (parameter.equals("editDateStartObj")) {
+                    dateStart = request.getParameter(parameter);
+                }
+            }
+
+            if (!dateStart.isEmpty()) {
+                objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
+            } else {
+                objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder);
+            }
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Users getUserPrincipal(HttpServletRequest request) {
         request.setAttribute("login", request.getUserPrincipal().getName());
 
@@ -117,17 +172,6 @@ public class ObjectsServlet extends HttpServlet {
 
     private List<Objects> getObjectsCollectionForUser(final Users user) {
         return usersFacade.getObjects(user.getRecordId());
-    }
-
-    private void deleteObject(HttpServletRequest request) {
-        try {
-            String objectId = request.getParameter("objectId");
-            Integer recordIdObject = Integer.parseInt(objectId);
-            Users user = getUserPrincipal(request);
-            objectsManager.deleteObject(recordIdObject, user);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
     }
 
 }
