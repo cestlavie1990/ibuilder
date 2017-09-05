@@ -37,7 +37,6 @@ public class ObjectsManager {
     public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder, final String dateStart) {
         try {
-
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             Date date = dateFormat.parse(dateStart);
 
@@ -61,8 +60,6 @@ public class ObjectsManager {
     public void createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder) {
         try {
-            String uqIndex = "" + Math.random() + name;
-
             Objects object = new Objects();
             object.setName(name);
             object.setAddress(address);

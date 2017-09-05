@@ -4,10 +4,11 @@ import entity.Companies;
 import entity.Objects;
 import entity.Users;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.HttpConstraint;
 import javax.servlet.annotation.ServletSecurity;
@@ -51,14 +52,20 @@ public class ObjectsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         Users user = getUserPrincipal(request);
-        
-        Integer countActiveObjects = getObjectsByCompanyAndStatus(user.getRecordIdCompany(), true).size();
 
-        getServletContext().setAttribute("user", user);
-        getServletContext().setAttribute("countActiveObjects", countActiveObjects);
-        getServletContext().setAttribute("objects", getObjectsCollectionForUser(user));
-        getServletContext().setAttribute("activeObjects", getObjectsByStatus(user, true));
-        getServletContext().setAttribute("finishedObjects", getObjectsByStatus(user, false));
+        Integer countAllActiveObjects = getObjectsByCompanyAndStatus(user.getRecordIdCompany(), true).size();
+        String username = user.getName();
+        String companyName = user.getRecordIdCompany().getName();
+        Collection<Objects> objectsByUser = getObjectsByUser(user);
+        List<Objects> activeObjects = new ArrayList<>(getObjectsByStatus(user, true));
+        Collection<Objects> finishedObjects = getObjectsByStatus(user, false);
+        
+        getServletContext().setAttribute("username", username);
+        getServletContext().setAttribute("companyName", companyName);
+        getServletContext().setAttribute("countAllActiveObjects", countAllActiveObjects);
+        getServletContext().setAttribute("objects", objectsByUser);
+        getServletContext().setAttribute("activeObjects", activeObjects);
+        getServletContext().setAttribute("finishedObjects", finishedObjects);
 
         request.getRequestDispatcher("/WEB-INF/private/objects.jsp").forward(request, response);
     }
@@ -170,20 +177,16 @@ public class ObjectsServlet extends HttpServlet {
 
         return user;
     }
-    
-    private List<Objects> getObjectsCollectionForCompany(final Companies company) {
-        return objectsFacade.findObjectsListByCompany(company);
-    }
-    
+
     private List<Objects> getObjectsByCompanyAndStatus(final Companies company, final boolean status) {
         return objectsFacade.findObjectsByCompanyAndStatus(company, status);
     }
-    
+
     private List<Objects> getObjectsByStatus(final Users user, final boolean status) {
         return usersFacade.getObjectsByStatus(user.getRecordId(), status);
     }
 
-    private List<Objects> getObjectsCollectionForUser(final Users user) {
+    private List<Objects> getObjectsByUser(final Users user) {
         return usersFacade.getObjects(user.getRecordId());
     }
 

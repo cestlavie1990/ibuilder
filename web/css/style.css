@@ -285,10 +285,10 @@ body {
     margin-right: 10px;
 }
 
-.nav-pills {
+/*.nav-pills {
     overflow-y: scroll;
     max-height: 500px;
-}
+}*/
 
 .nav-pills li a {
     color: black;
@@ -316,4 +316,9 @@ body {
     text-decoration: none;
     background-color: #D9534F;
     color: white;
+}
+
+#objSelect {
+    width: 100%;
+    border-radius: 0;
 }

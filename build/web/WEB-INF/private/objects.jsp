@@ -25,7 +25,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <div class="dropdown">
-                        <span class="text">${user.name}</span>
+                        <span class="text">${username}</span>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="Настройки">
                             <i class="glyphicon glyphicon-cog" style="color: white"></i>
                         </a>
@@ -47,8 +47,8 @@
         <div class="main-row">
             <div class="list-cell">
                 <div class="box1">
-                    <h4>${user.getRecordIdCompany().name}</h4>
-                    <p>Всего активных объектов: <strong>${countActiveObjects}</strong></p>
+                    <h4>${companyName}</h4>
+                    <p>Всего активных объектов: <strong>${countAllActiveObjects}</strong></p>
                     <p>На контроле: <strong>${activeObjects.size()}</strong></p>
                 </div>
                 <div class="box2">
@@ -58,14 +58,31 @@
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                         <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
-                            <c:forEach var="object" items="${activeObjects}">
-                            <li><a data-toggle="pill" href="#obj-content" class="objectName">${object.name}</a></li>
-                            </c:forEach>
+                            <c:if test="${activeObjects.size() == 0}">
+                            <h5>Активные объекты отсутствуют</h5>
+                        </c:if>
+                        <!--<c:forEach var="object" items="${activeObjects}">
+                            <li>
+                                <button type="submit" class="btn btn-default" value="" id="objSelect">
+                            ${object.name}
+                        </button>
+                    </li>
+                        </c:forEach>-->
+                        <c:forEach var="i" begin="0" end="${activeObjects.size()-1}">
+                            <li>
+                                <button type="submit" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfo(this)'>
+                                    ${activeObjects.get(i).name}
+                                </button>
+                            </li>
+                        </c:forEach>
                     </ul>
                     <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                         <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
+                        <c:if test="${finishedObjects.size() == 0}">
+                            <h5>Завершённые объекты отсутствуют</h5>
+                        </c:if>
                         <c:forEach var="object" items="${finishedObjects}">
                             <li><a data-toggle="pill" href="#obj-content" class="objectName">${object.name}</a></li>
                             </c:forEach>
@@ -79,6 +96,27 @@
             </div>
         </div>
     </body>
+    <script>
+        var activeObjects = [];
+        function getObjects (items) {
+            
+        }
+        
+        var arrayObject = [];
+        var index = 0;
+        <c:forEach var="object" items="${activeObjects}">
+        arrayObject[index] = {
+            recordId: '${object.recordId}',
+            name: '${object.name}'
+        };
+        //alert(arrayObject[index].name);
+        ++index;
+        </c:forEach>
+
+        function loadInfo(button) {
+            alert(arrayObject[button.value].name + " " + arrayObject[button.value].recordId);
+        }
+    </script>
     <!--<body class="page">
         <div class="cont-page">
             <div class="row">
