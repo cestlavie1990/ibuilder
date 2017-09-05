@@ -61,16 +61,9 @@
                             <c:if test="${activeObjects.size() == 0}">
                             <h5>Активные объекты отсутствуют</h5>
                         </c:if>
-                        <!--<c:forEach var="object" items="${activeObjects}">
-                            <li>
-                                <button type="submit" class="btn btn-default" value="" id="objSelect">
-                            ${object.name}
-                        </button>
-                    </li>
-                        </c:forEach>-->
                         <c:forEach var="i" begin="0" end="${activeObjects.size()-1}">
                             <li>
-                                <button type="submit" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfo(this)'>
+                                <button type="button" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfoA(this)'>
                                     ${activeObjects.get(i).name}
                                 </button>
                             </li>
@@ -83,9 +76,13 @@
                         <c:if test="${finishedObjects.size() == 0}">
                             <h5>Завершённые объекты отсутствуют</h5>
                         </c:if>
-                        <c:forEach var="object" items="${finishedObjects}">
-                            <li><a data-toggle="pill" href="#obj-content" class="objectName">${object.name}</a></li>
-                            </c:forEach>
+                        <c:forEach var="i" begin="0" end="${finishedObjects.size()-1}">
+                            <li>
+                                <button type="button" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfoF(this)'>
+                                    ${finishedObjects.get(i).name}
+                                </button>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -97,24 +94,41 @@
         </div>
     </body>
     <script>
-        var activeObjects = [];
-        function getObjects (items) {
-            
-        }
-        
-        var arrayObject = [];
-        var index = 0;
+        function getActiveObjects() {
+            var arrayObjects = [];
+            var index = 0;
         <c:forEach var="object" items="${activeObjects}">
-        arrayObject[index] = {
-            recordId: '${object.recordId}',
-            name: '${object.name}'
-        };
-        //alert(arrayObject[index].name);
-        ++index;
+            arrayObjects[index] = {
+                recordId: '${object.recordId}',
+                name: '${object.name}'
+            };
+            ++index;
         </c:forEach>
+            return arrayObjects;
+        }
 
-        function loadInfo(button) {
-            alert(arrayObject[button.value].name + " " + arrayObject[button.value].recordId);
+        function getFinishedObjects() {
+            var arrayObjects = [];
+            var index = 0;
+        <c:forEach var="object" items="${finishedObjects}">
+            arrayObjects[index] = {
+                recordId: '${object.recordId}',
+                name: '${object.name}'
+            };
+            ++index;
+        </c:forEach>
+            return arrayObjects;
+        }
+
+        var activeObjects = getActiveObjects();
+        var finishedObjects = getFinishedObjects();
+        
+        function loadInfoA(button) {
+            alert(activeObjects[button.value].name + " " + activeObjects[button.value].recordId);
+        }
+
+        function loadInfoF(button) {
+            alert(finishedObjects[button.value].name + " " + finishedObjects[button.value].recordId);
         }
     </script>
     <!--<body class="page">
