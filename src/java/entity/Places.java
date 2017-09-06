@@ -39,26 +39,32 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Places implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "record_id")
     private Integer recordId;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "date_created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
+    
     @ManyToMany(mappedBy = "placesCollection")
     private Collection<Users> usersCollection;
+    
     @JoinColumn(name = "record_id_object", referencedColumnName = "record_id")
     @ManyToOne(optional = false)
     private Objects recordIdObject;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recordIdPlace")
     private Collection<Works> worksCollection;
 

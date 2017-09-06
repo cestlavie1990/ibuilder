@@ -88,7 +88,11 @@
             </div>
             <div class="about-cell">
                 <div class="area1">
-                    <p>Текст</p>
+                    <p>Пулковское ш.</p>
+                    <p>адрес: Пулковское шоссе д. 35</p>
+                    <p>заказчик: ОАО "ЛСР-БАЗОВЫЕ"</p>
+                    <p>генеральный-подрядчик: ЗАО "ЛСР"</p>
+                    <p>дата начала работ: 21.07.2017</p>
                 </div>
             </div>
         </div>
@@ -98,9 +102,24 @@
             var arrayObjects = [];
             var index = 0;
         <c:forEach var="object" items="${activeObjects}">
+            var places = [];
+            var count = 0;
+            <c:forEach var="place" items="${object.placesCollection}">
+            places[count] = {
+                recordId: '${place.recordId}',
+                name: '${place.name}',
+                dateCreated: '${place.dateCreated}'
+            };
+            ++count;
+            </c:forEach>
             arrayObjects[index] = {
                 recordId: '${object.recordId}',
-                name: '${object.name}'
+                name: '${object.name}',
+                address: '${object.address}',
+                customer: '${object.customer}',
+                generalBuilder: '${object.generalBuilder}',
+                dateCreated: '${object.dateCreated}',
+                placesCollection: places
             };
             ++index;
         </c:forEach>
@@ -111,9 +130,24 @@
             var arrayObjects = [];
             var index = 0;
         <c:forEach var="object" items="${finishedObjects}">
+            var places = [];
+            var count = 0;
+            <c:forEach var="place" items="${object.placesCollection}">
+            places[count] = {
+                recordId: '${place.recordId}',
+                name: '${place.name}',
+                dateCreated: '${place.dateCreated}'
+            };
+            ++count;
+            </c:forEach>
             arrayObjects[index] = {
                 recordId: '${object.recordId}',
-                name: '${object.name}'
+                name: '${object.name}',
+                address: '${object.address}',
+                customer: '${object.customer}',
+                generalBuilder: '${object.generalBuilder}',
+                dateCreated: '${object.dateCreated}',
+                placesCollection: places
             };
             ++index;
         </c:forEach>
@@ -122,13 +156,14 @@
 
         var activeObjects = getActiveObjects();
         var finishedObjects = getFinishedObjects();
-        
+
         function loadInfoA(button) {
-            alert(activeObjects[button.value].name + " " + activeObjects[button.value].recordId);
+            $('.area1').remove();
+            $('.about-cell').append('<div class="area1" id="del"><p>' + button.value + '</p></div>');
         }
 
         function loadInfoF(button) {
-            alert(finishedObjects[button.value].name + " " + finishedObjects[button.value].recordId);
+            //alert(finishedObjects[button.value].name + " " + finishedObjects[button.value].recordId);
         }
     </script>
     <!--<body class="page">
