@@ -265,6 +265,16 @@ body {
     text-align: center;
 }
 
+.area1 {
+    background: #C0C0C0;
+}
+
+.subarea1 {
+}
+
+.subarea2 {
+}
+
 /*   специально для IE   */
 * html .list-cell, * html .about-cell {
     height: 100%;
@@ -284,7 +294,6 @@ body {
     padding: 23px 0 23px 0;
     margin-right: 10px;
 }
-
 /*.nav-pills {
     overflow-y: scroll;
     max-height: 500px;

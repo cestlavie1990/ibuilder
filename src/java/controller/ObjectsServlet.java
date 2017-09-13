@@ -57,7 +57,7 @@ public class ObjectsServlet extends HttpServlet {
         String username = user.getName();
         String companyName = user.getRecordIdCompany().getName();
         Collection<Objects> objectsByUser = getObjectsByUser(user);
-        List<Objects> activeObjects = new ArrayList<>(getObjectsByStatus(user, true));
+        Collection<Objects> activeObjects = getObjectsByStatus(user, true);
         Collection<Objects> finishedObjects = getObjectsByStatus(user, false);
         
         getServletContext().setAttribute("username", username);

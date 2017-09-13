@@ -58,16 +58,6 @@
                     </a>
                     <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                         <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
-                            <c:if test="${activeObjects.size() == 0}">
-                            <h5>Активные объекты отсутствуют</h5>
-                        </c:if>
-                        <c:forEach var="i" begin="0" end="${activeObjects.size()-1}">
-                            <li>
-                                <button type="button" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfoA(this)'>
-                                    ${activeObjects.get(i).name}
-                                </button>
-                            </li>
-                        </c:forEach>
                     </ul>
                     <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                         <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
@@ -87,13 +77,6 @@
                 </div>
             </div>
             <div class="about-cell">
-                <div class="area1">
-                    <p>Пулковское ш.</p>
-                    <p>адрес: Пулковское шоссе д. 35</p>
-                    <p>заказчик: ОАО "ЛСР-БАЗОВЫЕ"</p>
-                    <p>генеральный-подрядчик: ЗАО "ЛСР"</p>
-                    <p>дата начала работ: 21.07.2017</p>
-                </div>
             </div>
         </div>
     </body>
@@ -157,13 +140,34 @@
         var activeObjects = getActiveObjects();
         var finishedObjects = getFinishedObjects();
 
+
+        function showActiveObjects() {
+            if (activeObjects.length === 0) {
+                $('#active-obj').append('<h5>Активные объекты отсутствуют</h5>');
+            } else {
+                for (var i = 0; i < activeObjects.length; i++) {
+                    $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfoA(this)">' + activeObjects[i].name + '</button></li>');
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            showActiveObjects();
+        });
+
         function loadInfoA(button) {
             $('.area1').remove();
-            $('.about-cell').append('<div class="area1" id="del"><p>' + button.value + '</p></div>');
+            $('.about-cell').append('<div class="area1"></div>');
+            $('.area1').append('<p>Объект: <strong>' + activeObjects[button.value].name + '</strong></p>');
+            $('.area1').append('<p>Адрес: <strong>' + activeObjects[button.value].address + '</strong></p>');
+            $('.area1').append('<p>Начало производства работ: <strong>' + activeObjects[button.value].dateCreated + '</strong></p>');
+            $('.area1').append('<p>Заказчик: <strong>' + activeObjects[button.value].customer + '</strong></p>');
+            $('.area1').append('<p>Генеральный подрядчик: <strong>' + activeObjects[button.value].generalBuilder + '</strong></p>');
         }
 
         function loadInfoF(button) {
-            //alert(finishedObjects[button.value].name + " " + finishedObjects[button.value].recordId);
+            /*$('.area1').remove();
+             $('.about-cell').append('<div class="area1"><p>' + finishedObjects[button.value].name + '</p></div>');*/
         }
     </script>
     <!--<body class="page">
