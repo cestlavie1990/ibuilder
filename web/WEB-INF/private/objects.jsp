@@ -20,7 +20,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Объекты строительства</title>
     </head>
-    <body>
+    <body class="page">
         <nav class="navbar navbar-inverse navbar-fixed-top" id="navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -38,45 +38,37 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><button type="button" class="btn btn-default btn-sm navbar-btn"><i class="glyphicon glyphicon-off" aria-hidden="true"></i> Выход</button></li>
+                        <li><button type="button" class="btn btn-default btn-sm navbar-btn" style="margin-right: 15px"><i class="glyphicon glyphicon-off" aria-hidden="true"></i> Выход</button></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="main-row">
-            <div class="list-cell">
-                <div class="box1">
-                    <h4>${companyName}</h4>
-                    <p>Всего активных объектов: <strong>${countAllActiveObjects}</strong></p>
-                    <p>На контроле: <strong>${activeObjects.size()}</strong></p>
+        <div class="container-fluid content">
+            <div class="row text-center">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="box1">
+                        <h4>${companyName}</h4>
+                        <p>Всего активных объектов: <strong>${countAllActiveObjects}</strong></p>
+                        <p>На контроле: <strong>${activeObjects.size()}</strong></p>
+                    </div>
+                    <div class="box3">
+                        <h4>Объекты строительства</h4>
+                        <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
+                            <p style="margin-top: 5px;"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Активные объекты</p>
+                        </a>
+                        <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
+                            <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
+                        </ul>
+                        <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
+                            <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
+                        </a>
+                        <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
+                        </ul>
+                    </div>
                 </div>
-                <div class="box2">
-                    <h4>Объекты строительства</h4>
-                    <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
-                        <p style="margin-top: 5px;"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Активные объекты</p>
-                    </a>
-                    <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
-                        <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
-                    </ul>
-                    <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
-                        <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
-                    </a>
-                    <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
-                        <c:if test="${finishedObjects.size() == 0}">
-                            <h5>Завершённые объекты отсутствуют</h5>
-                        </c:if>
-                        <c:forEach var="i" begin="0" end="${finishedObjects.size()-1}">
-                            <li>
-                                <button type="button" class="btn btn-default" value="${i}" id="objSelect" onclick='loadInfoF(this)'>
-                                    ${finishedObjects.get(i).name}
-                                </button>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 about-col">
                 </div>
-            </div>
-            <div class="about-cell">
             </div>
         </div>
     </body>
@@ -151,23 +143,47 @@
             }
         }
 
+        function showFinishedObjects() {
+            if (finishedObjects.length === 0) {
+                $('#finished-obj').append('<h5>Пока нет завершённых объектов</h5>');
+            } else {
+                for (var i = 0; i < finishedObjects.length; i++) {
+                    $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfoF(this)">' + finishedObjects[i].name + '</button></li>');
+                }
+            }
+        }
+
         $(document).ready(function () {
             showActiveObjects();
+            showFinishedObjects();
         });
 
         function loadInfoA(button) {
-            $('.area1').remove();
-            $('.about-cell').append('<div class="area1"></div>');
-            $('.area1').append('<p>Объект: <strong>' + activeObjects[button.value].name + '</strong></p>');
-            $('.area1').append('<p>Адрес: <strong>' + activeObjects[button.value].address + '</strong></p>');
-            $('.area1').append('<p>Начало производства работ: <strong>' + activeObjects[button.value].dateCreated + '</strong></p>');
-            $('.area1').append('<p>Заказчик: <strong>' + activeObjects[button.value].customer + '</strong></p>');
-            $('.area1').append('<p>Генеральный подрядчик: <strong>' + activeObjects[button.value].generalBuilder + '</strong></p>');
+            $('.box2').remove();
+            $('.about-col').append('<div class="box2"></div>');
+            $('.box2').append('<div class="row subbox0"></div>');
+            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
+            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
+            $('.subbox1').append('<p>Объект: <strong>' + activeObjects[button.value].name + '</strong></p>');
+            $('.subbox1').append('<p>Адрес: <strong>' + activeObjects[button.value].address + '</strong></p>');
+            $('.subbox1').append('<p>Начало производства работ: <strong>' + activeObjects[button.value].dateCreated + '</strong></p>');
+            $('.subbox2').append('<p>Заказчик: <strong>' + activeObjects[button.value].customer + '</strong></p>');
+            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + activeObjects[button.value].generalBuilder + '</strong></p>');
+            $('.subbox2').append('<p>Проектировщик: <strong>отсутствует</strong></p>');
         }
 
         function loadInfoF(button) {
-            /*$('.area1').remove();
-             $('.about-cell').append('<div class="area1"><p>' + finishedObjects[button.value].name + '</p></div>');*/
+            $('.box2').remove();
+            $('.about-col').append('<div class="box2"></div>');
+            $('.box2').append('<div class="row subbox0"></div>');
+            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
+            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
+            $('.subbox1').append('<p>Объект: <strong>' + finishedObjects[button.value].name + '</strong></p>');
+            $('.subbox1').append('<p>Адрес: <strong>' + finishedObjects[button.value].address + '</strong></p>');
+            $('.subbox1').append('<p>Начало производства работ: <strong>' + finishedObjects[button.value].dateCreated + '</strong></p>');
+            $('.subbox2').append('<p>Заказчик: <strong>' + finishedObjects[button.value].customer + '</strong></p>');
+            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + finishedObjects[button.value].generalBuilder + '</strong></p>');
+            $('.subbox2').append('<p>Проектировщик: <strong>отсутствует</strong></p>');
         }
     </script>
     <!--<body class="page">

@@ -3,206 +3,37 @@
     Author     : Mr.Minakov
 */
 
-.page {
-    background-color: #507299;
-}
-
-.cont-page {
-    background-color: white;
-    margin: 15px 30px 15px 30px;
-}
-
-#tab-cont {
-    margin-right: 30px;
-}
-
-.profile {
-    border-right: 5px #507299 solid;
-    border-bottom: 5px #507299 solid;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
-
-
-.info {
-    border-right: 5px #507299 solid;
-    margin-bottom: 0px;
-    padding-bottom: 5px;    
-}
-
-#btn-collapse p {
-    background-color: #337AB7;
-    color: white;
-    padding: 10px 0px 10px 0px;
-    margin-top: 5px;
-}
-
-#btn-collapse p:hover, #btn-collapse p:hover {
-    background-color: #286090;
-}
-/*
-=====================index=====================
-*/
-.logo, .registration, .about {
-    background-color: #EDEEF0;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-.logo {
-    padding: 84px 0px 84px 0px;
-}
-
-.registration {
-    padding: 15px 25px 15px 25px;
-}
-
-.about {    
-    padding: 160px 0px 160px 0px;
-    margin-bottom: 20px;
-}
-
-/*
-=====================registration=====================
-*/
-.reg-process {
-    background-color: #EDEEF0;
-    border-radius: 5px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-
-.reg-text {
-    padding-top: 20px;
-    margin: 0px 50px 0px 50px;
-}
-
-.reg-attr {
-    margin: 0px 50px 25px 50px;
-}
-
-.notif{
-    width: 94%;
-    margin-left: 2%;
-}
-.notif span{
-    font-size: 16px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin: 5px;
-    color: #660033;
-}
-
-/*
-=====================objects=====================
-*/
-
-.objectName li, .objectNameDel li {
-    background-color: #EDEEF0;
-    padding: 10px 0px 10px 0px;
-    list-style-type: none;
-}
-
-.objectNameDelOn li {
-    color: white;
-    background-color: #507299;
-    list-style-type: none;
-}
-
-.objectName:hover, .objectNameDel:hover {
-    text-decoration: none;
-}
-
-.objectName:focus, .objectNameDel:focus {
-    text-decoration: none;
-}
-
-.objectNameDel:hover li, .objectName:hover li, .objectName:focus li {
-    color: white;
-    background-color: #507299;
-}
-
-#places a {
-    background-color: #337AB7;
-    color: white;
-    padding: 10px 0px 10px 0px;
-    margin-top: 5px;
-}
-
-#places a:hover {
-    background-color: #286090;
-}
-
-.profile .btn-primary, .info .btn-primary {
-    margin-top: 3px;
-}
-
-.objects-about {    
-    border-bottom: 5px #507299 solid;
-}
-
-/*
-=====================places=====================
-*/
-
-.info li {
-    margin-top: 5px;
-}
-
-#works a {
-    background-color: #337AB7;
-    color: white;
-    padding: 10px 0px 10px 0px;
-    margin-top: 5px;
-}
-
-#works a:hover {
-    background-color: #286090;
-}
-
-/*
-=====================works=====================
-*/
-
-.table {
-    margin-top: 10px;
-}
-
-/*
-=====================types=====================
-*/
-
-/*
-=====================registration_finished=====================
-*/
-
-.reg-finished {
-    background-color: #EDEEF0;
-    border-radius: 5px;
-    padding-top: 25px;
-    padding-bottom: 25px;
-}
-
-/*
-=====================error=====================
-*/
-
-.auth {
-    background-color: #EDEEF0;
-    border-radius: 5px;
-    padding: 25px 50px 25px 50px;
-}
-
-
 /*============================================================================*/
+
 html {
     height: 100%;
+    width: 100%;
+    min-width: 750px;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+.page {
     height: 100%;
+    width: 100%;
+    background-color: #2D2D30;
+}
+
+.box1, .box3 {
+    background-color: white;
+    padding: 15px 0 15px 0;
+}
+
+.box1, .box2 {
+    margin-top: 60px;
+}
+
+.box2 {
+    background-color: white;
+    margin-left: -15px;
+    padding: 20px 0 20px 0;
+}
+
+.box3 {
+    margin-top: 15px;
 }
 
 .dropdown {
@@ -220,93 +51,10 @@ body {
     color: white;
 }
 
-.btn {
-    margin-right: 15px;
-    transition: .2s;
-}
-
-.btn:hover {
-    background-color: #D9534F;
-    color: white;
-    border: 1px solid #D9534F;
-}
-
-.btn:focus {
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-}
-
-.main-row {
-    min-width: 1000px;
-    width: 100%;
-    height: 100%;
-    display: table;
-    padding-top: 50px;
-}
-
-.list-cell {
-    background-color: #2d2d30; 
-    color: white;
-    width: 24%;
-    min-width: 24%;
-    min-height: 100%;
-    display: table-cell;
-    text-align: center;
-}
-
-.about-cell {
-    background-color: #2d2d30; 
-    color: black;
-    min-height: 100%;
-    width: 76%;
-    min-width: 76%;
-    display: table-cell;
-    text-align: center;
-}
-
-.area1 {
-    background: #C0C0C0;
-}
-
-.subarea1 {
-}
-
-.subarea2 {
-}
-
-/*   специально для IE   */
-* html .list-cell, * html .about-cell {
-    height: 100%;
-}
-
-.box1, .box2 {
-    background-color: white;
-    color: black;
-    margin: 10px 10px 0 10px;
-    padding: 13px 0 13px 0;
-}
-
-.area1 {
-    background-color: white;
-    color: black;
-    height: 100%;
-    padding: 23px 0 23px 0;
-    margin-right: 10px;
-}
 /*.nav-pills {
     overflow-y: scroll;
     max-height: 500px;
 }*/
-
-.nav-pills li a {
-    color: black;
-}
-
-.nav-pills li.active a {
-    border-radius: 0;
-    background-color: #D9534F;
-}
 
 #active-obj-btn p, #finished-obj-btn p {
     color: black;
