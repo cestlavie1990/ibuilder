@@ -159,31 +159,57 @@
         });
 
         function loadInfoA(button) {
+            var index = button.value;
             $('.box2').remove();
+            $('.box4').remove();
             $('.about-col').append('<div class="box2"></div>');
+            $('.about-col').append('<div class="box4"></div>');
             $('.box2').append('<div class="row subbox0"></div>');
             $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
             $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
-            $('.subbox1').append('<p>Объект: <strong>' + activeObjects[button.value].name + '</strong></p>');
-            $('.subbox1').append('<p>Адрес: <strong>' + activeObjects[button.value].address + '</strong></p>');
-            $('.subbox1').append('<p>Начало производства работ: <strong>' + activeObjects[button.value].dateCreated + '</strong></p>');
-            $('.subbox2').append('<p>Заказчик: <strong>' + activeObjects[button.value].customer + '</strong></p>');
-            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + activeObjects[button.value].generalBuilder + '</strong></p>');
-            $('.subbox2').append('<p>Проектировщик: <strong>отсутствует</strong></p>');
+            $('.subbox1').append('<p>Объект: <strong>' + activeObjects[index].name + '</strong></p>');
+            $('.subbox1').append('<p>Адрес: <strong>' + activeObjects[index].address + '</strong></p>');
+            $('.subbox1').append('<p>Начало производства работ: <strong>' + activeObjects[index].dateCreated + '</strong></p>');
+            $('.subbox2').append('<p>Заказчик: <strong>' + activeObjects[index].customer + '</strong></p>');
+            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + activeObjects[index].generalBuilder + '</strong></p>');
+            $('.subbox2').append('<p>Проектировщик: <strong>не указан</strong></p>');
+            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
+            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>');
+            if (activeObjects[index].placesCollection.length === 0) {
+                $('.box4').append('<p>Участки строительства отсутствуют</p>');
+            } else {
+                for (var i = 0; i < activeObjects[index].placesCollection.length; i++) {
+                    $('.box4').append('<p>' + activeObjects[index].placesCollection[i].name + '</p>');
+                }
+            }
+            $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
         }
 
         function loadInfoF(button) {
+            var index = button.value;
             $('.box2').remove();
+            $('.box4').remove();
             $('.about-col').append('<div class="box2"></div>');
+            $('.about-col').append('<div class="box4"></div>');
             $('.box2').append('<div class="row subbox0"></div>');
             $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
             $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
-            $('.subbox1').append('<p>Объект: <strong>' + finishedObjects[button.value].name + '</strong></p>');
-            $('.subbox1').append('<p>Адрес: <strong>' + finishedObjects[button.value].address + '</strong></p>');
-            $('.subbox1').append('<p>Начало производства работ: <strong>' + finishedObjects[button.value].dateCreated + '</strong></p>');
-            $('.subbox2').append('<p>Заказчик: <strong>' + finishedObjects[button.value].customer + '</strong></p>');
-            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + finishedObjects[button.value].generalBuilder + '</strong></p>');
-            $('.subbox2').append('<p>Проектировщик: <strong>отсутствует</strong></p>');
+            $('.subbox1').append('<p>Объект: <strong>' + finishedObjects[index].name + '</strong></p>');
+            $('.subbox1').append('<p>Адрес: <strong>' + finishedObjects[index].address + '</strong></p>');
+            $('.subbox1').append('<p>Начало производства работ: <strong>' + finishedObjects[index].dateCreated + '</strong></p>');
+            $('.subbox2').append('<p>Заказчик: <strong>' + finishedObjects[index].customer + '</strong></p>');
+            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + finishedObjects[index].generalBuilder + '</strong></p>');
+            $('.subbox2').append('<p>Проектировщик: <strong>не указан</strong></p>');
+            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
+            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>');
+            if (finishedObjects[index].placesCollection.length === 0) {
+                $('.box4').append('<p>Участки строительства отсутствуют</p>');
+            } else {
+                for (var i = 0; i < finishedObjects[index].placesCollection.length; i++) {
+                    $('.box4').append('<p>' + finishedObjects[index].placesCollection[i].name + '</p>');
+                }
+            }
+            $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
         }
     </script>
     <!--<body class="page">
