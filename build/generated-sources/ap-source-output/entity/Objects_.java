@@ -9,7 +9,7 @@ import javax.persistence.metamodel.CollectionAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-07-09T18:36:12")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-09-18T19:53:20")
 @StaticMetamodel(Objects.class)
 public class Objects_ { 
 
@@ -21,6 +21,7 @@ public class Objects_ {
     public static volatile SingularAttribute<Objects, Companies> recordIdCompany;
     public static volatile CollectionAttribute<Objects, Places> placesCollection;
     public static volatile CollectionAttribute<Objects, Users> usersCollection;
+    public static volatile SingularAttribute<Objects, Boolean> isActive;
     public static volatile SingularAttribute<Objects, String> customer;
 
 }

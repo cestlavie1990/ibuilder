@@ -11,14 +11,14 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Авторизация</title>
     </head>
     <body class="page">        
-        <div class="cont-page auth text-center">
+        <div class="auth text-center">
             <form action="j_security_check" method="POST">
                 <p>
                     <label for="login">Логин:</label>
@@ -31,8 +31,8 @@
                 <p>
                     <label><input type="checkbox"> Запомнить меня</label>
                 </p> 
-                <button type="submit" class="btn btn-primary">Вход</button>
-                <button type="button" class="btn btn-primary" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
+                <button type="submit" class="btn btn-default">Вход</button>
+                <button type="button" class="btn btn-default" onclick="location.href = '/ibuilder/registration'">Регистрация</button>
             </form>
             <a href="#">Забыли пароль?</a>            
         </div>

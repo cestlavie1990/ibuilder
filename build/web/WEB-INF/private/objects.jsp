@@ -178,8 +178,9 @@
             if (activeObjects[index].placesCollection.length === 0) {
                 $('.box4').append('<p>Участки строительства отсутствуют</p>');
             } else {
+                $('.box4').append('<p>Участки строительства</p>');
                 for (var i = 0; i < activeObjects[index].placesCollection.length; i++) {
-                    $('.box4').append('<p>' + activeObjects[index].placesCollection[i].name + '</p>');
+                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + activeObjects[index].placesCollection[i].name + '</button></p>');
                 }
             }
             $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
@@ -205,8 +206,9 @@
             if (finishedObjects[index].placesCollection.length === 0) {
                 $('.box4').append('<p>Участки строительства отсутствуют</p>');
             } else {
+                $('.box4').append('<p>Участки строительства</p>');
                 for (var i = 0; i < finishedObjects[index].placesCollection.length; i++) {
-                    $('.box4').append('<p>' + finishedObjects[index].placesCollection[i].name + '</p>');
+                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + finishedObjects[index].placesCollection[i].name + '</button></p>');
                 }
             }
             $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');

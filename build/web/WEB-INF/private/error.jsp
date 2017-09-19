@@ -16,7 +16,7 @@
         <title>Ошибка авторизации</title>
     </head>
     <body class="page">        
-        <div class="cont-page auth text-center">
+        <div class="auth-error text-center">
             <h3>Ошибка!</h3>
             <h4>Неправильный логин или пароль.</h4>
             <p><a href="/ibuilder/objects">Попробовать ещё раз</a></p>
