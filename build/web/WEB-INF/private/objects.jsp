@@ -157,6 +157,30 @@
             showActiveObjects();
             showFinishedObjects();
         });
+        
+        function deleteObject() {
+            $('.page').append('<div class="modal fade" id="deleteObj" role="dialog">'+
+            '<div class="modal-dialog">'+
+                '<div class="modal-content text-center">'+
+                    '<div class="modal-header">'+
+                        '<button type="button" class="close" data-dismiss="modal">×</button>'+
+                        '<h4>Удаление объекта строительства</h4>'+
+                    '</div>'+
+                    '<div class="modal-body" style="color: #2D2D30">'+                                      
+                        '<form method="POST" action="objects">'+
+                            '<p>Вы уверены, что хотите удалить объект <strong>ssss</strong>?</p>'+
+                            '<p>После удаления данные уже невозможно будет восстановить</p>'+
+                            '<input type="hidden" name="objectId" value="ssss">'+
+                            '<p>'+
+                                '<button type="submit" class="btn btn-default" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>'+
+                                '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>'+
+                            '</p>'+             
+                        '</form>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+        '</div>');
+        }
 
         function loadInfoA(button) {
             var index = button.value;
@@ -173,7 +197,7 @@
             $('.subbox2').append('<p>Заказчик: <strong>' + activeObjects[index].customer + '</strong></p>');
             $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + activeObjects[index].generalBuilder + '</strong></p>');
             $('.subbox2').append('<p>Проектировщик: <strong>не указан</strong></p>');
-            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
+            $('.subbox0').append('<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject()"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
             $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>');
             if (activeObjects[index].placesCollection.length === 0) {
                 $('.box4').append('<p>Участки строительства отсутствуют</p>');

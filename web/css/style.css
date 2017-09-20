@@ -18,7 +18,7 @@ html {
 
 .win-center {
     position: relative;
-    background-color: #C0C0C0;
+    background-color: white;
     width: 250px;
     top: 50%;
     left: 50%;
@@ -33,7 +33,7 @@ html {
 
 .auth {
     position: relative;
-    background-color: #C0C0C0;
+    background-color: white;
     width: 400px;
     top: 50%;
     left: 50%;
@@ -45,7 +45,7 @@ html {
 
 .auth-error {
     position: relative;
-    background-color: #C0C0C0;
+    background-color: white;
     width: 550px;
     top: 50%;
     left: 50%;
@@ -57,7 +57,7 @@ html {
 
 .reg-process {
     position: relative;
-    background-color: #C0C0C0;
+    background-color: white;
     width: 600px;
     left: 50%;
     margin-left: -300px;
@@ -68,7 +68,7 @@ html {
 
 .reg-finished {
     position: relative;
-    background-color: #C0C0C0;
+    background-color: white;
     width: 500px;
     top: 50%;
     left: 50%;
