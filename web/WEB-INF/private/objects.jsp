@@ -138,7 +138,7 @@
                 $('#active-obj').append('<h5>Активные объекты отсутствуют</h5>');
             } else {
                 for (var i = 0; i < activeObjects.length; i++) {
-                    $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfoA(this)">' + activeObjects[i].name + '</button></li>');
+                    $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 0)">' + activeObjects[i].name + '</button></li>');
                 }
             }
         }
@@ -148,7 +148,7 @@
                 $('#finished-obj').append('<h5>Пока нет завершённых объектов</h5>');
             } else {
                 for (var i = 0; i < finishedObjects.length; i++) {
-                    $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfoF(this)">' + finishedObjects[i].name + '</button></li>');
+                    $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 1)">' + finishedObjects[i].name + '</button></li>');
                 }
             }
         }
@@ -157,83 +157,74 @@
             showActiveObjects();
             showFinishedObjects();
         });
-        
-        function deleteObject(index) {
-            $('#deleteObj').remove();
-            $('.page').append('<div class="modal fade" id="deleteObj" role="dialog">'+
-            '<div class="modal-dialog">'+
-                '<div class="modal-content text-center">'+
-                    '<div class="modal-header">'+
-                        '<button type="button" class="close" data-dismiss="modal">×</button>'+
-                        '<h4>Удаление объекта строительства</h4>'+
-                    '</div>'+
-                    '<div class="modal-body" style="color: #2D2D30">'+                                      
-                        '<form method="POST" action="objects">'+
-                            '<p>Вы уверены, что хотите удалить объект <strong>' + activeObjects[index].name + '</strong>?</p>'+
-                            '<p>После удаления данные уже невозможно будет восстановить</p>'+
-                            '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">'+
-                            '<p>'+
-                                '<button type="submit" class="btn btn-default" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>'+
-                                '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>'+
-                            '</p>'+             
-                        '</form>'+
-                    '</div>'+
-                '</div>'+
-            '</div>'+
-        '</div>');
-        }
 
-        function loadInfoA(button) {
-            var index = button.value;
-            $('.box2').remove();
-            $('.box4').remove();
-            $('.about-col').append('<div class="box2"></div>');
-            $('.about-col').append('<div class="box4"></div>');
-            $('.box2').append('<div class="row subbox0"></div>');
-            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
-            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
-            $('.subbox1').append('<p>Объект: <strong>' + activeObjects[index].name + '</strong></p>');
-            $('.subbox1').append('<p>Адрес: <strong>' + activeObjects[index].address + '</strong></p>');
-            $('.subbox1').append('<p>Начало производства работ: <strong>' + activeObjects[index].dateCreated + '</strong></p>');
-            $('.subbox2').append('<p>Заказчик: <strong>' + activeObjects[index].customer + '</strong></p>');
-            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + activeObjects[index].generalBuilder + '</strong></p>');
-            $('.subbox2').append('<p>Проектировщик: <strong>не указан</strong></p>');
-            $('.subbox0').append('<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
-            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>');
-            if (activeObjects[index].placesCollection.length === 0) {
-                $('.box4').append('<p>Участки строительства отсутствуют</p>');
-            } else {
-                $('.box4').append('<p>Участки строительства</p>');
-                for (var i = 0; i < activeObjects[index].placesCollection.length; i++) {
-                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + activeObjects[index].placesCollection[i].name + '</button></p>');
-                }
+        function deleteObject(index, value) {
+            var objects = [];
+            if (value === 0) {
+                objects = activeObjects;
+            } else if (value === 1) {
+                objects = finishedObjects;
             }
-            $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
+            $('#deleteObj').remove();
+            $('.page').append('<div class="modal fade" id="deleteObj" role="dialog">' +
+                    '<div class="modal-dialog">' +
+                    '<div class="modal-content text-center">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                    '<h4>Удаление объекта строительства</h4>' +
+                    '</div>' +
+                    '<div class="modal-body" style="color: #2D2D30">' +
+                    '<form method="POST" action="objects">' +
+                    '<p>Вы уверены, что хотите удалить объект <strong>' + objects[index].name + '</strong>?</p>' +
+                    '<p>После удаления данные уже невозможно будет восстановить</p>' +
+                    '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
+                    '<p>' +
+                    '<button type="submit" class="btn btn-default" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>' +
+                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
+                    '</p>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
         }
 
-        function loadInfoF(button) {
+        function loadInfo(button, value) {
             var index = button.value;
+            var objects = [];
+            var commandForDelete;
+            if (value === 0) {
+                objects = activeObjects;
+                commandForDelete = 0;
+            } else if (value === 1) {
+                objects = finishedObjects;
+                commandForDelete = 1;
+            }
             $('.box2').remove();
             $('.box4').remove();
-            $('.about-col').append('<div class="box2"></div>');
-            $('.about-col').append('<div class="box4"></div>');
-            $('.box2').append('<div class="row subbox0"></div>');
-            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1"></div>');
-            $('.subbox0').append('<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2"></div>');
-            $('.subbox1').append('<p>Объект: <strong>' + finishedObjects[index].name + '</strong></p>');
-            $('.subbox1').append('<p>Адрес: <strong>' + finishedObjects[index].address + '</strong></p>');
-            $('.subbox1').append('<p>Начало производства работ: <strong>' + finishedObjects[index].dateCreated + '</strong></p>');
-            $('.subbox2').append('<p>Заказчик: <strong>' + finishedObjects[index].customer + '</strong></p>');
-            $('.subbox2').append('<p>Генеральный подрядчик: <strong>' + finishedObjects[index].generalBuilder + '</strong></p>');
-            $('.subbox2').append('<p>Проектировщик: <strong>не указан</strong></p>');
-            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>');
-            $('.subbox0').append('<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>');
-            if (finishedObjects[index].placesCollection.length === 0) {
+            $('.about-col').append('<div class="box2">' +
+                    '<div class="row subbox0">' +
+                    '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1">' +
+                    '<p>Объект: <strong>' + objects[index].name + '</strong></p>' +
+                    '<p>Адрес: <strong>' + objects[index].address + '</strong></p>' +
+                    '<p>Начало производства работ: <strong>' + objects[index].dateCreated + '</strong></p>' +
+                    '</div>' +
+                    '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2">' +
+                    '<p>Заказчик: <strong>' + objects[index].customer + '</strong></p>' +
+                    '<p>Генеральный подрядчик: <strong>' + objects[index].generalBuilder + '</strong></p>' +
+                    '<p>Проектировщик: <strong>не указан</strong></p>' +
+                    '</div>' +
+                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ',' + commandForDelete + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>' +
+                    '<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="box4"></div>');
+            if (objects[index].placesCollection.length === 0) {
                 $('.box4').append('<p>Участки строительства отсутствуют</p>');
             } else {
                 $('.box4').append('<p>Участки строительства</p>');
-                for (var i = 0; i < finishedObjects[index].placesCollection.length; i++) {
-                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + finishedObjects[index].placesCollection[i].name + '</button></p>');
+                for (var i = 0; i < objects[index].placesCollection.length; i++) {
+                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + objects[index].placesCollection[i].name + '</button></p>');
                 }
             }
             $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
