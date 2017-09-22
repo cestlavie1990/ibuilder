@@ -59,7 +59,7 @@ public class ObjectsServlet extends HttpServlet {
         Collection<Objects> objectsByUser = getObjectsByUser(user);
         Collection<Objects> activeObjects = getObjectsByStatus(user, true);
         Collection<Objects> finishedObjects = getObjectsByStatus(user, false);
-        
+
         getServletContext().setAttribute("username", username);
         getServletContext().setAttribute("companyName", companyName);
         getServletContext().setAttribute("countAllActiveObjects", countAllActiveObjects);
@@ -115,11 +115,7 @@ public class ObjectsServlet extends HttpServlet {
 
         Users user = getUserPrincipal(request);
 
-        if (!dateStart.isEmpty()) {
-            objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
-        } else {
-            objectsManager.createObject(user, name, address, customer, generalBuilder);
-        }
+        objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
     }
 
     private void deleteObject(HttpServletRequest request) {
@@ -157,11 +153,7 @@ public class ObjectsServlet extends HttpServlet {
                 }
             }
 
-            if (!dateStart.isEmpty()) {
-                objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
-            } else {
-                objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder);
-            }
+            objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
 
         } catch (NumberFormatException e) {
             e.printStackTrace();

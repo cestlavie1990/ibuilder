@@ -58,27 +58,6 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createObject(final Users user, final String name, final String address,
-            final String customer, final String generalBuilder) {
-        try {
-            Objects object = new Objects();
-            object.setName(name);
-            object.setAddress(address);
-            object.setCustomer(customer);
-            object.setGeneralBuilder(generalBuilder);
-            object.setRecordIdCompany(user.getRecordIdCompany());
-            object.setDateCreated(new Date());
-            object.addUserToCollection(user);
-            object.setIsActive(true);
-
-            em.persist(object);
-        } catch (Exception e) {
-            context.setRollbackOnly();
-            e.printStackTrace();
-        }
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteObject(final Integer recorIdObject, final Users user) {
         try {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
@@ -110,27 +89,6 @@ public class ObjectsManager {
                 object.setCustomer(customer);
                 object.setGeneralBuilder(generalBuilder);
                 object.setDateCreated(date);
-                em.merge(object);
-            } else {
-                throw new IllegalArgumentException();
-            }
-        } catch (Exception e) {
-            context.setRollbackOnly();
-            e.printStackTrace();
-        }
-    }
-
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void editObject(final Integer recorIdObject, final Users user, final String name,
-            final String address, final String customer, final String generalBuilder) {
-        try {
-            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
-
-            if (isUserHasObject(object, user)) {
-                object.setName(name);
-                object.setAddress(address);
-                object.setCustomer(customer);
-                object.setGeneralBuilder(generalBuilder);
                 em.merge(object);
             } else {
                 throw new IllegalArgumentException();

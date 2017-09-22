@@ -219,7 +219,7 @@
                     '</p>' +
                     '<p>' +
                     '<label for="dateStartObj">Дата начала работ</label>' +
-                    '<input type="text" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">' +
+                    '<input type="text" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:" required>' +
                     '</p>' +
                     '<p>' +
                     '<button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="add">Добавить</button>' +
@@ -268,7 +268,7 @@
                     '</p>' +
                     '<p>' +
                     '<label for="editDateStartObj">Дата начала работ</label>' +
-                    '<input type="text" name="editDateStartObj" class="form-control" id="editDateStartObj" value="' + objects[index].dateCreated + '">' +
+                    '<input type="text" name="editDateStartObj" class="form-control" id="editDateStartObj" value="' + objects[index].dateCreated + '" required>' +
                     '</p>' +
                     '<p>' +
                     '<button type="submit" class="btn btn-default" id="btnEditObj" name="btnAction" value="edit">Изменить</button>' +
@@ -281,19 +281,61 @@
             $("#editDateStartObj").datetimepicker({language: "ru", pickTime: false});
         }
 
+        function changeStatus(index, value) {
+            $('#changeStatus').remove();
+            if (value === 0) {
+                $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
+                        '<div class="modal-dialog">' +
+                        '<div class="modal-content text-center">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                        '<h4>Изменение статуса объекта</h4>' +
+                        '</div>' +
+                        '<div class="modal-body" style="color: #2D2D30">' +
+                        '<form method="POST" action="objects">' +
+                        '<p>Вы уверены, что хотите сделать завершённым объект <strong>' + activeObjects[index].name + '</strong>?</p>' +
+                        '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
+                        '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
+                        '<p>' +
+                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
+                        '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
+                        '</p>' +
+                        '</form>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+            } else if (value === 1) {
+                $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
+                        '<div class="modal-dialog">' +
+                        '<div class="modal-content text-center">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                        '<h4>Изменение статуса объекта</h4>' +
+                        '</div>' +
+                        '<div class="modal-body" style="color: #2D2D30">' +
+                        '<form method="POST" action="objects">' +
+                        '<p>Вы уверены, что хотите сделать активным объект <strong>' + finishedObjects[index].name + '</strong>?</p>' +
+                        '<input type="hidden" name="objectId" value="' + finishedObjects[index].recordId + '">' +
+                        '<p>' +
+                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
+                        '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
+                        '</p>' +
+                        '</form>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+            }
+        }
+
         function loadInfo(button, value) {
             var index = button.value;
             var objects = [];
-            var commandForDelete;
-            var commandForEdit;
             if (value === 0) {
                 objects = activeObjects;
-                commandForDelete = 0;
-                commandForEdit = 0;
             } else if (value === 1) {
                 objects = finishedObjects;
-                commandForDelete = 1;
-                commandForEdit = 0;
             }
             $('.box2').remove();
             $('.box4').remove();
@@ -309,8 +351,11 @@
                     '<p>Генеральный подрядчик: <strong>' + objects[index].generalBuilder + '</strong></p>' +
                     '<p>Проектировщик: <strong>не указан</strong></p>' +
                     '</div>' +
-                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ',' + commandForDelete + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>' +
-                    '<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject(' + index + ',' + commandForDelete + ')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
+                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject(' + index + ',' + value + ')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
+                    (value === 0 ?
+                            '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#changeStatus" onclick="changeStatus(' + index + ',' + value + ')"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Сделать завершённым</button>' :
+                            '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#changeStatus" onclick="changeStatus(' + index + ',' + value + ')"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Сделать активным</button>') +
+                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ',' + value + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>' +
                     '</div>' +
                     '</div>' +
                     '<div class="box4"></div>');
