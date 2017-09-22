@@ -92,8 +92,8 @@
                 recordId: '${object.recordId}',
                 name: '${object.name}',
                 address: '${object.address}',
-                customer: '${object.customer}'.replace('"', '&quot'),
-                generalBuilder: '${object.generalBuilder}'.replace('"', '&quot'),
+                customer: '${object.customer}'.replace(/"/g, '&quot'),
+                generalBuilder: '${object.generalBuilder}'.replace(/"/g, '&quot'),
                 dateCreated: '${object.dateCreated}',
                 placesCollection: places
             };
@@ -120,8 +120,8 @@
                 recordId: '${object.recordId}',
                 name: '${object.name}',
                 address: '${object.address}',
-                customer: '${object.customer}'.replace('"', '&quot'),
-                generalBuilder: '${object.generalBuilder}'.replace('"', '&quot'),
+                customer: '${object.customer}'.replace(/"/g, '&quot'),
+                generalBuilder: '${object.generalBuilder}'.replace(/"/g, '&quot'),
                 dateCreated: '${object.dateCreated}',
                 placesCollection: places
             };
