@@ -58,7 +58,7 @@
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Активные объекты</p>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
-                            <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
+                            <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal" onclick="addObject()"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
                         </ul>
                         <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
@@ -72,48 +72,6 @@
             </div>
         </div>
 
-        <div class="modal fade text-center" id="addObjModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">×</button>
-                        <h4>Добавление объекта строительства</h4>
-                    </div>
-                    <div class="modal-body">                                        
-                        <form method="POST" action="objects">
-                            <p>
-                                <label for="nameObj">Название объекта строительства</label>
-                                <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:" required>
-                            </p>
-                            <p>
-                                <label for="addressObj">Адрес объекта строительства</label>
-                                <input type="text" name="addressObj" class="form-control" id="addressObj" placeholder="Введите адрес объекта:">                                    
-                            </p>
-                            <p>
-                                <label for="nameCustomerObj">Название компании заказчика</label>
-                                <input type="text" name="nameCustomerObj" class="form-control" id="nameCustomerObj" placeholder="Заказчик:">                                    
-                            </p>
-                            <p>
-                                <label for="nameGenBuilderObj">Название компании генподрядчика</label>
-                                <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
-                            </p>
-                            <p>
-                                <label for="dateStartObj">Дата начала работ</label>
-                                <input type="text" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $('#dateStartObj').datetimepicker({language: 'ru', pickTime: false});
-                                    });
-                                </script>
-                            </p>
-                            <p>
-                                <button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="add">Добавить</button>                                    
-                            </p>                 
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </body>
     <script>
         function getActiveObjects() {
@@ -134,8 +92,8 @@
                 recordId: '${object.recordId}',
                 name: '${object.name}',
                 address: '${object.address}',
-                customer: '${object.customer}',
-                generalBuilder: '${object.generalBuilder}',
+                customer: '${object.customer}'.replace('"', '&quot'),
+                generalBuilder: '${object.generalBuilder}'.replace('"', '&quot'),
                 dateCreated: '${object.dateCreated}',
                 placesCollection: places
             };
@@ -162,8 +120,8 @@
                 recordId: '${object.recordId}',
                 name: '${object.name}',
                 address: '${object.address}',
-                customer: '${object.customer}',
-                generalBuilder: '${object.generalBuilder}',
+                customer: '${object.customer}'.replace('"', '&quot'),
+                generalBuilder: '${object.generalBuilder}'.replace('"', '&quot'),
                 dateCreated: '${object.dateCreated}',
                 placesCollection: places
             };
@@ -232,16 +190,110 @@
                     '</div>');
         }
 
+        function addObject() {
+            $('#addObjModal').remove();
+            $('.page').append('<div class="modal fade text-center" id="addObjModal" role="dialog">' +
+                    '<div class="modal-dialog">' +
+                    '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                    '<h4>Добавление объекта строительства</h4>' +
+                    '</div>' +
+                    '<div class="modal-body">' +
+                    '<form method="POST" action="objects">' +
+                    '<p>' +
+                    '<label for="nameObj">Название объекта строительства</label>' +
+                    '<input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:" required>' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="addressObj">Адрес объекта строительства</label>' +
+                    '<input type="text" name="addressObj" class="form-control" id="addressObj" placeholder="Введите адрес объекта:">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="nameCustomerObj">Название компании заказчика</label>' +
+                    '<input type="text" name="nameCustomerObj" class="form-control" id="nameCustomerObj" placeholder="Заказчик:">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="nameGenBuilderObj">Название компании генподрядчика</label>' +
+                    '<input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="dateStartObj">Дата начала работ</label>' +
+                    '<input type="text" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">' +
+                    '</p>' +
+                    '<p>' +
+                    '<button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="add">Добавить</button>' +
+                    '</p>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            $("#dateStartObj").datetimepicker({language: "ru", pickTime: false});
+        }
+
+        function editObject(index, value) {
+            var objects = [];
+            if (value === 0) {
+                objects = activeObjects;
+            } else if (value === 1) {
+                objects = finishedObjects;
+            }
+            $('#editObject').remove();
+            $('.page').append('<div class="modal fade text-center" id="editObject" role="dialog">' +
+                    '<div class="modal-dialog">' +
+                    '<div class="modal-content">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                    '<h4>Редактирование объекта ' + objects[index].name + '</h4>' +
+                    '</div>' +
+                    '<div class="modal-body">' +
+                    '<form method="POST" action="objects">' +
+                    '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
+                    '<p>' +
+                    '<label for="editNameObj">Название объекта строительства</label>' +
+                    '<input type="text" name="editNameObj" class="form-control" id="editNameObj" value="' + objects[index].name + '" required>' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="editAddressObj">Адрес объекта строительства</label>' +
+                    '<input type="text" name="editAddressObj" class="form-control" id="editAddressObj"value="' + objects[index].address + '">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="editNameCustomerObj">Название компании заказчика</label>' +
+                    '<input type="text" name="editNameCustomerObj" class="form-control" id="editNameCustomerObj" value="' + objects[index].customer + '">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="editNameGenBuilderObj">Название компании генподрядчика</label>' +
+                    '<input type="text" name="editNameGenBuilderObj" class="form-control" id="editNameGenBuilderObj" value="' + objects[index].generalBuilder + '">' +
+                    '</p>' +
+                    '<p>' +
+                    '<label for="editDateStartObj">Дата начала работ</label>' +
+                    '<input type="text" name="editDateStartObj" class="form-control" id="editDateStartObj" value="' + objects[index].dateCreated + '">' +
+                    '</p>' +
+                    '<p>' +
+                    '<button type="submit" class="btn btn-default" id="btnEditObj" name="btnAction" value="edit">Изменить</button>' +
+                    '</p>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+            $("#editDateStartObj").datetimepicker({language: "ru", pickTime: false});
+        }
+
         function loadInfo(button, value) {
             var index = button.value;
             var objects = [];
             var commandForDelete;
+            var commandForEdit;
             if (value === 0) {
                 objects = activeObjects;
                 commandForDelete = 0;
+                commandForEdit = 0;
             } else if (value === 1) {
                 objects = finishedObjects;
                 commandForDelete = 1;
+                commandForEdit = 0;
             }
             $('.box2').remove();
             $('.box4').remove();
@@ -258,7 +310,7 @@
                     '<p>Проектировщик: <strong>не указан</strong></p>' +
                     '</div>' +
                     '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ',' + commandForDelete + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>' +
-                    '<button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
+                    '<button type="submit" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject(' + index + ',' + commandForDelete + ')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
                     '</div>' +
                     '</div>' +
                     '<div class="box4"></div>');

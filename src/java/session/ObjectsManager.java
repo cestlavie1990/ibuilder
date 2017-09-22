@@ -110,7 +110,7 @@ public class ObjectsManager {
                 object.setCustomer(customer);
                 object.setGeneralBuilder(generalBuilder);
                 object.setDateCreated(date);
-                em.refresh(object);
+                em.merge(object);
             } else {
                 throw new IllegalArgumentException();
             }
@@ -131,7 +131,7 @@ public class ObjectsManager {
                 object.setAddress(address);
                 object.setCustomer(customer);
                 object.setGeneralBuilder(generalBuilder);
-                em.refresh(object);
+                em.merge(object);
             } else {
                 throw new IllegalArgumentException();
             }
