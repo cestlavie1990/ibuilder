@@ -48,6 +48,7 @@ public class ObjectsManager {
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(date);
             object.addUserToCollection(user);
+            object.setIsActive(true);
 
             em.persist(object);
         } catch (Exception e) {
@@ -68,6 +69,7 @@ public class ObjectsManager {
             object.setRecordIdCompany(user.getRecordIdCompany());
             object.setDateCreated(new Date());
             object.addUserToCollection(user);
+            object.setIsActive(true);
 
             em.persist(object);
         } catch (Exception e) {

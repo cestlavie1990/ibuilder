@@ -10,13 +10,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Объекты строительства</title>
     </head>
@@ -58,7 +58,7 @@
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Активные объекты</p>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
-                            <li><button type="submit" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
+                            <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
                         </ul>
                         <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
@@ -68,6 +68,49 @@
                     </div>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 about-col">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-center" id="addObjModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Добавление объекта строительства</h4>
+                    </div>
+                    <div class="modal-body">                                        
+                        <form method="POST" action="objects">
+                            <p>
+                                <label for="nameObj">Название объекта строительства</label>
+                                <input type="text" name="nameObj" class="form-control" id="nameObj" placeholder="Введите название объекта:" required>
+                            </p>
+                            <p>
+                                <label for="addressObj">Адрес объекта строительства</label>
+                                <input type="text" name="addressObj" class="form-control" id="addressObj" placeholder="Введите адрес объекта:">                                    
+                            </p>
+                            <p>
+                                <label for="nameCustomerObj">Название компании заказчика</label>
+                                <input type="text" name="nameCustomerObj" class="form-control" id="nameCustomerObj" placeholder="Заказчик:">                                    
+                            </p>
+                            <p>
+                                <label for="nameGenBuilderObj">Название компании генподрядчика</label>
+                                <input type="text" name="nameGenBuilderObj" class="form-control" id="nameGenBuilderObj" placeholder="Генподрядчик:">                                    
+                            </p>
+                            <p>
+                                <label for="dateStartObj">Дата начала работ</label>
+                                <input type="text" name="dateStartObj" class="form-control" id="dateStartObj" placeholder="Выберите дату:">
+                                <script type="text/javascript">
+                                    $(function () {
+                                        $('#dateStartObj').datetimepicker({language: 'ru', pickTime: false});
+                                    });
+                                </script>
+                            </p>
+                            <p>
+                                <button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="add">Добавить</button>                                    
+                            </p>                 
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -230,6 +273,13 @@
             $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
         }
     </script>
+
+    <!--<c:if test="${finishedObjects.size() == 0}">
+        <h5>Пока нет завершённых объектов</h5>
+    </c:if>  
+    <c:forEach var="object" items="${finishedObjects}" varStatus="сounter">
+        <li><button type="button" class="btn btn-default" value="${сounter.index}" id="objSelect" onclick="loadInfo(this, 1)">${object.name}</button></li>
+    </c:forEach>-->
     <!--<body class="page">
         <div class="cont-page">
             <div class="row">
