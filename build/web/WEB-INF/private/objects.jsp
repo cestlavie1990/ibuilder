@@ -297,7 +297,7 @@
                         '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
                         '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
                         '<p>' +
-                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
+                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToFinished">Изменить</button>' +
                         '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
                         '</p>' +
                         '</form>' +

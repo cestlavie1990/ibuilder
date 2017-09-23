@@ -84,6 +84,10 @@ public class ObjectsServlet extends HttpServlet {
             deleteObject(request);
         } else if (action.equals("edit")) {
             editObject(request);
+        } else if (action.equals("changeStatusToActive")) {
+            changeStatus(request, true);
+        } else if (action.equals("changeStatusToFinished")) {
+            changeStatus(request, false);
         }
 
         response.sendRedirect("objects");
@@ -155,6 +159,17 @@ public class ObjectsServlet extends HttpServlet {
 
             objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
 
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void changeStatus(HttpServletRequest request, boolean makeActive) {
+        try {
+            String objectId = request.getParameter("objectId");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Users user = getUserPrincipal(request);
+            objectsManager.changeStatus(recordIdObject, user, makeActive);
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

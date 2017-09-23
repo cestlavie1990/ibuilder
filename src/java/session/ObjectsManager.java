@@ -99,6 +99,20 @@ public class ObjectsManager {
         }
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void changeStatus(final Integer recorIdObject, final Users user, final boolean makeActive) {
+        try {
+            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
+            if (isUserHasObject(object, user)) {
+                object.setIsActive(makeActive);
+                em.merge(object);
+            }
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+        }
+    }
+
     private boolean isAdministrator(final Users user) {
         return user.getRole().equals("ADMINISTRATOR");
     }
