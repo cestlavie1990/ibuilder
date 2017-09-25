@@ -4,7 +4,6 @@ import entity.Companies;
 import entity.Objects;
 import entity.Users;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
@@ -90,13 +89,13 @@ public class ObjectsServlet extends HttpServlet {
             changeStatus(request, false);
         }
 
-        response.sendRedirect("objects");
+        doGet(request, response);
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
     private void addObject(HttpServletRequest request) {
         Enumeration<String> parameters = request.getParameterNames();
@@ -170,6 +169,7 @@ public class ObjectsServlet extends HttpServlet {
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
             objectsManager.changeStatus(recordIdObject, user, makeActive);
+            request.setAttribute("messageResult", "statusChanged");
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
