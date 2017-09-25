@@ -34,7 +34,7 @@ public class ObjectsManager {
     private SessionContext context;
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createObject(final Users user, final String name, final String address,
+    public boolean createObject(final Users user, final String name, final String address,
             final String customer, final String generalBuilder, final String dateStart) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -51,31 +51,34 @@ public class ObjectsManager {
             object.setIsActive(true);
 
             em.persist(object);
+            return true;
+            
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
         }
+        return false;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void deleteObject(final Integer recorIdObject, final Users user) {
+    public boolean deleteObject(final Integer recorIdObject, final Users user) {
         try {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
             if (isUserHasObject(object, user) && isAdministrator(user)) {
                 em.remove(object);
+                return true;
             } else {
                 throw new IllegalArgumentException();
             }
-
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
         }
-
+        return false;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void editObject(final Integer recorIdObject, final Users user, final String name,
+    public boolean editObject(final Integer recorIdObject, final Users user, final String name,
             final String address, final String customer, final String generalBuilder, final String dateStart) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -90,6 +93,7 @@ public class ObjectsManager {
                 object.setGeneralBuilder(generalBuilder);
                 object.setDateCreated(date);
                 em.merge(object);
+                return true;
             } else {
                 throw new IllegalArgumentException();
             }
@@ -97,20 +101,23 @@ public class ObjectsManager {
             context.setRollbackOnly();
             e.printStackTrace();
         }
+        return false;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void changeStatus(final Integer recorIdObject, final Users user, final boolean makeActive) {
+    public boolean changeStatus(final Integer recorIdObject, final Users user, final boolean makeActive) {
         try {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
             if (isUserHasObject(object, user)) {
                 object.setIsActive(makeActive);
                 em.merge(object);
+                return true;
             }
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
         }
+        return false;
     }
 
     private boolean isAdministrator(final Users user) {

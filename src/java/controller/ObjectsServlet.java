@@ -118,7 +118,12 @@ public class ObjectsServlet extends HttpServlet {
 
         Users user = getUserPrincipal(request);
 
-        objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
+        boolean result = objectsManager.createObject(user, name, address, customer, generalBuilder, dateStart);
+        if (result) {
+            request.setAttribute("messageResult", "objectAdded");
+        } else {
+            request.setAttribute("messageResult", "fail");
+        }
     }
 
     private void deleteObject(HttpServletRequest request) {
@@ -126,7 +131,12 @@ public class ObjectsServlet extends HttpServlet {
             String objectId = request.getParameter("objectId");
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
-            objectsManager.deleteObject(recordIdObject, user);
+            boolean result = objectsManager.deleteObject(recordIdObject, user);
+            if (result) {
+                request.setAttribute("messageResult", "objectDeleted");
+            } else {
+                request.setAttribute("messageResult", "fail");
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -156,7 +166,12 @@ public class ObjectsServlet extends HttpServlet {
                 }
             }
 
-            objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
+            boolean result = objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
+            if (result) {
+                request.setAttribute("messageResult", "objectChanged");
+            } else {
+                request.setAttribute("messageResult", "fail");
+            }
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -168,8 +183,12 @@ public class ObjectsServlet extends HttpServlet {
             String objectId = request.getParameter("objectId");
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
-            objectsManager.changeStatus(recordIdObject, user, makeActive);
-            request.setAttribute("messageResult", "statusChanged");
+            boolean result = objectsManager.changeStatus(recordIdObject, user, makeActive);
+            if (result) {
+                request.setAttribute("messageResult", "statusChanged");
+            } else {
+                request.setAttribute("messageResult", "fail");
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

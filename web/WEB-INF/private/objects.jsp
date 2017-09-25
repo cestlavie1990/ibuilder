@@ -373,10 +373,41 @@
 
         function showMessage() {
             $('#messageResult').remove();
+            var message = null;
+            var messageHeader = "Операция выполнена";
             if ("${messageResult}" === "statusChanged") {
-                alert("Статус объекта успешно изменён");
-                window.location.replace('objects'); 
+                message = "Статус объекта был изменён";
+            } else if ("${messageResult}" === "objectAdded") {
+                message = "Объект успешно добавлен";
+            } else if ("${messageResult}" === "objectChanged") {
+                message = "Объект успешно изменён";
+            } else if ("${messageResult}" === "objectDeleted") {
+                message = "Объект успешно удален";
+            } else if ("${messageResult}" === "fail") {
+                messageHeader = "Произошла ошибка";
+                message = "Пожалуйста, попробуйте ещё раз или свяжитесь с техподдержкой";
             }
+            if (message !== null) {
+                $('.page').append('<div class="modal fade" id="messageResult" role="dialog" data-backdrop="static" data-keyboard="false">' +
+                        '<div class="modal-dialog">' +
+                        '<div class="modal-content text-center">' +
+                        '<div class="modal-header">' +
+                        '<button type="button" class="close" data-dismiss="modal" onclick="refreshPage()">×</button>' +
+                        '<h4>' + messageHeader + '</h4>' +
+                        '</div>' +
+                        '<div class="modal-body" style="color: #2D2D30">' +
+                        '<p>' + message + '</p>' +
+                        '<button type="button" class="btn btn-default" onclick="refreshPage()">Закрыть</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>');
+                $("#messageResult").modal('show');
+            }
+        }
+
+        function refreshPage() {
+            window.location.replace('objects');
         }
     </script>
     <!--<c:if test="${finishedObjects.size() == 0}">
