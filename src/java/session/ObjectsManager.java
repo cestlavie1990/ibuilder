@@ -12,9 +12,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
+import exceptions.IncorrectDateException;
 import exceptions.UserHasNotObjectException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 
 /**
@@ -87,7 +90,7 @@ public class ObjectsManager {
 
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
 
-            if (isUserHasObject(object, user)) {
+            if (isDateCorrect(date) && isUserHasObject(object, user)) {
                 object.setName(name);
                 object.setAddress(address);
                 object.setCustomer(customer);
@@ -95,9 +98,8 @@ public class ObjectsManager {
                 object.setDateCreated(date);
                 em.merge(object);
                 return true;
-            } else {
-                throw new UserHasNotObjectException();
             }
+
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
@@ -125,17 +127,25 @@ public class ObjectsManager {
         return user.getRole().equals("ADMINISTRATOR");
     }
 
-    private boolean isUserHasObject(final Objects object, final Users user) {
+    private boolean isUserHasObject(final Objects object, final Users user) throws UserHasNotObjectException {
         Collection<Objects> objectsCollection = user.getObjectsCollection();
-        return objectsCollection.contains(object);
+        if (objectsCollection.contains(object)) {
+            return true;
+        } else {
+            throw new UserHasNotObjectException();
+        }
     }
 
-    /*private boolean isDateCorrect(final String date) {
-        String[] arr = date.split(".");
-        int day, month, year = 0;
-        if (arr.length == 3) {
-            for ()
+    private boolean isDateCorrect(final Date date) throws IncorrectDateException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(1000, 0, 1);
+        Date dateMin = calendar.getTime();
+        calendar.set(9999, 11, 31);
+        Date dateMax = calendar.getTime();
+        if (date.before(dateMax) && date.after(dateMin)) {
+            return true;
+        } else {
+            throw new IncorrectDateException();
         }
-    }*/
-
+    }
 }
