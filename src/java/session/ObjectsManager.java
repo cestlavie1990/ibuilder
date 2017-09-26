@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
+import exceptions.UserHasNotObjectException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import javax.ejb.EJB;
@@ -52,7 +53,7 @@ public class ObjectsManager {
 
             em.persist(object);
             return true;
-            
+
         } catch (Exception e) {
             context.setRollbackOnly();
             e.printStackTrace();
@@ -95,7 +96,7 @@ public class ObjectsManager {
                 em.merge(object);
                 return true;
             } else {
-                throw new IllegalArgumentException();
+                throw new UserHasNotObjectException();
             }
         } catch (Exception e) {
             context.setRollbackOnly();
@@ -128,5 +129,13 @@ public class ObjectsManager {
         Collection<Objects> objectsCollection = user.getObjectsCollection();
         return objectsCollection.contains(object);
     }
+
+    /*private boolean isDateCorrect(final String date) {
+        String[] arr = date.split(".");
+        int day, month, year = 0;
+        if (arr.length == 3) {
+            for ()
+        }
+    }*/
 
 }
