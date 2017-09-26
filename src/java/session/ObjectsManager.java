@@ -17,7 +17,6 @@ import exceptions.UserHasNotObjectException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 
 /**
@@ -44,18 +43,20 @@ public class ObjectsManager {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             Date date = dateFormat.parse(dateStart);
 
-            Objects object = new Objects();
-            object.setName(name);
-            object.setAddress(address);
-            object.setCustomer(customer);
-            object.setGeneralBuilder(generalBuilder);
-            object.setRecordIdCompany(user.getRecordIdCompany());
-            object.setDateCreated(date);
-            object.addUserToCollection(user);
-            object.setIsActive(true);
+            if (isDateCorrect(date)) {
+                Objects object = new Objects();
+                object.setName(name);
+                object.setAddress(address);
+                object.setCustomer(customer);
+                object.setGeneralBuilder(generalBuilder);
+                object.setRecordIdCompany(user.getRecordIdCompany());
+                object.setDateCreated(date);
+                object.addUserToCollection(user);
+                object.setIsActive(true);
 
-            em.persist(object);
-            return true;
+                em.persist(object);
+                return true;
+            }
 
         } catch (Exception e) {
             context.setRollbackOnly();
