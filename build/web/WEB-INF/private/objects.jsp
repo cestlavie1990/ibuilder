@@ -82,19 +82,19 @@
             var count = 0;
             <c:forEach var="place" items="${object.placesCollection}">
             places[count] = {
-                recordId: '${place.recordId}',
-                name: '${place.name}',
-                dateCreated: '${place.dateCreated}'
+                recordId: '<c:out value="${place.recordId}" />',
+                name: '<c:out value="${place.name}" />',
+                dateCreated: '<c:out value="${place.dateCreated}" />'
             };
             ++count;
             </c:forEach>
             arrayObjects[index] = {
-                recordId: '${object.recordId}',
-                name: '${object.name}',
-                address: '${object.address}',
-                customer: '${object.customer}'.replace(/"/g, '&quot'),
-                generalBuilder: '${object.generalBuilder}'.replace(/"/g, '&quot'),
-                dateCreated: '${object.dateCreated}',
+                recordId: '<c:out value="${object.recordId}" />',
+                name: '<c:out value="${object.name}" />',
+                address: '<c:out value="${object.address}" />',
+                customer: '<c:out value="${object.customer}" />',
+                generalBuilder: '<c:out value="${object.generalBuilder}" />',
+                dateCreated: '<c:out value="${object.dateCreated}" />',
                 placesCollection: places
             };
             ++index;
@@ -110,19 +110,19 @@
             var count = 0;
             <c:forEach var="place" items="${object.placesCollection}">
             places[count] = {
-                recordId: '${place.recordId}',
-                name: '${place.name}',
-                dateCreated: '${place.dateCreated}'
+                recordId: '<c:out value="${place.recordId}" />',
+                name: '<c:out value="${place.name}" />',
+                dateCreated: '<c:out value="${place.dateCreated}" />'
             };
             ++count;
             </c:forEach>
             arrayObjects[index] = {
-                recordId: '${object.recordId}',
-                name: '${object.name}',
-                address: '${object.address}',
-                customer: '${object.customer}'.replace(/"/g, '&quot'),
-                generalBuilder: '${object.generalBuilder}'.replace(/"/g, '&quot'),
-                dateCreated: '${object.dateCreated}',
+                recordId: '<c:out value="${object.recordId}" />',
+                name: '<c:out value="${object.name}" />',
+                address: '<c:out value="${object.address}" />',
+                customer: '<c:out value="${object.customer}" />',
+                generalBuilder: '<c:out value="${object.generalBuilder}" />',
+                dateCreated: '<c:out value="${object.dateCreated}" />',
                 placesCollection: places
             };
             ++index;
