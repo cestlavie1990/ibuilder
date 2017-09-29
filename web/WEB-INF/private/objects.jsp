@@ -25,7 +25,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <div class="dropdown">
-                        <span class="text">${username}</span>
+                        <span class="text"><c:out value="${username}" /></span>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" title="Настройки">
                             <i class="glyphicon glyphicon-cog" style="color: white"></i>
                         </a>
@@ -48,7 +48,7 @@
             <div class="row text-center">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <div class="box1">
-                        <h4>${companyName}</h4>
+                        <h4><c:out value="${companyName}" /></h4>
                         <p>Всего активных объектов: <strong>${countAllActiveObjects}</strong></p>
                         <p>На контроле: <strong>${activeObjects.size()}</strong></p>
                     </div>
@@ -153,12 +153,6 @@
                 }
             }
         }
-
-        $(document).ready(function () {
-            showActiveObjects();
-            showFinishedObjects();
-            showMessage();
-        });
 
         function deleteObject(index, value) {
             var objects = [];
@@ -285,49 +279,57 @@
         function changeStatus(index, value) {
             $('#changeStatus').remove();
             if (value === 0) {
-                $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
-                        '<div class="modal-dialog">' +
-                        '<div class="modal-content text-center">' +
-                        '<div class="modal-header">' +
-                        '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h4>Изменение статуса объекта</h4>' +
-                        '</div>' +
-                        '<div class="modal-body" style="color: #2D2D30">' +
-                        '<form method="POST" action="objects">' +
-                        '<p>Вы уверены, что хотите сделать завершённым объект <strong>' + activeObjects[index].name + '</strong>?</p>' +
-                        '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
-                        '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
-                        '<p>' +
-                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToFinished">Изменить</button>' +
-                        '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
-                        '</p>' +
-                        '</form>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>');
+                changeStatusToFinished(index);
             } else if (value === 1) {
-                $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
-                        '<div class="modal-dialog">' +
-                        '<div class="modal-content text-center">' +
-                        '<div class="modal-header">' +
-                        '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                        '<h4>Изменение статуса объекта</h4>' +
-                        '</div>' +
-                        '<div class="modal-body" style="color: #2D2D30">' +
-                        '<form method="POST" action="objects">' +
-                        '<p>Вы уверены, что хотите сделать активным объект <strong>' + finishedObjects[index].name + '</strong>?</p>' +
-                        '<input type="hidden" name="objectId" value="' + finishedObjects[index].recordId + '">' +
-                        '<p>' +
-                        '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
-                        '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
-                        '</p>' +
-                        '</form>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>');
+                changeStatusToActive(index);
             }
+        }
+
+        function changeStatusToFinished(index) {
+            $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
+                    '<div class="modal-dialog">' +
+                    '<div class="modal-content text-center">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                    '<h4>Изменение статуса объекта</h4>' +
+                    '</div>' +
+                    '<div class="modal-body" style="color: #2D2D30">' +
+                    '<form method="POST" action="objects">' +
+                    '<p>Вы уверены, что хотите сделать завершённым объект <strong>' + activeObjects[index].name + '</strong>?</p>' +
+                    '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
+                    '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
+                    '<p>' +
+                    '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToFinished">Изменить</button>' +
+                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
+                    '</p>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
+        }
+
+        function changeStatusToActive(index) {
+            $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
+                    '<div class="modal-dialog">' +
+                    '<div class="modal-content text-center">' +
+                    '<div class="modal-header">' +
+                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
+                    '<h4>Изменение статуса объекта</h4>' +
+                    '</div>' +
+                    '<div class="modal-body" style="color: #2D2D30">' +
+                    '<form method="POST" action="objects">' +
+                    '<p>Вы уверены, что хотите сделать активным объект <strong>' + finishedObjects[index].name + '</strong>?</p>' +
+                    '<input type="hidden" name="objectId" value="' + finishedObjects[index].recordId + '">' +
+                    '<p>' +
+                    '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
+                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
+                    '</p>' +
+                    '</form>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>');
         }
 
         function loadInfo(button, value) {
@@ -352,6 +354,7 @@
                     '<p>Генеральный подрядчик: <strong>' + objects[index].generalBuilder + '</strong></p>' +
                     '<p>Проектировщик: <strong>не указан</strong></p>' +
                     '</div>' +
+                    '<p>Начальник участка: <strong>' + '<c:out value="${username}" />' + '</strong></p>' +
                     '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject(' + index + ',' + value + ')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
                     (value === 0 ?
                             '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#changeStatus" onclick="changeStatus(' + index + ',' + value + ')"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Сделать завершённым</button>' :
@@ -409,6 +412,13 @@
         function refreshPage() {
             window.location.replace('objects');
         }
+
+
+        $(document).ready(function () {
+            showActiveObjects();
+            showFinishedObjects();
+            showMessage();
+        });
     </script>
     <!--<c:if test="${finishedObjects.size() == 0}">
         <h5>Пока нет завершённых объектов</h5>
