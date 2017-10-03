@@ -71,7 +71,6 @@
                 </div>
             </div>
         </div>
-
     </body>
     <script>
         function getActiveObjects() {
@@ -95,6 +94,7 @@
                 customer: '<c:out value="${object.customer}" />',
                 generalBuilder: '<c:out value="${object.generalBuilder}" />',
                 dateCreated: '<c:out value="${object.dateCreated}" />',
+                uqKey: '<c:out value="${object.uqKey}" />',
                 placesCollection: places
             };
             ++index;
@@ -123,6 +123,7 @@
                 customer: '<c:out value="${object.customer}" />',
                 generalBuilder: '<c:out value="${object.generalBuilder}" />',
                 dateCreated: '<c:out value="${object.dateCreated}" />',
+                uqKey: '<c:out value="${object.uqKey}" />',
                 placesCollection: places
             };
             ++index;
@@ -174,6 +175,7 @@
                     '<p>Вы уверены, что хотите удалить объект <strong>' + objects[index].name + '</strong>?</p>' +
                     '<p>После удаления данные уже невозможно будет восстановить</p>' +
                     '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
+                    '<input type="hidden" name="objectKey" value="' + objects[index].uqKey + '">' +
                     '<p>' +
                     '<button type="submit" class="btn btn-default" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>' +
                     '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
@@ -245,6 +247,7 @@
                     '<div class="modal-body">' +
                     '<form method="POST" action="objects">' +
                     '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
+                    '<input type="hidden" name="objectKey" value="' + objects[index].uqKey + '">' +
                     '<p>' +
                     '<label for="editNameObj">Название объекта строительства</label>' +
                     '<input type="text" name="editNameObj" class="form-control" id="editNameObj" value="' + objects[index].name + '" required>' +
@@ -298,6 +301,7 @@
                     '<p>Вы уверены, что хотите сделать завершённым объект <strong>' + activeObjects[index].name + '</strong>?</p>' +
                     '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
                     '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
+                    '<input type="hidden" name="objectKey" value="' + activeObjects[index].uqKey + '">' +
                     '<p>' +
                     '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToFinished">Изменить</button>' +
                     '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
@@ -321,6 +325,7 @@
                     '<form method="POST" action="objects">' +
                     '<p>Вы уверены, что хотите сделать активным объект <strong>' + finishedObjects[index].name + '</strong>?</p>' +
                     '<input type="hidden" name="objectId" value="' + finishedObjects[index].recordId + '">' +
+                    '<input type="hidden" name="objectKey" value="' + finishedObjects[index].uqKey + '">' +
                     '<p>' +
                     '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
                     '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +

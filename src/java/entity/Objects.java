@@ -90,6 +90,12 @@ public class Objects implements Serializable {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 32)
+    @Column(name = "uq_key")
+    private String uqKey;
+
     public Objects() {
     }
 
@@ -191,6 +197,14 @@ public class Objects implements Serializable {
 
     public void addUserToCollection(Users user) {
         this.usersCollection.add(user);
+    }
+
+    public String getUqKey() {
+        return uqKey;
+    }
+
+    public void setUqKey(String uqKey) {
+        this.uqKey = uqKey;
     }
 
     @Override

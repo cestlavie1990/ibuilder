@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import entity.Users;
 import entity.Objects;
 import exceptions.IncorrectDateException;
+import exceptions.IncorrectObjectKeyException;
 import exceptions.UserHasNotObjectException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,6 +43,7 @@ public class ObjectsManager {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             Date date = dateFormat.parse(dateStart);
+            String uqKey = "" + Math.random();
 
             if (isDateCorrect(date)) {
                 Objects object = new Objects();
@@ -53,6 +55,7 @@ public class ObjectsManager {
                 object.setDateCreated(date);
                 object.addUserToCollection(user);
                 object.setIsActive(true);
+                object.setUqKey(uqKey);
 
                 em.persist(object);
                 return true;
@@ -66,10 +69,10 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public boolean deleteObject(final Integer recorIdObject, final Users user) {
+    public boolean deleteObject(final Integer recorIdObject, final Users user, final String uqKey) {
         try {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
-            if (isUserHasObject(object, user) && isAdministrator(user)) {
+            if (isObjectDataCorrect(object, uqKey) && isAdministrator(user)) {
                 em.remove(object);
                 return true;
             } else {
@@ -83,15 +86,15 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public boolean editObject(final Integer recorIdObject, final Users user, final String name,
-            final String address, final String customer, final String generalBuilder, final String dateStart) {
+    public boolean editObject(final Integer recorIdObject, final Users user, final String name, final String address,
+            final String customer, final String generalBuilder, final String dateStart, final String uqKey) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
             Date date = dateFormat.parse(dateStart);
 
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
 
-            if (isDateCorrect(date) && isUserHasObject(object, user)) {
+            if (isDateCorrect(date) && isObjectDataCorrect(object, uqKey)) {
                 object.setName(name);
                 object.setAddress(address);
                 object.setCustomer(customer);
@@ -109,10 +112,10 @@ public class ObjectsManager {
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public boolean changeStatus(final Integer recorIdObject, final Users user, final boolean makeActive) {
+    public boolean changeStatus(final Integer recorIdObject, final Users user, final boolean makeActive, final String uqKey) {
         try {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
-            if (isUserHasObject(object, user)) {
+            if (isObjectDataCorrect(object, uqKey)) {
                 object.setIsActive(makeActive);
                 em.merge(object);
                 return true;
@@ -128,12 +131,11 @@ public class ObjectsManager {
         return user.getRole().equals("ADMINISTRATOR");
     }
 
-    private boolean isUserHasObject(final Objects object, final Users user) throws UserHasNotObjectException {
-        Collection<Objects> objectsCollection = user.getObjectsCollection();
-        if (objectsCollection.contains(object)) {
+    private boolean isObjectDataCorrect(final Objects object, final String uqKey) throws IncorrectObjectKeyException {
+        if (object.getUqKey().equals(uqKey)) {
             return true;
         } else {
-            throw new UserHasNotObjectException();
+            throw new IncorrectObjectKeyException();
         }
     }
 
@@ -147,6 +149,15 @@ public class ObjectsManager {
             return true;
         } else {
             throw new IncorrectDateException();
+        }
+    }
+
+    private boolean isUserHasObject(final Objects object, final Users user) throws UserHasNotObjectException {
+        Collection<Objects> objectsCollection = user.getObjectsCollection();
+        if (objectsCollection.contains(object)) {
+            return true;
+        } else {
+            throw new UserHasNotObjectException();
         }
     }
 }

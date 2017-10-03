@@ -129,9 +129,10 @@ public class ObjectsServlet extends HttpServlet {
     private void deleteObject(HttpServletRequest request) {
         try {
             String objectId = request.getParameter("objectId");
+            String objectKey = request.getParameter("objectKey");
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
-            boolean result = objectsManager.deleteObject(recordIdObject, user);
+            boolean result = objectsManager.deleteObject(recordIdObject, user, objectKey);
             if (result) {
                 request.setAttribute("messageResult", "objectDeleted");
             } else {
@@ -145,6 +146,7 @@ public class ObjectsServlet extends HttpServlet {
     private void editObject(HttpServletRequest request) {
         try {
             String objectId = request.getParameter("objectId");
+            String objectKey = request.getParameter("objectKey");
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
 
@@ -166,7 +168,7 @@ public class ObjectsServlet extends HttpServlet {
                 }
             }
 
-            boolean result = objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart);
+            boolean result = objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart, objectKey);
             if (result) {
                 request.setAttribute("messageResult", "objectChanged");
             } else {
@@ -181,9 +183,10 @@ public class ObjectsServlet extends HttpServlet {
     private void changeStatus(HttpServletRequest request, boolean makeActive) {
         try {
             String objectId = request.getParameter("objectId");
+            String objectKey = request.getParameter("objectKey");
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
-            boolean result = objectsManager.changeStatus(recordIdObject, user, makeActive);
+            boolean result = objectsManager.changeStatus(recordIdObject, user, makeActive, objectKey);
             if (result) {
                 request.setAttribute("messageResult", "statusChanged");
             } else {
