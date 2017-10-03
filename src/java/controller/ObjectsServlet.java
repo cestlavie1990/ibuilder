@@ -5,7 +5,6 @@ import entity.Objects;
 import entity.Users;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -98,23 +97,12 @@ public class ObjectsServlet extends HttpServlet {
     }
 
     private void addObject(HttpServletRequest request) {
-        Enumeration<String> parameters = request.getParameterNames();
-        String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
 
-        while (parameters.hasMoreElements()) {
-            String parameter = parameters.nextElement();
-            if (parameter.equals("nameObj")) {
-                name = request.getParameter(parameter);
-            } else if (parameter.equals("addressObj")) {
-                address = request.getParameter(parameter);
-            } else if (parameter.equals("nameCustomerObj")) {
-                customer = request.getParameter(parameter);
-            } else if (parameter.equals("nameGenBuilderObj")) {
-                generalBuilder = request.getParameter(parameter);
-            } else if (parameter.equals("dateStartObj")) {
-                dateStart = request.getParameter(parameter);
-            }
-        }
+        String name = request.getParameter("nameObj");
+        String address = request.getParameter("addressObj");
+        String customer = request.getParameter("nameCustomerObj");
+        String generalBuilder = request.getParameter("nameGenBuilderObj");
+        String dateStart = request.getParameter("dateStartObj");
 
         Users user = getUserPrincipal(request);
 
@@ -150,23 +138,11 @@ public class ObjectsServlet extends HttpServlet {
             Integer recordIdObject = Integer.parseInt(objectId);
             Users user = getUserPrincipal(request);
 
-            Enumeration<String> parameters = request.getParameterNames();
-            String name = null, address = null, customer = null, generalBuilder = null, dateStart = null;
-
-            while (parameters.hasMoreElements()) {
-                String parameter = parameters.nextElement();
-                if (parameter.equals("editNameObj")) {
-                    name = request.getParameter(parameter);
-                } else if (parameter.equals("editAddressObj")) {
-                    address = request.getParameter(parameter);
-                } else if (parameter.equals("editNameCustomerObj")) {
-                    customer = request.getParameter(parameter);
-                } else if (parameter.equals("editNameGenBuilderObj")) {
-                    generalBuilder = request.getParameter(parameter);
-                } else if (parameter.equals("editDateStartObj")) {
-                    dateStart = request.getParameter(parameter);
-                }
-            }
+            String name = request.getParameter("editNameObj");
+            String address = request.getParameter("editAddressObj");
+            String customer = request.getParameter("editNameCustomerObj");
+            String generalBuilder = request.getParameter("editNameGenBuilderObj");
+            String dateStart = request.getParameter("editDateStartObj");
 
             boolean result = objectsManager.editObject(recordIdObject, user, name, address, customer, generalBuilder, dateStart, objectKey);
             if (result) {
