@@ -144,7 +144,7 @@ html {
     color: white;
 }
 
-#objSelect {
+.objSelect {
     width: 100%;
     border-radius: 0;
 }

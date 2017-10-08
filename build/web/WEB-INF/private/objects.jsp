@@ -59,6 +59,18 @@
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
                             <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal" onclick="addObject()"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
+                                <c:forEach var="object" items="${activeObjects}" varStatus="сounter">
+                                <li>
+                                    <button type="button" class="btn btn-default objSelect" id="objSelect${сounter.index}"
+                                            data-name="<c:out value='${object.name}' />" 
+                                            data-address="<c:out value='${object.address}' />" 
+                                            data-customer="<c:out value='${object.customer}' />"
+                                            data-genbuilder="<c:out value='${object.generalBuilder}' />" 
+                                            data-date="<c:out value='${object.dateCreated}' />">
+                                        <c:out value='${object.name}' />
+                                    </button>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <a href="#finished-obj" data-toggle="collapse" id="finished-obj-btn">
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
@@ -68,11 +80,40 @@
                     </div>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 about-col">
+                    <div class="box2">
+                        <div class="row subbox0">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1">
+                                <p>Объект: <strong id="objNameText"></strong></p>
+                                <p>Адрес: <strong id="objAddressText"></strong></p>
+                                <p>Начало производства работ: <strong id="objDateText"></strong></p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2">
+                                <p>Заказчик: <strong id="objCustomerText"></strong></p>
+                                <p>Генеральный подрядчик: <strong id="objGenBuilderText"></strong></p>
+                                <p>Проектировщик: <strong>не указан</strong></p>
+                            </div>
+                            <p>Начальник участка: <strong></strong></p>
+                            <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject()"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>
+                            <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject()"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>
+                        </div>
+                    </div>
+                    <div class="box4">
+                        <p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
-    <script>
+    <script type="text/javascript">
+        $('.objSelect').click(function () {
+            $('.about-col').show();
+            $('#objNameText').html($(this).data('name'));
+            $('#objAddressText').html($(this).data('address'));
+            $('#objDateText').html($(this).data('date'));
+            $('#objCustomerText').html($(this).data('customer'));
+            $('#objGenBuilderText').html($(this).data('genbuilder'));
+        });
+
         function getActiveObjects() {
             var arrayObjects = [];
             var index = 0;
@@ -135,25 +176,25 @@
         var finishedObjects = getFinishedObjects();
 
 
-        function showActiveObjects() {
-            if (activeObjects.length === 0) {
-                $('#active-obj').append('<h5>Активные объекты отсутствуют</h5>');
-            } else {
-                for (var i = 0; i < activeObjects.length; i++) {
-                    $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 0)">' + activeObjects[i].name + '</button></li>');
-                }
-            }
-        }
-
-        function showFinishedObjects() {
-            if (finishedObjects.length === 0) {
-                $('#finished-obj').append('<h5>Пока нет завершённых объектов</h5>');
-            } else {
-                for (var i = 0; i < finishedObjects.length; i++) {
-                    $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 1)">' + finishedObjects[i].name + '</button></li>');
-                }
-            }
-        }
+        /*function showActiveObjects() {
+         if (activeObjects.length === 0) {
+         $('#active-obj').append('<h5>Активные объекты отсутствуют</h5>');
+         } else {
+         for (var i = 0; i < activeObjects.length; i++) {
+         $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 0)">' + activeObjects[i].name + '</button></li>');
+         }
+         }
+         }
+         
+         function showFinishedObjects() {
+         if (finishedObjects.length === 0) {
+         $('#finished-obj').append('<h5>Пока нет завершённых объектов</h5>');
+         } else {
+         for (var i = 0; i < finishedObjects.length; i++) {
+         $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 1)">' + finishedObjects[i].name + '</button></li>');
+         }
+         }
+         }*/
 
         function deleteObject(index, value) {
             var objects = [];
@@ -420,8 +461,9 @@
 
 
         $(document).ready(function () {
-            showActiveObjects();
-            showFinishedObjects();
+            //showActiveObjects();
+            //showFinishedObjects();
+            $('.about-col').hide();
             showMessage();
         });
     </script>

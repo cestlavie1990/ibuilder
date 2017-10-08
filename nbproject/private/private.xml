@@ -5,9 +5,7 @@
         <group>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/controller/ObjectsServlet.java</file>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/session/ObjectsManager.java</file>
-            <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/entity/Objects.java</file>
             <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/web/WEB-INF/private/objects.jsp</file>
-            <file>file:/C:/Users/Mr.Minakov/Documents/NetBeansProjects/IBuilder/src/java/session/ObjectsFacade.java</file>
         </group>
     </open-files>
 </project-private>
