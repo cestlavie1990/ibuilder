@@ -82,9 +82,9 @@ public class ObjectsServlet extends HttpServlet {
             deleteObject(request);
         } else if (action.equals("edit")) {
             editObject(request);
-        } else if (action.equals("changeStatusToActive")) {
+        } else if (action.equals("toActive")) {
             changeStatus(request, true);
-        } else if (action.equals("changeStatusToFinished")) {
+        } else if (action.equals("toFinished")) {
             changeStatus(request, false);
         }
 
@@ -153,6 +153,7 @@ public class ObjectsServlet extends HttpServlet {
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            request.setAttribute("messageResult", "fail");
         }
     }
 

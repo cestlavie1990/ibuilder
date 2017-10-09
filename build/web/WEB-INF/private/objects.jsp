@@ -61,12 +61,15 @@
                             <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal" onclick="addObject()"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
                                 <c:forEach var="object" items="${activeObjects}" varStatus="сounter">
                                 <li>
-                                    <button type="button" class="btn btn-default objSelect" id="objSelect${сounter.index}"
+                                    <button type="button" class="btn btn-default objSelect" id="objSelect${object.recordId}"
+                                            data-id="${object.recordId}"
+                                            data-key="${object.uqKey}"
                                             data-name="<c:out value='${object.name}' />" 
                                             data-address="<c:out value='${object.address}' />" 
                                             data-customer="<c:out value='${object.customer}' />"
                                             data-genbuilder="<c:out value='${object.generalBuilder}' />" 
-                                            data-date="<c:out value='${object.dateCreated}' />">
+                                            data-date="<c:out value='${object.dateCreated}' />" 
+                                            data-status="<c:out value='${object.isActive}' />">
                                         <c:out value='${object.name}' />
                                     </button>
                                 </li>
@@ -76,6 +79,21 @@
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Завершённые объекты</p>
                         </a>
                         <ul class="nav nav-pills nav-stacked collapse" id="finished-obj">
+                            <c:forEach var="object" items="${finishedObjects}" varStatus="сounter">
+                                <li>
+                                    <button type="button" class="btn btn-default objSelect" id="objSelect${object.recordId}"
+                                            data-id="${object.recordId}"
+                                            data-key="${object.uqKey}"
+                                            data-name="<c:out value='${object.name}' />" 
+                                            data-address="<c:out value='${object.address}' />" 
+                                            data-customer="<c:out value='${object.customer}' />"
+                                            data-genbuilder="<c:out value='${object.generalBuilder}' />" 
+                                            data-date="<c:out value='${object.dateCreated}' />" 
+                                            data-status="<c:out value='${object.isActive}' />">
+                                        <c:out value='${object.name}' />
+                                    </button>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -92,9 +110,33 @@
                                 <p>Генеральный подрядчик: <strong id="objGenBuilderText"></strong></p>
                                 <p>Проектировщик: <strong>не указан</strong></p>
                             </div>
-                            <p>Начальник участка: <strong></strong></p>
-                            <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject()"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>
-                            <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject()"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>
+                            <p>Начальник участка: <strong><c:out value="${username}" /></strong></p>
+                            <button type="button" class="btn btn-default btn-md editObjBtn" id="" 
+                                    data-toggle="modal" 
+                                    data-target="#editObject" 
+                                    data-editId="" 
+                                    data-editKey="" 
+                                    data-editName="" 
+                                    data-editAddress="" 
+                                    data-editCustomer="" 
+                                    data-editGenBuilder="" 
+                                    data-editDate="">
+                                <i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>
+                            <button type="button" class="btn btn-default btn-md changeStatusBtn" id=""
+                                    data-toggle="modal" 
+                                    data-target="#changeStatus" 
+                                    data-chId="" 
+                                    data-chKey="" 
+                                    data-chName="" 
+                                    data-chStatus="">
+                            </button>
+                            <button type="button" class="btn btn-default btn-md deleteObjBtn" id=""
+                                    data-toggle="modal" 
+                                    data-target="#deleteObj" 
+                                    data-delId="" 
+                                    data-delKey="" 
+                                    data-delName="">
+                                <i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>
                         </div>
                     </div>
                     <div class="box4">
@@ -103,131 +145,181 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="deleteObj" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Удаление объекта строительства</h4>
+                    </div>
+                    <div class="modal-body" style="color: #2D2D30">
+                        <form method="POST" action="objects">
+                            <p>Вы уверены, что хотите удалить объект <strong id="delObjNameText"></strong>?</p>
+                            <p>После удаления данные уже невозможно будет восстановить</p>
+                            <input type="hidden" id="delObjectId" name="objectId" value="">
+                            <input type="hidden" id="delObjectKey" name="objectKey" value="">
+                            <p>
+                                <button type="submit" class="btn btn-default" name="btnAction" value="delete">Удалить</button>
+                                <button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-center" id="editObject" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Редактирование объекта </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="objects">
+                            <input type="hidden" id="editObjectId" name="objectId" value="">
+                            <input type="hidden" id="editObjectKey" name="objectKey" value="">
+                            <p>
+                                <label for="editNameObj">Название объекта строительства</label>
+                                <input type="text" name="editNameObj" class="form-control" id="editNameObj" value="" required>
+                            </p>
+                            <p>
+                                <label for="editAddressObj">Адрес объекта строительства</label>
+                                <input type="text" name="editAddressObj" class="form-control" id="editAddressObj" value="">
+                            </p>
+                            <p>
+                                <label for="editNameCustomerObj">Название компании заказчика</label>
+                                <input type="text" name="editNameCustomerObj" class="form-control" id="editNameCustomerObj" value="">
+                            </p>
+                            <p>
+                                <label for="editNameGenBuilderObj">Название компании генподрядчика</label>
+                                <input type="text" name="editNameGenBuilderObj" class="form-control" id="editNameGenBuilderObj" value="">
+                            </p>
+                            <p>
+                                <label for="editDateStartObj">Дата начала работ</label>
+                                <input type="text" name="editDateStartObj" class="form-control" id="editDateStartObj" value="" required>
+                            </p>
+                            <p>
+                                <button type="submit" class="btn btn-default" id="btnEditObj" name="btnAction" value="edit">Изменить</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="changeStatus" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Изменение статуса объекта</h4>
+                    </div>
+                    <div class="modal-body" style="color: #2D2D30">
+                        <form method="POST" action="objects">
+                            <p>Вы уверены, что хотите сделать завершённым объект <strong id="chStatusNameText"></strong>?</p>
+                            <p>В завершённые объекты нельзя будет добавлять новые данные</p>
+                            <input type="hidden" id="chStatusObjectId" name="objectId" value="">
+                            <input type="hidden" id="chStatusObjectKey" name="objectKey" value="">
+                            <p>
+                                <button type="submit" class="btn btn-default" id="btnSubmitChangeStatus" name="btnAction" value="">Изменить</button>
+                                <button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
     <script type="text/javascript">
-        $('.objSelect').click(function () {
-            $('.about-col').show();
-            $('#objNameText').html($(this).data('name'));
-            $('#objAddressText').html($(this).data('address'));
-            $('#objDateText').html($(this).data('date'));
-            $('#objCustomerText').html($(this).data('customer'));
-            $('#objGenBuilderText').html($(this).data('genbuilder'));
+        $(document).ready(function () {
+            $('.about-col').hide();
+            $("#dateStartObj").datetimepicker({language: "ru", pickTime: false});
+            $("#editDateStartObj").datetimepicker({language: "ru", pickTime: false});
+            showMessage();
         });
 
-        function getActiveObjects() {
-            var arrayObjects = [];
-            var index = 0;
-        <c:forEach var="object" items="${activeObjects}">
-            var places = [];
-            var count = 0;
-            <c:forEach var="place" items="${object.placesCollection}">
-            places[count] = {
-                recordId: '<c:out value="${place.recordId}" />',
-                name: '<c:out value="${place.name}" />',
-                dateCreated: '<c:out value="${place.dateCreated}" />'
-            };
-            ++count;
-            </c:forEach>
-            arrayObjects[index] = {
-                recordId: '<c:out value="${object.recordId}" />',
-                name: '<c:out value="${object.name}" />',
-                address: '<c:out value="${object.address}" />',
-                customer: '<c:out value="${object.customer}" />',
-                generalBuilder: '<c:out value="${object.generalBuilder}" />',
-                dateCreated: '<c:out value="${object.dateCreated}" />',
-                uqKey: '<c:out value="${object.uqKey}" />',
-                placesCollection: places
-            };
-            ++index;
-        </c:forEach>
-            return arrayObjects;
-        }
+        //Меню
+        $('.objSelect').click(function () {
+            var id = $(this).data('id');
+            var key = $(this).data('key');
+            var name = $(this).data('name');
+            var address = $(this).data('address');
+            var date = $(this).data('date');
+            var customer = $(this).data('customer');
+            var genBuilder = $(this).data('genbuilder');
+            var status = $(this).data('status');
 
-        function getFinishedObjects() {
-            var arrayObjects = [];
-            var index = 0;
-        <c:forEach var="object" items="${finishedObjects}">
-            var places = [];
-            var count = 0;
-            <c:forEach var="place" items="${object.placesCollection}">
-            places[count] = {
-                recordId: '<c:out value="${place.recordId}" />',
-                name: '<c:out value="${place.name}" />',
-                dateCreated: '<c:out value="${place.dateCreated}" />'
-            };
-            ++count;
-            </c:forEach>
-            arrayObjects[index] = {
-                recordId: '<c:out value="${object.recordId}" />',
-                name: '<c:out value="${object.name}" />',
-                address: '<c:out value="${object.address}" />',
-                customer: '<c:out value="${object.customer}" />',
-                generalBuilder: '<c:out value="${object.generalBuilder}" />',
-                dateCreated: '<c:out value="${object.dateCreated}" />',
-                uqKey: '<c:out value="${object.uqKey}" />',
-                placesCollection: places
-            };
-            ++index;
-        </c:forEach>
-            return arrayObjects;
-        }
+            $('.about-col').show();
+            $('#objNameText').html(name);
+            $('#objAddressText').html(address);
+            $('#objDateText').html(date);
+            $('#objCustomerText').html(customer);
+            $('#objGenBuilderText').html(genBuilder);
 
-        var activeObjects = getActiveObjects();
-        var finishedObjects = getFinishedObjects();
+            $('.deleteObjBtn').attr('id', 'deleteObjBtn' + id);
+            $('.deleteObjBtn').attr('data-delName', name);
+            $('.deleteObjBtn').attr('data-delId', id);
+            $('.deleteObjBtn').attr('data-delKey', key);
 
+            $('.editObjBtn').attr('id', 'editObjBtn' + id);
+            $('.editObjBtn').attr('data-editName', name);
+            $('.editObjBtn').attr('data-editId', id);
+            $('.editObjBtn').attr('data-editKey', key);
+            $('.editObjBtn').attr('data-editAddress', address);
+            $('.editObjBtn').attr('data-editCustomer', customer);
+            $('.editObjBtn').attr('data-editGenBuilder', genBuilder);
+            $('.editObjBtn').attr('data-editDate', date);
 
-        /*function showActiveObjects() {
-         if (activeObjects.length === 0) {
-         $('#active-obj').append('<h5>Активные объекты отсутствуют</h5>');
-         } else {
-         for (var i = 0; i < activeObjects.length; i++) {
-         $('#active-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 0)">' + activeObjects[i].name + '</button></li>');
-         }
-         }
-         }
-         
-         function showFinishedObjects() {
-         if (finishedObjects.length === 0) {
-         $('#finished-obj').append('<h5>Пока нет завершённых объектов</h5>');
-         } else {
-         for (var i = 0; i < finishedObjects.length; i++) {
-         $('#finished-obj').append('<li><button type="button" class="btn btn-default" value="' + i + '" id="objSelect" onclick="loadInfo(this, 1)">' + finishedObjects[i].name + '</button></li>');
-         }
-         }
-         }*/
-
-        function deleteObject(index, value) {
-            var objects = [];
-            if (value === 0) {
-                objects = activeObjects;
-            } else if (value === 1) {
-                objects = finishedObjects;
+            if (status) {
+                $('.changeStatusBtn').html('<i class="glyphicon glyphicon-check" aria-hidden="true"></i> Сделать завершенным');
+            } else {
+                $('.changeStatusBtn').html('<i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Сделать активным');
             }
-            $('#deleteObj').remove();
-            $('.page').append('<div class="modal fade" id="deleteObj" role="dialog">' +
-                    '<div class="modal-dialog">' +
-                    '<div class="modal-content text-center">' +
-                    '<div class="modal-header">' +
-                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                    '<h4>Удаление объекта строительства</h4>' +
-                    '</div>' +
-                    '<div class="modal-body" style="color: #2D2D30">' +
-                    '<form method="POST" action="objects">' +
-                    '<p>Вы уверены, что хотите удалить объект <strong>' + objects[index].name + '</strong>?</p>' +
-                    '<p>После удаления данные уже невозможно будет восстановить</p>' +
-                    '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
-                    '<input type="hidden" name="objectKey" value="' + objects[index].uqKey + '">' +
-                    '<p>' +
-                    '<button type="submit" class="btn btn-default" id="btnDeleteObj" name="btnAction" value="delete">Удалить</button>' +
-                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
-                    '</p>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-        }
+            $('.changeStatusBtn').attr('id', 'changeStatusBtn' + id);
+            $('.changeStatusBtn').attr('data-chName', name);
+            $('.changeStatusBtn').attr('data-chId', id);
+            $('.changeStatusBtn').attr('data-chKey', key);
+            $('.changeStatusBtn').attr('data-chStatus', status);
+        });
 
+        //Изменить статус
+        $('.changeStatusBtn').click(function () {
+            var status = $(this).attr('data-chStatus');
+
+            $('#chStatusNameText').html($(this).attr('data-chName'));
+            $('#chStatusObjectId').val($(this).attr('data-chId'));
+            $('#chStatusObjectKey').val($(this).attr('data-chKey'));
+
+            if (status === "true") {
+                $('#btnSubmitChangeStatus').val('toFinished');
+            } else {
+                $('#btnSubmitChangeStatus').val('toActive');
+            }
+        });
+
+        //Удаление
+        $('.deleteObjBtn').click(function () {
+            $('#delObjNameText').html($(this).attr('data-delName'));
+            $('#delObjectId').val($(this).attr('data-delId'));
+            $('#delObjectKey').val($(this).attr('data-delKey'));
+        });
+
+        //Редактирование
+        $('.editObjBtn').click(function () {
+            $('#editObjNameText').html($(this).attr('data-editName'));
+            $('#editObjectId').val($(this).attr('data-editId'));
+            $('#editObjectKey').val($(this).attr('data-editKey'));
+            $('#editNameObj').val($(this).attr('data-editName'));
+            $('#editAddressObj').val($(this).attr('data-editAddress'));
+            $('#editNameCustomerObj').val($(this).attr('data-editCustomer'));
+            $('#editNameGenBuilderObj').val($(this).attr('data-editGenBuilder'));
+            $('#editDateStartObj').val($(this).attr('data-editDate'));
+        });
+
+        //Добавление
         function addObject() {
             $('#addObjModal').remove();
             $('.page').append('<div class="modal fade text-center" id="addObjModal" role="dialog">' +
@@ -270,156 +362,6 @@
             $("#dateStartObj").datetimepicker({language: "ru", pickTime: false});
         }
 
-        function editObject(index, value) {
-            var objects = [];
-            if (value === 0) {
-                objects = activeObjects;
-            } else if (value === 1) {
-                objects = finishedObjects;
-            }
-            $('#editObject').remove();
-            $('.page').append('<div class="modal fade text-center" id="editObject" role="dialog">' +
-                    '<div class="modal-dialog">' +
-                    '<div class="modal-content">' +
-                    '<div class="modal-header">' +
-                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                    '<h4>Редактирование объекта ' + objects[index].name + '</h4>' +
-                    '</div>' +
-                    '<div class="modal-body">' +
-                    '<form method="POST" action="objects">' +
-                    '<input type="hidden" name="objectId" value="' + objects[index].recordId + '">' +
-                    '<input type="hidden" name="objectKey" value="' + objects[index].uqKey + '">' +
-                    '<p>' +
-                    '<label for="editNameObj">Название объекта строительства</label>' +
-                    '<input type="text" name="editNameObj" class="form-control" id="editNameObj" value="' + objects[index].name + '" required>' +
-                    '</p>' +
-                    '<p>' +
-                    '<label for="editAddressObj">Адрес объекта строительства</label>' +
-                    '<input type="text" name="editAddressObj" class="form-control" id="editAddressObj"value="' + objects[index].address + '">' +
-                    '</p>' +
-                    '<p>' +
-                    '<label for="editNameCustomerObj">Название компании заказчика</label>' +
-                    '<input type="text" name="editNameCustomerObj" class="form-control" id="editNameCustomerObj" value="' + objects[index].customer + '">' +
-                    '</p>' +
-                    '<p>' +
-                    '<label for="editNameGenBuilderObj">Название компании генподрядчика</label>' +
-                    '<input type="text" name="editNameGenBuilderObj" class="form-control" id="editNameGenBuilderObj" value="' + objects[index].generalBuilder + '">' +
-                    '</p>' +
-                    '<p>' +
-                    '<label for="editDateStartObj">Дата начала работ</label>' +
-                    '<input type="text" name="editDateStartObj" class="form-control" id="editDateStartObj" value="' + objects[index].dateCreated + '" required>' +
-                    '</p>' +
-                    '<p>' +
-                    '<button type="submit" class="btn btn-default" id="btnEditObj" name="btnAction" value="edit">Изменить</button>' +
-                    '</p>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-            $("#editDateStartObj").datetimepicker({language: "ru", pickTime: false});
-        }
-
-        function changeStatus(index, value) {
-            $('#changeStatus').remove();
-            if (value === 0) {
-                changeStatusToFinished(index);
-            } else if (value === 1) {
-                changeStatusToActive(index);
-            }
-        }
-
-        function changeStatusToFinished(index) {
-            $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
-                    '<div class="modal-dialog">' +
-                    '<div class="modal-content text-center">' +
-                    '<div class="modal-header">' +
-                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                    '<h4>Изменение статуса объекта</h4>' +
-                    '</div>' +
-                    '<div class="modal-body" style="color: #2D2D30">' +
-                    '<form method="POST" action="objects">' +
-                    '<p>Вы уверены, что хотите сделать завершённым объект <strong>' + activeObjects[index].name + '</strong>?</p>' +
-                    '<p>В завершённые объекты нельзя будет добавлять новые данные</p>' +
-                    '<input type="hidden" name="objectId" value="' + activeObjects[index].recordId + '">' +
-                    '<input type="hidden" name="objectKey" value="' + activeObjects[index].uqKey + '">' +
-                    '<p>' +
-                    '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToFinished">Изменить</button>' +
-                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
-                    '</p>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-        }
-
-        function changeStatusToActive(index) {
-            $('.page').append('<div class="modal fade" id="changeStatus" role="dialog">' +
-                    '<div class="modal-dialog">' +
-                    '<div class="modal-content text-center">' +
-                    '<div class="modal-header">' +
-                    '<button type="button" class="close" data-dismiss="modal">×</button>' +
-                    '<h4>Изменение статуса объекта</h4>' +
-                    '</div>' +
-                    '<div class="modal-body" style="color: #2D2D30">' +
-                    '<form method="POST" action="objects">' +
-                    '<p>Вы уверены, что хотите сделать активным объект <strong>' + finishedObjects[index].name + '</strong>?</p>' +
-                    '<input type="hidden" name="objectId" value="' + finishedObjects[index].recordId + '">' +
-                    '<input type="hidden" name="objectKey" value="' + finishedObjects[index].uqKey + '">' +
-                    '<p>' +
-                    '<button type="submit" class="btn btn-default" id="btnChangeStatus" name="btnAction" value="changeStatusToActive">Изменить</button>' +
-                    '<button type="reset" class="btn btn-default" data-dismiss="modal">Отмена</button>' +
-                    '</p>' +
-                    '</form>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>');
-        }
-
-        function loadInfo(button, value) {
-            var index = button.value;
-            var objects = [];
-            if (value === 0) {
-                objects = activeObjects;
-            } else if (value === 1) {
-                objects = finishedObjects;
-            }
-            $('.box2').remove();
-            $('.box4').remove();
-            $('.about-col').append('<div class="box2">' +
-                    '<div class="row subbox0">' +
-                    '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox1">' +
-                    '<p>Объект: <strong>' + objects[index].name + '</strong></p>' +
-                    '<p>Адрес: <strong>' + objects[index].address + '</strong></p>' +
-                    '<p>Начало производства работ: <strong>' + objects[index].dateCreated + '</strong></p>' +
-                    '</div>' +
-                    '<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 subbox2">' +
-                    '<p>Заказчик: <strong>' + objects[index].customer + '</strong></p>' +
-                    '<p>Генеральный подрядчик: <strong>' + objects[index].generalBuilder + '</strong></p>' +
-                    '<p>Проектировщик: <strong>не указан</strong></p>' +
-                    '</div>' +
-                    '<p>Начальник участка: <strong>' + '<c:out value="${username}" />' + '</strong></p>' +
-                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#editObject" onclick="editObject(' + index + ',' + value + ')"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Изменить</button>' +
-                    (value === 0 ?
-                            '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#changeStatus" onclick="changeStatus(' + index + ',' + value + ')"><i class="glyphicon glyphicon-check" aria-hidden="true"></i> Сделать завершённым</button>' :
-                            '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#changeStatus" onclick="changeStatus(' + index + ',' + value + ')"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Сделать активным</button>') +
-                    '<button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#deleteObj" onclick="deleteObject(' + index + ',' + value + ')"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i> Удалить</button>' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="box4"></div>');
-            if (objects[index].placesCollection.length === 0) {
-                $('.box4').append('<p>Участки строительства отсутствуют</p>');
-            } else {
-                $('.box4').append('<p>Участки строительства</p>');
-                for (var i = 0; i < objects[index].placesCollection.length; i++) {
-                    $('.box4').append('<p><button type="submit" class="btn btn-default btn-md" style="width: 75%">' + objects[index].placesCollection[i].name + '</button></p>');
-                }
-            }
-            $('.box4').append('<p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>');
-        }
-
         function showMessage() {
             $('#messageResult').remove();
             var message = null;
@@ -458,19 +400,5 @@
         function refreshPage() {
             window.location.replace('objects');
         }
-
-
-        $(document).ready(function () {
-            //showActiveObjects();
-            //showFinishedObjects();
-            $('.about-col').hide();
-            showMessage();
-        });
     </script>
-    <!--<c:if test="${finishedObjects.size() == 0}">
-        <h5>Пока нет завершённых объектов</h5>
-    </c:if>  
-    <c:forEach var="object" items="${finishedObjects}" varStatus="сounter">
-        <li><button type="button" class="btn btn-default" value="${сounter.index}" id="objSelect" onclick="loadInfo(this, 1)">${object.name}</button></li>
-    </c:forEach>-->
 </html>
