@@ -1,5 +1,8 @@
 package controller;
 
+import builders.UsersObject;
+import builders.UsersObjectFactory;
+import com.google.gson.Gson;
 import entity.Companies;
 import entity.Objects;
 import entity.Users;
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import session.ObjectsFacade;
 import session.ObjectsManager;
 import session.UsersFacade;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -86,6 +91,12 @@ public class ObjectsServlet extends HttpServlet {
             changeStatus(request, true);
         } else if (action.equals("toFinished")) {
             changeStatus(request, false);
+        } else if (action.equals("showRespUsers")) {
+            showUsersByObject(request, response);
+            return;
+        } else if (action.equals("deleteRespUser")) {
+            deleteRespUser(request, response);
+            return;
         }
 
         doGet(request, response);
@@ -174,6 +185,58 @@ public class ObjectsServlet extends HttpServlet {
         }
     }
 
+    private void showUsersByObject(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String objectId = request.getParameter("respObjectId");
+            String objectKey = request.getParameter("respObjectKey");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Objects object = objectsFacade.findObjectByRecordId(recordIdObject);
+            List<Users> usersList = new ArrayList<>();
+            String json = "";
+
+            if (object.getUqKey().equals(objectKey)) {
+                usersList = getUsersByObject(object);
+                List<UsersObject> usersObjectList = UsersObjectFactory.createList(usersList);
+
+                response.setContentType("text/plain");
+                json = new Gson().toJson(usersObjectList);
+            } else {
+                json = new Gson().toJson("mistake");
+            }
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(json.getBytes("UTF-8"));
+            outStream.flush();
+            outStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteRespUser(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String objectId = request.getParameter("objectId");
+            String objectKey = request.getParameter("objectKey");
+            String userId = request.getParameter("userId");
+            Integer recordIdObject = Integer.parseInt(objectId);
+            Integer recordIdUser = Integer.parseInt(userId);
+            boolean result = objectsManager.deleteRespUser(recordIdObject, objectKey, recordIdUser);
+            String respResult = "";
+            if (result) {
+                respResult = "respUserDeleted";
+            } else {
+                respResult = "fail";
+            }
+            OutputStream outStream = response.getOutputStream();
+            outStream.write(respResult.getBytes("UTF-8"));
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private Users getUserPrincipal(HttpServletRequest request) {
         request.setAttribute("login", request.getUserPrincipal().getName());
 
@@ -194,6 +257,10 @@ public class ObjectsServlet extends HttpServlet {
 
     private List<Objects> getObjectsByUser(final Users user) {
         return usersFacade.getObjects(user.getRecordId());
+    }
+
+    private List<Users> getUsersByObject(final Objects object) {
+        return usersFacade.findByObject(object.getRecordId());
     }
 
 }

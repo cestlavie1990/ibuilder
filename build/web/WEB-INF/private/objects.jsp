@@ -110,7 +110,12 @@
                                 <p>Генеральный подрядчик: <strong id="objGenBuilderText"></strong></p>
                                 <p>Проектировщик: <strong>не указан</strong></p>
                             </div>
-                            <p>Начальник участка: <strong><c:out value="${username}" /></strong></p>
+                            <p><button type="submit" class="btn btn-default btn-md respUsersBtn" id=""
+                                       data-respId="" 
+                                       data-respKey="" 
+                                       data-respName="">
+                                    <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Ответственные за объект</button>
+                            </p>
                             <button type="button" class="btn btn-default btn-md editObjBtn" id="" 
                                     data-toggle="modal" 
                                     data-target="#editObject" 
@@ -141,6 +146,50 @@
                     </div>
                     <div class="box4">
                         <p><button type="submit" class="btn btn-default btn-md"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить участок</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="respUsersModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Ответственные на объекте</h4>
+                    </div>
+                    <div class="modal-body" id="respModalBody" style="color: #2D2D30"></div>
+                    <div class="modal-footer" id="respModalFooter" style="color: #2D2D30; text-align: center">
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmDelRespUsersModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Удаление ответственного с объекта</h4>
+                    </div>
+                    <div class="modal-body" id="delRespModalBody" style="color: #2D2D30">
+                        <p>Вы уверены, что хотите удалить ответственного за объект пользователя?</p>
+                        <p>После удаления у пользователя пропадёт доступ к удалённому объекту</p>
+                    </div>
+                    <div class="modal-footer" id="delRespModalFooter" style="color: #2D2D30; text-align: center">
+                        <form method="POST" action="objects">
+                            <input type="hidden" id="delRespUsrId" name="userId" value="">
+                            <input type="hidden" id="delRespObjId" name="objectId" value="">
+                            <input type="hidden" id="delRespObjKey" name="objectKey" value="">
+                            <button type="button" class="btn btn-default btnDelRespUser" 
+                                    data-dismiss="modal"
+                                    data-delRespObjKey=""
+                                    data-delRespObjId=""
+                                    data-delRespUsrId="">Удалить</button>
+                            <button type="reset" class="btn btn-default btnCancelDelRespUser" 
+                                    data-dismiss="modal">Отмена</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -232,6 +281,20 @@
             </div>
         </div>
 
+        <div class="modal fade" id="messageResult" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header" id="resultModalHeader">
+                    </div>
+                    <div class="modal-body" id="resultModalBody" style="color: #2D2D30">
+                        <p id="resultMessageBody"></p>
+                    </div>
+                    <div class="modal-footer" id="resultModalFooter" style="color: #2D2D30; text-align: center">
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -251,19 +314,16 @@
             var customer = $(this).data('customer');
             var genBuilder = $(this).data('genbuilder');
             var status = $(this).data('status');
-
             $('.about-col').show();
             $('#objNameText').html(name);
             $('#objAddressText').html(address);
             $('#objDateText').html(date);
             $('#objCustomerText').html(customer);
             $('#objGenBuilderText').html(genBuilder);
-
             $('.deleteObjBtn').attr('id', 'deleteObjBtn' + id);
             $('.deleteObjBtn').attr('data-delName', name);
             $('.deleteObjBtn').attr('data-delId', id);
             $('.deleteObjBtn').attr('data-delKey', key);
-
             $('.editObjBtn').attr('id', 'editObjBtn' + id);
             $('.editObjBtn').attr('data-editName', name);
             $('.editObjBtn').attr('data-editId', id);
@@ -272,7 +332,6 @@
             $('.editObjBtn').attr('data-editCustomer', customer);
             $('.editObjBtn').attr('data-editGenBuilder', genBuilder);
             $('.editObjBtn').attr('data-editDate', date);
-
             if (status) {
                 $('.changeStatusBtn').html('<i class="glyphicon glyphicon-check" aria-hidden="true"></i> Сделать завершенным');
             } else {
@@ -283,16 +342,94 @@
             $('.changeStatusBtn').attr('data-chId', id);
             $('.changeStatusBtn').attr('data-chKey', key);
             $('.changeStatusBtn').attr('data-chStatus', status);
+            $('.respUsersBtn').attr('id', 'respUsersBtn' + id);
+            $('.respUsersBtn').attr('data-respName', name);
+            $('.respUsersBtn').attr('data-respId', id);
+            $('.respUsersBtn').attr('data-respKey', key);
+        });
+
+        //Показать ответственных за объект юзеров
+        $('.respUsersBtn').click(function () {
+            var objectId = $(this).attr('data-respId');
+            var objectKey = $(this).attr('data-respKey');
+            $.ajax({
+                type: 'POST',
+                url: 'objects',
+                async: false,
+                data: {
+                    btnAction: 'showRespUsers',
+                    respObjectId: objectId,
+                    respObjectKey: objectKey
+                },
+                success: function (response) {
+                    var arr = JSON.parse(response);
+                    var content = "";
+                    for (var index in arr) {
+                        content += '<p>' + arr[index].name +
+                                ' <a href="#"><i class="glyphicon glyphicon-eye-open" aria-hidden="true" style="color: #2D2D30;"></i></a>' +
+                                ' <a href="#" onclick="confirmDelRespUser(' + objectId + ', ' + objectKey + ', ' + arr[index].id + ')">' +
+                                '<i class="glyphicon glyphicon-remove deleteRespUser" style="color: #D9534F;"></i></a>' +
+                                '</p>';
+                    }
+                    $('#respModalBody').html(content);
+                    $('#respUsersModal').modal('show');
+                }
+            });
+        });
+
+        //Подтверждение удаления ответстенного юзера
+        function confirmDelRespUser(objectId, objectKey, userId) {
+            $('#respUsersModal').modal('hide');
+            $('.btnDelRespUser').attr('data-delRespObjKey', objectKey);
+            $('.btnDelRespUser').attr('data-delRespObjId', objectId);
+            $('.btnDelRespUser').attr('data-delRespUsrId', userId);
+            $('#confirmDelRespUsersModal').modal('show');
+        }
+
+        $('.btnDelRespUser').click(function () {
+            var objectId = $(this).attr('data-delRespObjId');
+            var objectKey = $(this).attr('data-delRespObjKey');
+            var userId = $(this).attr('data-delRespUsrId');
+            $.ajax({
+                type: 'POST',
+                url: 'objects',
+                async: false,
+                data: {
+                    btnAction: 'deleteRespUser',
+                    delRespObjId: objectId,
+                    delRespObjKey: objectKey,
+                    delRespUsrId: userId
+                },
+                success: function (response) {
+                    var message = "";
+                    var messageHeader = "";
+                    if (response === "respUserDeleted") {
+                        message = "Объект снят с ответственного пользователя";
+                        messageHeader = "Операция выполнена";
+                    } else {
+                        messageHeader = "Произошла ошибка";
+                        message = "Пожалуйста, попробуйте ещё раз или свяжитесь с техподдержкой";
+                    }
+                    $('#resultModalHeader').html('<button type="button" class="close" data-dismiss="modal">×</button>' +
+                            '<h4 id="resultMessageHeader"></h4>');
+                    $('#resultMessageHeader').html(messageHeader);
+                    $('#resultMessageBody').html(message);
+                    $('#resultModalFooter').html('<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>');
+                    $('#messageResult').modal('show');
+                }
+            });
+        });
+
+        $('.btnCancelDelRespUser').click(function () {
+            $('#respUsersModal').modal('show');
         });
 
         //Изменить статус
         $('.changeStatusBtn').click(function () {
             var status = $(this).attr('data-chStatus');
-
             $('#chStatusNameText').html($(this).attr('data-chName'));
             $('#chStatusObjectId').val($(this).attr('data-chId'));
             $('#chStatusObjectKey').val($(this).attr('data-chKey'));
-
             if (status === "true") {
                 $('#btnSubmitChangeStatus').val('toFinished');
             } else {
@@ -363,7 +500,6 @@
         }
 
         function showMessage() {
-            $('#messageResult').remove();
             var message = null;
             var messageHeader = "Операция выполнена";
             if ("${messageResult}" === "statusChanged") {
@@ -374,26 +510,19 @@
                 message = "Объект успешно изменён";
             } else if ("${messageResult}" === "objectDeleted") {
                 message = "Объект успешно удален";
+            } else if ("${messageResult}" === "respUserDeleted") {
+                message = "Пользователь успешно удален";
             } else if ("${messageResult}" === "fail") {
                 messageHeader = "Произошла ошибка";
                 message = "Пожалуйста, попробуйте ещё раз или свяжитесь с техподдержкой";
             }
             if (message !== null) {
-                $('.page').append('<div class="modal fade" id="messageResult" role="dialog" data-backdrop="static" data-keyboard="false">' +
-                        '<div class="modal-dialog">' +
-                        '<div class="modal-content text-center">' +
-                        '<div class="modal-header">' +
-                        '<button type="button" class="close" data-dismiss="modal" onclick="refreshPage()">×</button>' +
-                        '<h4>' + messageHeader + '</h4>' +
-                        '</div>' +
-                        '<div class="modal-body" style="color: #2D2D30">' +
-                        '<p>' + message + '</p>' +
-                        '<button type="button" class="btn btn-default" onclick="refreshPage()">Закрыть</button>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>');
-                $("#messageResult").modal('show');
+                $('#resultModalHeader').html('<button type="button" class="close" data-dismiss="modal" onclick="refreshPage()">×</button>' +
+                        '<h4 id="resultMessageHeader"></h4>');
+                $('#resultMessageHeader').html(messageHeader);
+                $('#resultMessageBody').html(message);
+                $('#resultModalFooter').html('<button type="button" class="btn btn-default" onclick="refreshPage()">Закрыть</button>');
+                $('#messageResult').modal('show');
             }
         }
 

@@ -25,18 +25,27 @@ public class UsersFacade extends AbstractFacade<Users> {
     public UsersFacade() {
         super(Users.class);
     }
+    
+    public Users findByRecordId(final Integer recordId) {
+        Users user = (Users) em.createNamedQuery("Users.findByRecordId").setParameter("recordId", recordId).getSingleResult();
+        return user;
+    }
 
     public Users findByLogin(final String login) {
         Users user = (Users) em.createNamedQuery("Users.findByLogin").setParameter("login", login).getSingleResult();
         return user;
     }
-    
+
     public List<Objects> getObjects(final Integer recordId) {
         return em.createNamedQuery("Users.getObjects").setParameter("recordId", recordId).getResultList();
     }
-    
+
     public List<Objects> getObjectsByStatus(final Integer recordId, final boolean status) {
         return em.createNamedQuery("Users.getObjectsByStatus").setParameter("recordId", recordId).setParameter("status", status).getResultList();
+    }
+
+    public List<Users> findByObject(final Integer recordId) {
+        return em.createNamedQuery("Users.findByObject").setParameter("recordId", recordId).getResultList();
     }
 
 }

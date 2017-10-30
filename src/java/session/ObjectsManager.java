@@ -33,6 +33,9 @@ public class ObjectsManager {
 
     @EJB
     private ObjectsFacade objectsFacade;
+    
+    @EJB
+    private UsersFacade usersFacade;
 
     @Resource
     private SessionContext context;
@@ -117,6 +120,23 @@ public class ObjectsManager {
             Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
             if (isObjectDataCorrect(object, uqKey)) {
                 object.setIsActive(makeActive);
+                em.merge(object);
+                return true;
+            }
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public boolean deleteRespUser(final Integer recorIdObject, final String uqKey, final Integer recordIdUser) {
+        try {
+            Objects object = objectsFacade.findObjectByRecordId(recorIdObject);
+            Users user = usersFacade.findByRecordId(recordIdUser);
+            if (isObjectDataCorrect(object, uqKey) && isAdministrator(user) && isUserHasObject(object, user)) {
+                object.deleteUserFromCollection(user);
                 em.merge(object);
                 return true;
             }

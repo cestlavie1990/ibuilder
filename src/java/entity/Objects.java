@@ -198,6 +198,10 @@ public class Objects implements Serializable {
     public void addUserToCollection(Users user) {
         this.usersCollection.add(user);
     }
+    
+    public void deleteUserFromCollection(Users user) {
+        this.usersCollection.remove(user);
+    }
 
     public String getUqKey() {
         return uqKey;

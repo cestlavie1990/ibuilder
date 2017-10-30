@@ -41,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.getObjects", query = "SELECT o FROM Objects o "
             + "JOIN o.usersCollection u WHERE u.recordId = :recordId")
     , @NamedQuery(name = "Users.getObjectsByStatus", query = "SELECT o FROM Objects o "
-            + "JOIN o.usersCollection u WHERE u.recordId = :recordId AND o.isActive = :status")})
+            + "JOIN o.usersCollection u WHERE u.recordId = :recordId AND o.isActive = :status")
+    , @NamedQuery(name = "Users.findByObject", query = "SELECT u FROM Users u "
+            + "JOIN u.objectsCollection o WHERE o.recordId = :recordId")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
