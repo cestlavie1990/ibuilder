@@ -96,7 +96,6 @@ public class ObjectsServlet extends HttpServlet {
             return;
         } else if (action.equals("deleteRespUser")) {
             deleteRespUser(request, response);
-            return;
         }
 
         doGet(request, response);
@@ -221,16 +220,11 @@ public class ObjectsServlet extends HttpServlet {
             Integer recordIdObject = Integer.parseInt(objectId);
             Integer recordIdUser = Integer.parseInt(userId);
             boolean result = objectsManager.deleteRespUser(recordIdObject, objectKey, recordIdUser);
-            String respResult = "";
             if (result) {
-                respResult = "respUserDeleted";
+                request.setAttribute("messageResult", "respUserDeleted");
             } else {
-                respResult = "fail";
+                request.setAttribute("messageResult", "fail");
             }
-            OutputStream outStream = response.getOutputStream();
-            outStream.write(respResult.getBytes("UTF-8"));
-            outStream.flush();
-            outStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

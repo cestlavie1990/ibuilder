@@ -182,11 +182,7 @@
                             <input type="hidden" id="delRespUsrId" name="userId" value="">
                             <input type="hidden" id="delRespObjId" name="objectId" value="">
                             <input type="hidden" id="delRespObjKey" name="objectKey" value="">
-                            <button type="button" class="btn btn-default btnDelRespUser" 
-                                    data-dismiss="modal"
-                                    data-delRespObjKey=""
-                                    data-delRespObjId=""
-                                    data-delRespUsrId="">Удалить</button>
+                            <button type="submit" class="btn btn-default" name="btnAction" value="deleteRespUser">Удалить</button>
                             <button type="reset" class="btn btn-default btnCancelDelRespUser" 
                                     data-dismiss="modal">Отмена</button>
                         </form>
@@ -285,11 +281,14 @@
             <div class="modal-dialog">
                 <div class="modal-content text-center">
                     <div class="modal-header" id="resultModalHeader">
+                        <button type="button" class="close" data-dismiss="modal" onclick="refreshPage()">×</button>
+                        <h4 id="resultMessageHeader"></h4>
                     </div>
                     <div class="modal-body" id="resultModalBody" style="color: #2D2D30">
                         <p id="resultMessageBody"></p>
                     </div>
                     <div class="modal-footer" id="resultModalFooter" style="color: #2D2D30; text-align: center">
+                        <button type="button" class="btn btn-default" onclick="refreshPage()">Закрыть</button>
                     </div>
                 </div>
             </div>
@@ -377,49 +376,16 @@
             });
         });
 
-        //Подтверждение удаления ответстенного юзера
+        //Подтверждение удаления ответственного юзера
         function confirmDelRespUser(objectId, objectKey, userId) {
             $('#respUsersModal').modal('hide');
-            $('.btnDelRespUser').attr('data-delRespObjKey', objectKey);
-            $('.btnDelRespUser').attr('data-delRespObjId', objectId);
-            $('.btnDelRespUser').attr('data-delRespUsrId', userId);
+            $('#delRespUsrId').val(userId);
+            $('#delRespObjId').val(objectId);
+            $('#delRespObjKey').val(objectKey);
             $('#confirmDelRespUsersModal').modal('show');
         }
 
-        $('.btnDelRespUser').click(function () {
-            var objectId = $(this).attr('data-delRespObjId');
-            var objectKey = $(this).attr('data-delRespObjKey');
-            var userId = $(this).attr('data-delRespUsrId');
-            $.ajax({
-                type: 'POST',
-                url: 'objects',
-                async: false,
-                data: {
-                    btnAction: 'deleteRespUser',
-                    delRespObjId: objectId,
-                    delRespObjKey: objectKey,
-                    delRespUsrId: userId
-                },
-                success: function (response) {
-                    var message = "";
-                    var messageHeader = "";
-                    if (response === "respUserDeleted") {
-                        message = "Объект снят с ответственного пользователя";
-                        messageHeader = "Операция выполнена";
-                    } else {
-                        messageHeader = "Произошла ошибка";
-                        message = "Пожалуйста, попробуйте ещё раз или свяжитесь с техподдержкой";
-                    }
-                    $('#resultModalHeader').html('<button type="button" class="close" data-dismiss="modal">×</button>' +
-                            '<h4 id="resultMessageHeader"></h4>');
-                    $('#resultMessageHeader').html(messageHeader);
-                    $('#resultMessageBody').html(message);
-                    $('#resultModalFooter').html('<button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>');
-                    $('#messageResult').modal('show');
-                }
-            });
-        });
-
+        //Отмена удаления ответственного юзера
         $('.btnCancelDelRespUser').click(function () {
             $('#respUsersModal').modal('show');
         });
@@ -517,11 +483,8 @@
                 message = "Пожалуйста, попробуйте ещё раз или свяжитесь с техподдержкой";
             }
             if (message !== null) {
-                $('#resultModalHeader').html('<button type="button" class="close" data-dismiss="modal" onclick="refreshPage()">×</button>' +
-                        '<h4 id="resultMessageHeader"></h4>');
                 $('#resultMessageHeader').html(messageHeader);
                 $('#resultMessageBody').html(message);
-                $('#resultModalFooter').html('<button type="button" class="btn btn-default" onclick="refreshPage()">Закрыть</button>');
                 $('#messageResult').modal('show');
             }
         }
