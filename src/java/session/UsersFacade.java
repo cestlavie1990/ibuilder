@@ -1,5 +1,6 @@
 package session;
 
+import entity.Companies;
 import entity.Objects;
 import entity.Users;
 import java.util.List;
@@ -46,6 +47,14 @@ public class UsersFacade extends AbstractFacade<Users> {
 
     public List<Users> findByObject(final Integer recordId) {
         return em.createNamedQuery("Users.findByObject").setParameter("recordId", recordId).getResultList();
+    }
+    
+    public List<Users> findByCompany(final Companies company) {
+        return em.createNamedQuery("Users.findByCompany").setParameter("company", company).getResultList();
+    }
+    
+    public List<Users> findNameAndLoginByCompany(final Companies company) {
+        return em.createNamedQuery("Users.findNameAndLoginByCompany").setParameter("company", company).getResultList();
     }
 
 }

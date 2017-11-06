@@ -31,7 +31,7 @@
                         </a>
                         <ul class="dropdown-menu" id="navbarList">
                             <li><a href="#"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i> Редактировать профиль</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить пользователя</a></li>
+                            <li><a href="user_managment"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Управление пользователями</a></li>
                             <li><a href="logout"><i class="glyphicon glyphicon-off" aria-hidden="true"></i> Выход</a></li>
                         </ul>
                     </div>
