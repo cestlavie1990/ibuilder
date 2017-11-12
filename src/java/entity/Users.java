@@ -45,7 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByObject", query = "SELECT u FROM Users u "
             + "JOIN u.objectsCollection o WHERE o.recordId = :recordId")
     , @NamedQuery(name = "Users.findByCompany", query = "SELECT u FROM Users u WHERE u.recordIdCompany = :company")
-    , @NamedQuery(name = "Users.findNameAndLoginByCompany", query = "SELECT u.name, u.login FROM Users u WHERE u.recordIdCompany = :company")})
+    , @NamedQuery(name = "Users.findNameAndLoginByCompany", query = "SELECT u.name, u.login"
+            + " FROM Users u WHERE u.recordIdCompany = :company"
+            + " ORDER BY u.name ASC")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;

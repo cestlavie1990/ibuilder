@@ -57,7 +57,7 @@
                         <a href="#active-obj" data-toggle="collapse" id="active-obj-btn">
                             <p style="margin-top: 5px;"><i class="glyphicon glyphicon-equalizer" aria-hidden="true"></i> Активные объекты</p>
                         </a>
-                        <ul class="nav nav-pills nav-stacked collapse" id="active-obj">
+                        <ul class="nav nav-pills nav-stacked collapse list-info" id="active-obj">
                             <li><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addObjModal" onclick="addObject()"><i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button></li>
                                 <c:forEach var="object" items="${activeObjects}" varStatus="сounter">
                                 <li>

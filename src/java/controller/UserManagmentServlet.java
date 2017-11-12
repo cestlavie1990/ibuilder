@@ -40,7 +40,7 @@ public class UserManagmentServlet extends HttpServlet {
 
         getServletContext().setAttribute("username", user.getName());
         getServletContext().setAttribute("countAllUsers", usersByCompany.size());
-        getServletContext().setAttribute("nameAndLoginListByCompany", nameAndLoginListByCompany);
+        getServletContext().setAttribute("nameAndLoginList", nameAndLoginListByCompany);
 
         request.getRequestDispatcher("/WEB-INF/private/userManagment.jsp").forward(request, response);
     }

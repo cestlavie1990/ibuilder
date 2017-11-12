@@ -53,11 +53,52 @@
                     </div>
                     <div class="box3">
                         <h4>Сотрудники</h4>
+                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createUserModal" style="margin-bottom: 5px;">
+                            <i class="glyphicon glyphicon-plus" aria-hidden="true"></i> Добавить</button>
+                            <c:forEach var="user" items="${nameAndLoginList}" varStatus="сounter">
+                            <button type="button" class="btn btn-default objSelect" id="userSelect${сounter.index}">
+                                <c:out value='${user[0]}'/> (<c:out value='${user[1]}'/>)
+                            </button>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 about-col">
                     <div class="box2">
 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade text-center" id="createUserModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4>Создание нового пользователя</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="userManagment">
+                            <p>
+                                <label for="login">Логин</label>
+                                <input type="text" name="login" class="form-control" id="login" placeholder="Придумайте логин" required>
+                            </p>
+                            <p>
+                                <label for="password">Пароль</label>
+                                <input type="text" name="password" class="form-control" id="password" placeholder="Придумайте пароль" required>
+                            </p>
+                            <p>
+                                <label for="username">Имя сотрудника</label>
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Введите имя">
+                            </p>
+                            <p>
+                                <label for="position">Должность</label>
+                                <input type="text" name="position" class="form-control" id="position" placeholder="Введите должность">
+                            </p>
+                            <p>
+                                <button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="createUser">Создать</button>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
