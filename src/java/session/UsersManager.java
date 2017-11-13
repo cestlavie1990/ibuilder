@@ -23,7 +23,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class UserManager {
+public class UsersManager {
 
     @PersistenceContext(unitName = "IBuilderPU")
     private EntityManager em;
