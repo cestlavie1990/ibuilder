@@ -31,16 +31,26 @@ public class UsersManager {
     @Resource
     private SessionContext context;
 
-    @EJB
-    private CompaniesFacade companiesFacade;
-
-    @EJB
-    private UsersFacade usersFacade;
-
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void createUser(final String login, final String password, final String username,
-            final String position, final Companies company) {
-
+    public Integer createUser(final String login, final String password, final String passwordConfirm,
+            final String username, final String position, final Companies company, final String role) {
+        try {
+            if (hasEmptyParameter(password, passwordConfirm, login, username)) {
+                return 2;
+            } else if (!password.equals(passwordConfirm)) {
+                return 3;
+            } else if (isLoginUsed(login)) {
+                return 4;
+            } else {
+                Users user = addUser(company, password, login, username, position, role);
+                addGroupForUser(user, "ADMIN_GROUP");
+                return 0;
+            }
+        } catch (Exception e) {
+            context.setRollbackOnly();
+            e.printStackTrace();
+            return 1;
+        }
     }
 
     private void addGroupForUser(final Users user, final String groupName) {
@@ -48,11 +58,6 @@ public class UsersManager {
         groupUsers.setUserLogin(user);
         groupUsers.setGroupName(groupName);
         em.persist(groupUsers);
-    }
-
-    private boolean isLoginUsed(final String login) {
-        List resultList = em.createNamedQuery("Users.findByLogin").setParameter("login", login).getResultList();
-        return resultList.size() > 0;
     }
 
     private Users addUser(final Companies company, final String password, final String login,
@@ -67,6 +72,15 @@ public class UsersManager {
         user.setPosition(position);
         em.persist(user);
         return user;
+    }
+
+    private boolean isLoginUsed(final String login) {
+        List resultList = em.createNamedQuery("Users.findByLogin").setParameter("login", login).getResultList();
+        return resultList.size() > 0;
+    }
+
+    private Boolean hasEmptyParameter(final String password, final String passwordConfirm, final String login, final String username) {
+        return (password.isEmpty() || passwordConfirm.isEmpty() || login.isEmpty() || username.isEmpty());
     }
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.UsersFacade;
+import session.UsersManager;
 
 /**
  *
@@ -22,6 +23,9 @@ public class UserManagmentServlet extends HttpServlet {
 
     @EJB
     private UsersFacade usersFacade;
+
+    @EJB
+    private UsersManager usersManager;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,7 +52,26 @@ public class UserManagmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String action = request.getParameter("btnAction");
+        if (action.equals("createUser")) {
+            createUser(request);
+        }
+        doGet(request, response);
+    }
+
+    private void createUser(HttpServletRequest request) {
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        String passwordConfirm = request.getParameter("passwordConfirm");
+        String username = request.getParameter("username");
+        String position = request.getParameter("position");
+
+        Users user = getUserPrincipal(request);
+
+        Integer resultNum = usersManager.createUser(login, password, passwordConfirm, username, position, user.getRecordIdCompany(), "ADMINISTRATOR");
     }
 
     @Override

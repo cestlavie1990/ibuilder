@@ -78,25 +78,30 @@
                         <h4>Создание нового пользователя</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" action="userManagment">
+                        <form method="POST" action="user_managment">
                             <p>
                                 <label for="login">Логин</label>
                                 <input type="text" name="login" class="form-control" id="login" placeholder="Придумайте логин" required>
                             </p>
                             <p>
                                 <label for="password">Пароль</label>
-                                <input type="text" name="password" class="form-control" id="password" placeholder="Придумайте пароль" required>
+                                <input type="password" name="password" class="form-control" id="password" placeholder="Придумайте пароль" required><br>
+                                <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm" placeholder="Повторите пароль" required>
                             </p>
                             <p>
                                 <label for="username">Имя сотрудника</label>
-                                <input type="text" name="username" class="form-control" id="username" placeholder="Введите имя">
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Введите имя" required>
                             </p>
                             <p>
                                 <label for="position">Должность</label>
                                 <input type="text" name="position" class="form-control" id="position" placeholder="Введите должность">
                             </p>
+                            <p>        
+                                <label for="fullAccess">Предоставить пользователю полный доступ </label>
+                                <input type="checkbox" name="fullAccess" id="fullAccess">
+                            </p>
                             <p>
-                                <button type="submit" class="btn btn-default" id="btnAddObj" name="btnAction" value="createUser">Создать</button>
+                                <button type="submit" class="btn btn-default" id="btnCreateUser" name="btnAction" value="createUser">Создать</button>
                             </p>
                         </form>
                     </div>
